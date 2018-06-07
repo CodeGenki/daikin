@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+	{% if messages %}
+		<ul>
+			{% for message in messages %}
+				<li>{{ message[1] }}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+{% endwith %}
+<form action="" method="post">
+	{{ form.csrf }}
+
+	<div class="input text">
+		{{ form.fname.label }} {{ form.fname }}
+	</div>
+	<div class="input text">
+		{{ form.lname.label }} {{ form.lname }}
+	</div>
+	<div class="input text">
+		{{ form.email.label }} {{ form.email }}
+	</div>
+	<div class="input text">
+		{{ form.phone.label }} {{ form.phone }}
+	</div>
+	<div class="input submit">
+		<input type="submit" value="Submit" />
+	</div>
+</form>
+{% endblock %}
