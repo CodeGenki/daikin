@@ -38,4 +38,5 @@ JS_INCLUDES=[
     'https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js',
     'https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js',
     'https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.1/jquery.form.min.js',
+    'https://s3.amazonaws.com/flasklambdalab-dev-thumbnails-a261bdec/aws-sdk-2.254.1.min.js', 
     ]

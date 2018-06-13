@@ -22,39 +22,6 @@ s3.create_bucket(Bucket=bucketname)
 
 dynamodb = boto3.resource('dynamodb')
 
-
-# class ReusableForm(Form):
-#     fname = TextField('First Name:', validators=[validators.required()])
-#     lname = TextField('Last Name:', validators=[validators.required()])
-#     email = TextField('Email Address:', validators=[validators.required()])
-#     phone = TextField('Phone Number:', validators=[validators.required()])
-
-# class RForm(Form):
-#     uname= TextField('Username:', validators=[validators.required()])
-#     pword= PasswordField('Password:', validators=[validators.required()])
-
-# class RetrieveInfo(json.JSONEncoder):
-#     def default(self, o):
-#         if isinstance(o, decimal.Decimal):
-#             return str(o)
-#         return super(DecimalEncoder, self).default(o)
-
-
-#reading database helper function
-
-
-# class DecimalEncoder(json.JSONEncoder):
-#     def default(self, o):
-#         if isinstance(o, decimal.Decimal):
-#             if o % 1 > 0:
-#                 return float(o)
-#             else:
-#                 return int(o)
-#         return super(DecimalEncoder, self).default(o)
-
-####
-
-
 @app.route("/")
 def index():
     """
@@ -68,16 +35,17 @@ def index():
 @app.route("/customer")
 def customer():
 
-	return render_template("customer.html")
+    return render_template("customer.html")
 
 @app.route("/vendor")
 def vendor():
 
-	return render_template("vendor.html")
+    return render_template("vendor.html")
 
 @app.route("/login")
 def login():
-	return redirect("https://project-intership.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=457v0csehtuoprbf6as9q3aenc&redirect_uri=https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/")
+    return render_template("login.html")
+	#return redirect("https://project-intership.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=457v0csehtuoprbf6as9q3aenc&redirect_uri=https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/")
 
 @app.route("/unithealth")
 def unithealth():
@@ -103,5 +71,12 @@ def aboutunitx():
 def faqs():
 
     return render_template("faqs.html")
+	
+    #return render_template("login.html")
+
+@app.route("/code_validation")
+def code_validation():
+
+    return render_template("code_validation.html")
 
 
