@@ -79,83 +79,29 @@ def vendor():
 def login():
 	return redirect("https://project-intership.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=457v0csehtuoprbf6as9q3aenc&redirect_uri=https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/")
 
-# @app.route("/form", methods=['GET', 'POST'])
-# def form():
-#     """
-#     A Page to Test Sending Data to Trigger a Lambda Function
-#     """
+@app.route("/unithealth")
+def unithealth():
 
-#     form = ReusableForm(request.form)
+    return render_template("unithealth.html")
 
-#     print form.errors
-#     if request.method == 'POST':
-#         fname =request.form['fname']
-#         lname =request.form['lname']
-#         email =request.form['email']
-#         phone =request.form['phone']  
-#         print fname
-#         print lname
+@app.route("/finddealer")
+def finddealer():
 
-#         if form.validate():
-#             flash('Hello ' + fname + ' ' + lname)
-#             table = dynamodb.Table('users')
-#             table.put_item(
-#             Item = {"first_name": fname, "last_name": lname, "email_address": email, "Phonenumber": phone}
-#             )
-#         else:
-#             flash('All the form fields are required.')
+    return render_template("finddealer.html")
 
-#     return render_template('form.html', form=form)
+@app.route("/contactus")
+def contactus():
 
+    return render_template("contactus.html")
 
+@app.route("/aboutunitx")
+def aboutunitx():
 
+    return render_template("aboutunitx.html")
 
-# @app.route("/customer", methods=['GET','POST'])
-# def customer():
+@app.route("/faqs")
+def faqs():
 
-#     #pulls from RForm function to display form with just username/password
-#     form=RForm(request.form)
+    return render_template("faqs.html")
 
-# #     #idk why this is there- was just on website
-#     print form.errors
-#     if request.method == 'POST':
-
-# #       #pulls data from RForm-uname/pword are in str form
-#         uname =request.form['uname']
-#         pword =request.form['pword']
-
-#         if form.validate():
-
-#             #connects to userT table in dynamo db
-#             dynamodb=boto3.resource('dynamodb')
-#             table=dynamodb.Table('userT')
-  
-
-#             try: 
-#             #tries to get username from db- if uname exists it returns a super jumbled up 
-#             #dictionary 
-#                 response = table.get_item( Key={'uname': uname} )
-#                 flash(response)
-#                 item = response['Item']
-#             #aDicstr is a string representing a dictionary of db values 
-#                 aDicstr= json.dumps(item, indent=4, cls=DecimalEncoder)    
-
-#             # this is supposed to flash system error if uname not in database but 
-#             # isn't doing it 
-#             except SystemError: 
-#                 flash("invalid username!")
-#                 #return render_template('customer.html', form=form)
-
-#         #ast.literal_eval turns the string into correct dictionary format 
-#         aDic= ast.literal_eval(aDicstr)
-#         a=aDic["pword"]
-#         b=aDic["utype"]
-#         #checks if entered password and password in db are the same- also utype 
-#         #should be customer if they are trying to login to the customer portal
-#         if a==pword and b=="customer":
-#             flash("Successful login!")
-
-
-
-#     return render_template('customer.html', form=form)
 
