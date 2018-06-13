@@ -29,20 +29,6 @@ def index():
     """
   # return redirect("https://project-intership.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=457v0csehtuoprbf6as9q3aenc&redirect_uri=https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/") 
     #just using render_template for now to 
-    table = dynamodb.Table('InverterStatus')
-    try:
-        response = table.get_item(
-            Key={
-                'Batch': 1,
-                'Num': Press
-            }
-        )
-    except ClientError as e:
-        print(e.response['Error']['Message'])
-    else:
-        item = response['Item']
-        print("Success")
-        print(json.dumps(item, indent=4, cls=DecimalEncoder))
 
     return render_template('index1.html')
 
