@@ -20,24 +20,16 @@ function signIn(){
 	var authenticationDetails = new  AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
-    var userData = {
-        Username : username,
-        Pool : userPool
-    };
 
-    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-    
-    console.log(cognitoUser);
-
-    cognitoUser.authenticateUser(authenticationDetails, {
+    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(authenticationData);
+    cognitoUser.authenticateUser(AmazonCognitoIdentity.authenticationDetails, {
         onSuccess: function (result) {
         	console.log('access token + ' + result.getAccessToken().getJwtToken());
-            //window.location.href = "/customer";
-            //test
+            //window.location.href = "/welcome";
+            //test 
 		}, 
 		onFailure: function(err){
 			console.log(err);
-            alert(err);
 		}
 	});
 
