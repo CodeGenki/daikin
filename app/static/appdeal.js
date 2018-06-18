@@ -4,8 +4,8 @@
 //var AuthenticationDetails = AmazonCognitoIdentity.AuthenticationDetails;
 
 var poolData = {
-	UserPoolId : 'us-east-1_2o7S9Pswl', // Your user pool id here
-	ClientId : 'kqrsickoaotsll8j4fhfahgpt' // Your client id here
+	UserPoolId : 'us-east-1_QFcNXf7g8l', // Your user pool id here
+	ClientId : '5jgc6qm3jjif4nfqlvh5kukfe6' // Your client id here
 };
 
 function signIn(){
@@ -32,7 +32,7 @@ function signIn(){
     cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
         	console.log('access token + ' + result.getAccessToken().getJwtToken());
-            window.location.href = "https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/customer";
+            window.location.href = "https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/vendor";
             //test
 		}, 
 		onFailure: function(err){
@@ -48,6 +48,7 @@ function register(){
 	var given_name = $('#registration_given_name').val();
 	var family_name = $('#registration_family_name').val();
 	var email = $('#registration_email').val();
+    var company = $('#registration_company').val();
 	var phone_number = $('#registration_phone_number').val();
 	var address = $('#registration_address').val();	
 	var password = $('#registration_password').val();
@@ -76,17 +77,24 @@ function register(){
         Name : 'phone_number',
         Value : phone_number
 	};
+    var datacompany = {
+        Name : 'company',
+        Value : company
+    };
     var attributegiven_name = new AmazonCognitoIdentity.CognitoUserAttribute(datagiven_name);
     var attributefamily_name = new AmazonCognitoIdentity.CognitoUserAttribute(datafamily_name);
     var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
     var attributeaddress = new AmazonCognitoIdentity.CognitoUserAttribute(dataaddress);
     var attributephone_number = new AmazonCognitoIdentity.CognitoUserAttribute(dataphone_number);
+    var attributecompany = new AmazonCognitoIdentity.CognitoUserAttribute(datacompany);
+
 
 	attributeList.push(attributegiven_name);
 	attributeList.push(attributefamily_name);
 	attributeList.push(attributeEmail);
 	attributeList.push(attributeaddress);
 	attributeList.push(attributephone_number);
+    attributeList.push(attributecompany);
 
 
 	var cognitoUser;
@@ -98,7 +106,6 @@ function register(){
         }
     	cognitoUser = result.user;
         console.log('user name is ' + cognitoUser.getUsername());
-        updatedb(); 
         window.location.href  = "https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/code_validation";
 
 });
@@ -124,7 +131,7 @@ function validate () {
             return;
         }
     console.log('call result: ' + result);
-    window.location.href = "https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/customer";
+    window.location.href = "https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/vendor";
 
 });
 }
