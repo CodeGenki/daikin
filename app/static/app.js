@@ -21,7 +21,7 @@ function signIn(){
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
 
-    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(authenticationData);
     cognitoUser.authenticateUser(AmazonCognitoIdentity.authenticationDetails, {
         onSuccess: function (result) {
         	console.log('access token + ' + result.getAccessToken().getJwtToken());

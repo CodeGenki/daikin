@@ -80,3 +80,9 @@ def code_validation():
     return render_template("code_validation.html")
 
 
+@app.route("/kristen")
+def kristen():
+
+    return render_template('finddealer.html')
+
+
