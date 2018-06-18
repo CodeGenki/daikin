@@ -48,6 +48,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Verdana"}
 								{{ page["title"] }}</a></li>
 					{% endif %}
 				{% endfor %}
+				<h1> <span id="username"></span> </h1>
 			</ul>
 		</div>
 	</div>
@@ -55,7 +56,13 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Verdana"}
 
 {% block content %}{% endblock %}
 
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
 
+<script src="/dev/static/amazon-cognito-identity.min.js"></script>
+<script src="/dev/static/amazon-cognito-sdk.min.js"></script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
 </div>
 </body>
 </html>

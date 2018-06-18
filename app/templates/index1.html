@@ -3,9 +3,11 @@
 <div class=container>
   <div class=jumbotron>
     <div class="row">
-      <div class="col-sm-8" style="font-size: 100%; padding: 30px">. Welcome!</div>
+      <div class="col-sm-8" style="font-size: 100%; padding: 30px">Welcome <span id="username"></span> </div>
+      <div id = "data_from_protected_api"> </div>
+
       <div class="col-sm-4">
-        <button type="button" class="btn btn-default"> Login Here </button>
+        <button type="button" class="btn btn-default"> I do nothing </button>
       </div>
   </div>
 
@@ -110,7 +112,18 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDffQOjP_RhBsNrSYUyqaQ5_xow6DnZHpc&callback=initMap">
     </script>
-<script src="{{ url_for('static', filename='app.js') }}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+
+    <script src="/dev/static/amazon-cognito-identity.min.js"></script>
+    <script src="/dev/static/amazon-cognito-sdk.min.js"></script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+
+    <script>
+        $(window).ready(setWelcome);
+    </script>
   </body>
 </div>
 {% endblock %}

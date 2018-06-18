@@ -32,7 +32,7 @@ function signIn(){
     cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
         	console.log('access token + ' + result.getAccessToken().getJwtToken());
-            //window.location.href = "/customer";
+            window.location.href = "https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/";
             //test
 		}, 
 		onFailure: function(err){
@@ -130,8 +130,29 @@ function signOut(){
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
     var cognitoUser = userPool.getCurrentUser();
 
-    if (cognitoUser !== null){
+    if (cognitoUser != null){
     	cognitoUser.signOut();
     }
     window.location.href  = "https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev";
+}
+
+function setWelcome () {
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    var cognitoUser = userPool.getCurrentUser();
+
+    if (cognitoUser != null){
+        cognitoUser.getSession(function(err, session){
+            if(err){
+                alert(err);
+                return;
+            }
+            console.log(cognitoUser);
+            $('#username').html(cognitoUser.username);
+        });
+    }
+    var url = "/api/protected_api";
+    $.post(url,{'access_token' : cognitoUser.signInUserSession.accessToken.jwtToken})
+    .done(function (data) {
+        $('#data_from_protected_api').html(data);
+    });
 }

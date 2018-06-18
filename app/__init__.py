@@ -1,5 +1,7 @@
 import boto3, botocore
 import json
+import jwt
+from jwt.contrib.algorithms.pycrypto import RSAAlgorithm
 from flask import Flask, request, flash
 from flask import render_template, redirect, url_for, request
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField, PasswordField
@@ -22,6 +24,28 @@ s3.create_bucket(Bucket=bucketname)
 
 dynamodb = boto3.resource('dynamodb')
 
+
+#token validation code 
+def is_token_valid(token):
+        pem = "KEY HERE how do i get this "
+        try:
+            decoded_token = jwt.decode(token, pem, algorithms=['RS256'])
+            iss = "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_2o7S9Pswl"
+            if decoded_token['iss'] != iss:
+                print 'iss false'
+                return false
+            elif decoded_token['token_use'] != 'access':
+                print 'access false'
+                return False
+            kid = 'kid from token'
+            if jwt.get_unverified_header(token)['kid'] != kid:
+                print 'kid false'
+                return False
+            return True
+            #return decoded_token['username']
+        except Exception:
+            return False 
+
 @app.route("/")
 def index():
     """
@@ -42,10 +66,18 @@ def vendor():
 
     return render_template("vendor.html")
 
+@app.route("/logincustomer")
+def logincustomer():
+    return render_template("logincustomer.html")
+	#return redirect("https://project-intership.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=457v0csehtuoprbf6as9q3aenc&redirect_uri=https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/")
+
+@app.route("/logindealer")
+def logindealer():
+    return render_template("logindealer.html")
+
 @app.route("/login")
 def login():
     return render_template("login.html")
-	#return redirect("https://project-intership.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=457v0csehtuoprbf6as9q3aenc&redirect_uri=https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/")
 
 @app.route("/unithealth")
 def unithealth():
@@ -78,5 +110,14 @@ def faqs():
 def code_validation():
 
     return render_template("code_validation.html")
+
+@app.route("/api/protected_api", methods=["POST"])
+def protected_api():
+    #access_token = request.from['access_token']
+    if(is_token_valid(access_token)):
+        return 'some protected data from api'
+    else:
+        return 'bad token', 401
+
 
 

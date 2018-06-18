@@ -22,6 +22,7 @@ PAGES=[
     {'title':'Login', 'route':'login'},
     {'title':'Customer', 'route':'customer'},
     {'title':'Vendor','route':'vendor'},
+    {'title':'Michael','route':'customer'}
     ]
 
 # Bootstrap CSS files to include in each page included in ./app/templates/base.html
