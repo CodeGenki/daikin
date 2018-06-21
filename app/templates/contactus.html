@@ -1,55 +1,32 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 {% block content %}
 
-
-<!--<div id="map" style="width:400px;height:400px;>-->
-  <head>
-    <title>Geolocation</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <div id="map" class=container style= "margin-left: 50px;width:600px;height:600px"></div>
-    <script>
-      var map, infoWindow;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 35.397, lng: -95.644},
-          zoom: 15
-        });
-        infoWindow = new google.maps.InfoWindow;
-
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
-
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
-            infoWindow.open(map);
-            map.setCenter(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
-      }
-
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDffQOjP_RhBsNrSYUyqaQ5_xow6DnZHpc&callback=initMap">
-    </script>
-
-  </body>
+<body>
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+  <div class="w3-half w3-container" style="height:700px; background-color: lightsteelblue;">
+    <div class="w3-padding-64 w3-padding-large">
+      <h1 style="color: black;">Contact</h1>
+      <p class="w3-opacity" style="color: black;">GET IN TOUCH</p>
+      <form class="w3-container w3-card w3-padding-32 w3-white" action="/action_page.php" target="_blank">
+        <div class="w3-section">
+          <label>Name</label>
+          <input class="w3-input" style="width:100%;" type="text" required name="Name">
+        </div>
+        <div class="w3-section">
+          <label>Email</label>
+          <input class="w3-input" style="width:100%;" type="text" required name="Email">
+        </div>
+        <div class="w3-section">
+          <label>Message</label>
+          <input class="w3-input" style="width:100%;" type="text" required name="Message">
+        </div>
+        <button type="submit" class="w3-button w3-blue-grey w3-right">Send</button>
+      </form>
+    </div>
+  </div>
 </div>
+</body>
+
+
 {% endblock %}

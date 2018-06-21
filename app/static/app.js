@@ -26,6 +26,7 @@ function signIn(){
     console.log(cognitoUser);
 
     cognitoUser.authenticateUser(authenticationDetails, {
+
         onSuccess: function (result) {
         	console.log('access token + ' + result.getAccessToken().getJwtToken());
             window.location.href = "https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/customer";

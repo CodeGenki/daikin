@@ -1,4 +1,40 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 {% block content %}
+
+
+
+<style>
+.bgimg {background-image: url('test3.jpg');
+		min-height: 100%;
+		background-position: center;
+		background-size: cover;}
+</style>
+
+<body>
+<!-- !PAGE CONTENT! -->
+<div class="bmg w3-main" style="margin-left:300px;margin-top:43px;">
+  <div class="w3-half w3-container" style="height:700px;">
+    <div class="w3-padding-64 w3-padding-large">
+      <h1 style="color: black;">Contact</h1>
+      <p class="w3-opacity" style="color: black;">GET IN TOUCH</p>
+      <form class="w3-container w3-card w3-padding-32 w3-white" action="/action_page.php" target="_blank">
+        <div class="w3-section">
+          <label>Name</label>
+          <input class="w3-input" style="width:100%;" type="text" required name="Name">
+        </div>
+        <div class="w3-section">
+          <label>Email</label>
+          <input class="w3-input" style="width:100%;" type="text" required name="Email">
+        </div>
+        <div class="w3-section">
+          <label>Message</label>
+          <input class="w3-input" style="width:100%;" type="text" required name="Message">
+        </div>
+        <button type="submit" class="w3-button w3-blue-grey w3-right">Send</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
 
 {% endblock %}

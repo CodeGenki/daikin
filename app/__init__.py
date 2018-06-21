@@ -128,3 +128,9 @@ def protected_api():
 
 
 
+@app.route("/kristen")
+def kristen():
+
+    return render_template('finddealer.html')
+
+

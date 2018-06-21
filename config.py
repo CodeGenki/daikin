@@ -12,6 +12,7 @@ AC_PIC='https://www.simplythebestac.com/wp-content/uploads/2014/06/residential-c
 
 MASCOT='https://sdl-stickershop.line.naver.jp/products/0/0/1/1308041/LINEStorePC/main.png?__=20161019'
 
+BACKGROUND='https://images.pexels.com/photos/326311/pexels-photo-326311.jpeg?auto=compress&cs=tinysrgb&h=350'
 
 DOUG="http://www.daikin.com/careers/employees/images/index_employees_05.png"
 
@@ -23,13 +24,17 @@ PAGES=[
     {'title':'Customer', 'route':'customer'},
     {'title':'Vendor','route':'vendor'},
     {'title':'Michael','route':'customer'}
+
     ]
+
 
 # Bootstrap CSS files to include in each page included in ./app/templates/base.html
 CSS_INCLUDES=[
     'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
     'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css',
     'https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css', 
+    "static/w3.css",
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css',
     ]
 
 # Bootstrap JS files to include in each page included in ./app/templates/base.html
