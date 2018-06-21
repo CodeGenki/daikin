@@ -10,7 +10,7 @@
             </div>
             <div class="col-sm-4">
                 <div>
-                	 <h2>Login For Vendor</h2>
+                	 <h2>Login 4For Vendor</h2>
                     <form onsubmit="return false;">
                         <div class="form-group">
                             <div>Username</div>
@@ -25,7 +25,7 @@
                                 placeholder="Enter password">
                         </div>
                         <button type="submit" class="btn btn-primary btn-block"
-                                onclick="signIn();">
+                                onclick="signInDEAL();">
                             Sign in
                         </button>
                     </form>
@@ -68,6 +68,15 @@
                                 type="text" class="form-control"
                                 placeholder="Enter Address">
                         </div>
+
+                        <div class="form-group">
+                            <div>Company</div>
+                            <input id="registration_company"
+                                type="text" class="form-control"
+                                placeholder="Enter Company">
+                        </div>
+
+
                         <div class="form-group">
                             <div>Password</div>
                             <input id="registration_password"
@@ -75,7 +84,7 @@
                                 placeholder="Enter Password">
                         </div>
                         <button type="submit" class="btn btn-primary btn-block"
-                                onclick="register();">
+                                onclick="registerDEAL();">
                             Register
                         </button>
                     </form>
@@ -87,10 +96,10 @@
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
 
-<script src="/dev/static/amazon-cognito-identity.min.js"></script>
-<script src="/dev/static/amazon-cognito-sdk.min.js"></script>
+<script src="/michael/static/amazon-cognito-identity.min.js"></script>
+<script src="/michael/static/aws-cognito-sdk.min.js"></script>
 <script src="{{ url_for('static', filename='app.js') }}"></script>
-</body>
+<script src="{{ url_for('static', filename='appdeal.js') }}"></script></body>
 </body>
 
 

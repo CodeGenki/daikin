@@ -69,6 +69,7 @@ def vendor():
 
 @app.route("/logincustomer")
 def logincustomer():
+
     return render_template("logincustomer.html")
 	#return redirect("https://project-intership.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=457v0csehtuoprbf6as9q3aenc&redirect_uri=https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/")
 
@@ -111,6 +112,11 @@ def faqs():
 def code_validation():
 
     return render_template("code_validation.html")
+
+@app.route("/code_validation_dealer")
+def code_validation_dealer():
+
+    return render_template("code_validation_dealer.html")
 
 @app.route("/api/protected_api", methods=["POST"])
 def protected_api():

@@ -4,11 +4,11 @@
 //var AuthenticationDetails = AmazonCognitoIdentity.AuthenticationDetails;
 
 var poolData = {
-	UserPoolId : 'us-east-1_QFcNXf7g8l', // Your user pool id here
-	ClientId : '5jgc6qm3jjif4nfqlvh5kukfe6' // Your client id here
+	UserPoolId : 'us-east-1_QFcNXf7g8', // Your user pool id here
+	ClientId : '4ut1fjlf1v35jbj2v9cks6981l' // Your client id here
 };
 
-function signIn(){
+function signInDEAL(){
 	var username = $('#sign_in_username').val();
 	var password = $('#sign_in_password').val();
 
@@ -43,7 +43,7 @@ function signIn(){
 
 }
 
-function register(){
+function registerDEAL(){
 	var username = $('#registration_username').val();
 	var given_name = $('#registration_given_name').val();
 	var family_name = $('#registration_family_name').val();
@@ -78,7 +78,7 @@ function register(){
         Value : phone_number
 	};
     var datacompany = {
-        Name : 'company',
+        Name : 'custom:company',
         Value : company
     };
     var attributegiven_name = new AmazonCognitoIdentity.CognitoUserAttribute(datagiven_name);
@@ -106,12 +106,12 @@ function register(){
         }
     	cognitoUser = result.user;
         console.log('user name is ' + cognitoUser.getUsername());
-        window.location.href  = "https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/code_validation";
+        window.location.href  = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/code_validation_dealer";
 
 });
 }
 
-function validate () {
+function validateDEAL() {
     var username = $('#code_username').val();
     var code = $('#code_code').val();
 
@@ -131,22 +131,22 @@ function validate () {
             return;
         }
     console.log('call result: ' + result);
-    window.location.href = "https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/vendor";
+    window.location.href = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/vendor";
 
 });
 }
 
-function signOut(){
+function signOutDEAL(){
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
     var cognitoUser = userPool.getCurrentUser();
 
     if (cognitoUser != null){
     	cognitoUser.signOut();
     }
-    window.location.href  = "https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev";
+    window.location.href  = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/";
 }
 
-function setWelcome () {
+function setWelcomeDEAL() {
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
     var cognitoUser = userPool.getCurrentUser();
 
