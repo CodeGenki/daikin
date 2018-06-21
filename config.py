@@ -24,7 +24,8 @@ PAGES=[
     {'title':'Login', 'route':'login'},
     {'title':'Customer', 'route':'customer'},
     {'title':'Vendor','route':'vendor'},
-    {'title':'Kristen','route':'customer'},
+    {'title':'Michael','route':'customer'}
+
     ]
 
 

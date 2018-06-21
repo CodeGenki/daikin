@@ -1,97 +1,17 @@
+
 {% extends "base.html" %}
 {% block content %}
 
-
+<h1> Select one </h1>
 <body>
-<body>
-    <div class="container" style="padding-top: 43px;">
-        <div class="row">
-            <div class="col-sm-4">
-            </div>
-            <div class="col-sm-4">
-                <div>
-                	 <h2>Login Here bois</h2>
-                    <form onsubmit="return false;">
-                        <div class="form-group">
-                            <div>Username</div>
-                            <input id="sign_in_username"
-                                type="text" class="form-control"
-                                placeholder="Enter username">
-                        </div>
-                        <div class="form-group">
-                            <div>Password</div>
-                            <input id="sign_in_password"
-                                type="password" class="form-control"
-                                placeholder="Enter password">
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block"
-                                onclick="signIn();">
-                            Sign in
-                        </button>
-                    </form>
-                </div>
-                <div>
-                    <form onsubmit="return false;">
-                        <div class="form-group">
-                            <div>Username</div>
-                            <input id="registration_username"
-                                type="text" class="form-control"
-                                placeholder="Enter username">
-                        </div>
-                        <div class="form-group">
-                            <div>Given Name</div>
-                            <input id="registration_given_name"
-                                type="text" class="form-control"
-                                placeholder="Enter Given Name">
-                        </div>
-                         <div class="form-group">
-                            <div>Family Name</div>
-                            <input id="registration_family_name"
-                                type="text" class="form-control"
-                                placeholder="Enter Family Name">
-                        </div>
-                        <div class="form-group">
-                            <div>Phone Number</div>
-                            <input id="registration_phone_number"
-                                type="text" class="form-control"
-                                placeholder="Enter Phone Number">
-                        </div>
-                        <div class="form-group">
-                            <div>Email address</div>
-                            <input id="registration_email"
-                                type="text" class="form-control"
-                                placeholder="Enter Email address">
-                        </div>
-                         <div class="form-group">
-                            <div>Address</div>
-                            <input id="registration_address"
-                                type="text" class="form-control"
-                                placeholder="Enter Address">
-                        </div>
-                        <div class="form-group">
-                            <div>Password</div>
-                            <input id="registration_password"
-                                type="password" class="form-control"
-                                placeholder="Enter Password">
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block"
-                                onclick="register();">
-                            Register
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
+    <div class="col-sm-4">
+    <input type="button" onclick="location.href='logindealer';" value="Dealer" />
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-            crossorigin="anonymous"></script>
-
-<script src="/dev/static/amazon-cognito-identity.min.js"></script>
-<script src="{{ url_for('static', filename='app.js') }}"></script>
+   
+    <div class="col-sm-4">
+    <input type="button" onclick="location.href='logincustomer';" value="Customer" />
+    </div>
 </body>
-</body>
-
 
 {% endblock %}
 
