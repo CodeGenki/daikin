@@ -87,3 +87,45 @@ def kristen():
     return render_template('finddealer.html')
 
 
+@app.route("/homehvac")
+def homehvac():
+
+    return render_template("homehvac.html")
+
+
+@app.route("/employees")
+def employees():
+
+    return render_template("employees.html")
+
+@app.route("/customers")
+def customers():
+
+    return render_template("customers.html")
+
+@app.route("/suppliers")
+def suppliers():
+
+    return render_template("suppliers.html")
+
+
+@app.route("/hvacaboutx")
+def hvacaboutx():
+
+    return render_template("hvacaboutx.html")
+
+@app.route("/hvacfaqs")
+def hvacfaqs():
+
+    return render_template("hvacfaqs.html")
+
+@app.route("/hvaccontactus")
+def hvaccontactus():
+
+    return render_template("hvaccontactus.html")
+
+
+@app.route("/hvacaccount")
+def hvacaccount():
+
+    return render_template("hvacaccount.html")

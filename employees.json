@@ -1,0 +1,94 @@
+[
+    {
+        "company": "McCann Services Inc.",
+        "employeename": "Keith Ogden",
+        "email": "Keith.Ogden@McCann.com",
+        "number": "(713) 840-5464",
+        "available": "yes",
+        "location":[]
+        },
+
+    {
+        "company": "McCann Services Inc.",
+        "employeename": "Owen Rampling",
+        "email": "Owen.Rampling@McCann.com",
+        "number": "(713) 969-0583",
+        "available": "no",
+        "location":[]
+        },
+
+
+    {
+        "company": "McCann Services Inc.",
+        "employeename": "Nicholas Ross",
+        "email": "Nicholas.Ross@McCann.com",
+        "number": "(281) 867-2073",
+        "available": "no",
+        "location":[]
+        },
+
+    {
+        "company": "McCann Services Inc.",
+        "employeename": "John Rutherford",
+        "email": "John.Rutherford@McCann.com",
+        "number": "(346) 242-6911",
+        "available": "no",
+        "location":[]
+        },
+
+    {
+        "company": "McCann Services Inc.",
+        "employeename": "Thomas Sanderson",
+        "email": "Thomas.Sanderson@McCann.com",
+        "number": "(713) 226-4859",
+        "available": "no",
+        "location":[]
+        },
+
+    {
+        "company": "McCann Services Inc.",
+        "employeename": "Max Smith",
+        "email": "Max.Smith@McCann.com",
+        "number": "(281) 630-0189",
+        "available": "yes",
+        "location":[]
+        },
+
+    {
+        "company": "McCann Services Inc.",
+        "employeename": "Alexandra Morgan",
+        "email": "Alexandra.Morgan@McCann.com",
+        "number": "(832) 382-8335",
+        "available": "no",
+        "location":[]
+        },
+
+    {
+        "company": "McCann Services Inc.",
+        "employeename": "Carol Wright",
+        "email": "Carol.Wright@McCann.com",
+        "number": "(713) 827-1028",
+        "available": "no",
+        "location":[]
+        },
+
+    {
+        "company": "McCann Services Inc.",
+        "employeename": "Katherine Morrison",
+        "email": "Katherine.Morrison@McCann.com",
+        "number": "(713) 376-6420",
+        "available": "no",
+        "location":[]
+        },
+
+    {
+        "company": "McCann Services Inc.",
+        "employeename": "Blake Vance",
+        "email": "Blake.Vance@McCann.com",
+        "number": "(346) 569-3768",
+        "available": "no",
+        "location":[]
+
+        },
+
+]

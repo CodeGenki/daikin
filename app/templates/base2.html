@@ -1,6 +1,11 @@
 <head>
 	<style>
 		html,body,h1,h2,h3,h4,h5 {font-family: "Verdana"}
+		body {
+			background-image: url(http://blog.visme.co/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-037.jpg);
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
 	</style> 
 	<link rel="icon" href={{config.FAV_ICON}}>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -69,7 +74,7 @@
   
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Overview</a>
+    <a href="{{ url_for('customer') }}"class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Overview</a>
     <a href="{{ url_for('unithealth') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-heart fa-fw"></i>  Your Unit's Health</a>
     <a href="{{ url_for('finddealer') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-address-book fa-fw"></i>  Find A Contractor</a>
     <a href="{{ url_for('contactus') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-paper-plane fa-fw"></i>  Contact Us</a>

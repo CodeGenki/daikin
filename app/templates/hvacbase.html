@@ -1,0 +1,95 @@
+<head>
+	<style>
+		html,body,h1,h2,h3,h4,h5 {font-family: "Verdana"}
+	</style> 
+	<link rel="icon" href={{config.FAV_ICON}}>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> {{ config.SITE_TITLE }} </title>
+	<!-- Include several stylesheets to improve the look and feel of our web page -->
+	{% for css_url in config.CSS_INCLUDES %}
+		<link rel="stylesheet" href="{{ css_url }}">
+	{% endfor %}
+	<!-- Include several javascript scripts to improve the dynamic feel of our web page -->
+	{% for js_url in config.JS_INCLUDES %}
+		<script src="{{ js_url }}"></script>
+	{% endfor %}
+</head>
+
+<body style="padding-top: 10px;">
+
+<!--header-->
+<div class="navbar navbar-inverse navbar-fixed-top bg-primary" role="navigation">
+	<div class=container>
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-ex1-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+<!-- 				<span class="icon-bar"></span> -->
+			</button>
+			<a href={{ url_for('index') }} class="navbar-brand">
+				<img class="img-responsive pull-left gap-right" 
+					src="{{ config.FAV_ICON }}" 
+					style="position:relative;top:-40%;height:40px;padding-right:10px;">
+				{{ config.SITE_TITLE }}</a>
+		</div>
+ 		<div class="collapse navbar-collapse navbar-ex1-collapse">
+			<ul class="nav navbar-nav"> 
+				<!--Page Navigation --> 
+				{% for page in config.PAGES %}
+					{% if page['route'] %}
+					<li><a href="{{ url_for(page['route']) }}">
+							{{ page["title"] }}</a></li>
+					{% else %}
+						<li><a href="{{ page["url"] }}">
+								{{ page["title"] }}</a></li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px; padding-top:30px;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+    <div class="w3-col s4">
+      <img src= {{config.CONTRACTOR}} class="w3-circle w3-margin-right" style="width:46px">
+    </div>
+    <div class="w3-col s8 w3-bar">
+      <span>Welcome, <strong>(HVAC Business Name)</strong></span><br>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
+    </div>
+  </div>
+  <hr>
+  
+  <div class="w3-bar-block">
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="{{ url_for('vendor') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw"></i> Home</a>
+    <a href="{{ url_for('employees') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> Employees</a>
+    <a href="{{ url_for('customers') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-address-book fa-fw"></i> Customers</a>
+    <a href="{{ url_for('suppliers') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-handshake-o fa-fw"></i> Suppliers</a>
+    <a href="{{ url_for('hvacaboutx') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-thermometer-half fa-fw"></i>  About "-------" </a>
+    <a href="{{ url_for('hvacfaqs') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-question-circle fa-fw"></i>  Frequently Asked Questions</a>
+    <a href="{{ url_for('hvaccontactus') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-paper-plane fa-fw"></i> Contact Us</a>
+    <a href="{{ url_for('hvacaccount') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>  Account Settings</a>
+    <a href="http://www.daikin.com" class="w3-bar-item w3-button w3-padding"><i class="fa fa-circle fa-fw"></i>  Daikin Home Page</a><br><br>
+  </div>
+</nav>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+
+
+
+{% block content %}{% endblock %}
+
+
+</div>
+</body>
+</html>

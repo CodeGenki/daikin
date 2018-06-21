@@ -2,12 +2,17 @@
 {% block content %}
 
 <body>
-<!-- !PAGE CONTENT! -->
+
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-  <div class="w3-half w3-container" style="height:700px; background-color: lightsteelblue;">
-    <div class="w3-padding-64 w3-padding-large">
-      <h1 style="color: black;">Contact</h1>
-      <p class="w3-opacity" style="color: black;">GET IN TOUCH</p>
+
+  <header class="w3-container" style="padding-top:43px">
+      <h5 style="color:black;text-align: center;"><b>Contact Us</b></h5>
+  </header>
+
+<hr>
+<div class="w3-half w3-container" style="padding-top:10px">
+      <p style="color: black; text-align: center;"><b>Send a Message</b></p>
+      <br>
       <form class="w3-container w3-card w3-padding-32 w3-white" action="/action_page.php" target="_blank">
         <div class="w3-section">
           <label>Name</label>
@@ -21,10 +26,21 @@
           <label>Message</label>
           <input class="w3-input" style="width:100%;" type="text" required name="Message">
         </div>
-        <button type="submit" class="w3-button w3-blue-grey w3-right">Send</button>
+        <button type="submit" class="w3-button  w3-right" style="background-color: lightsteelblue;">Send</button>
       </form>
-    </div>
   </div>
+
+  <div class="w3-half w3-container" style="padding-top:10px; text-align: center">
+    <p style="color: black;"><b>Corporate USA Headquarters</b></p>
+    <br>
+    <img src="http://www.csscdoors.com/images/Daikin%20(1).jpg" alt="DTTP" style="float: center;">
+    <br><br>
+    <p style="color: black; text-align: center">19001 Kermier Rd <br>Waller, TX 77484 <br> +1 (770)-861-2500</p>
+    <br>
+    <p style="color: black;"">Or, Find Your Answers Here: <button class="w3-button" href="https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen/faqs" style="background-color: lightsteelblue;">FAQs</button></p>
+</div>
+
+
 </div>
 </body>
 

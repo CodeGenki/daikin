@@ -3,11 +3,42 @@
 
 <body>
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:300px;margin-top:60px; bg">
+<div class="w3-main" style="margin-left:300px;">
+ 
 
-	 <div class="w3-half w3-container">
-    <h3 style="color:black;text-align: center;"><b><i class="fa fa-addresss-book"> </i> Find a Dealer Near You.</b></h3>
-      <div id="map" style="width:500px; height:500px;"></div>
+  <header class="w3-container" style="padding-top:86px">
+      <h5 style="color:black;text-align: center;"><b> Find a Dealer</b></h5>
+
+
+      <style>
+        .dropdown {
+                position: relative;
+                display: inline-block;
+                  }
+
+        .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                padding: 12px 16px;
+                z-index: 1;
+                          }
+
+        .dropdown:hover .dropdown-content {
+                display: block;
+                                          }
+
+      </style>
+
+    </header>
+   
+    <hr>
+	 <div class="w3-half w3-container" style="padding-top:10px">
+    <p style="color: black; text-align: center;"> <b> Near You </b> </p>
+    <br>
+      <div id="map" style="width:90%; height:45%;"></div>
       <script>
         var map, infoWindow, locations, count, marker;
         function initMap() {
@@ -79,8 +110,416 @@
   </div>
 
 
-  <div class="w3-half">
-    <h3 style= "text-align: center; color: black;"><b>View All Dealers</b></h3>
+  <div class="w3-half w3-container" style="padding-top:10px; text-align:center;">
+    <p style= "color: black; text-align: center;"><b>All Dealers</b></p>
+        <br>
+        <table class="w3-table w3-striped w3-white w3-container">
+          <tr>
+            <td class="dropdown">Alabama
+                <div class="dropdown-content">
+                  <p>Birmingham</p>
+                  <p>Huntsville</p>
+                  <p>Mobile</p>
+                  <p>Montgomery</p>
+                </div>
+                </td>
+            <td class="dropdown">Indiana
+                  <div class="dropdown-content">
+                  <p>Carmel</p>
+                  <p>Evansville</p>
+                  <p>Indianapolis</p>
+                  <p>Fort Wayne</p>
+                  <p>South Bend</p>
+                </div>
+            </td>
+            <td class="dropdown">Nebraska
+                <div class="dropdown-content">
+                  <p>Bellevue</p>
+                  <p>Lincoln</p>
+                  <p>Omaha</p>
+                </div>
+            </td>
+            <td class="dropdown">Rhode Island
+                <div class="dropdown-content">
+                  <p>Cranston</p>
+                  <p>East Providence</p>
+                  <p>Providence</p>
+                  <p>Warwick</p>
+                </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="dropdown">Alaska
+                <div class="dropdown-content">
+                  <p>Anchorage</p>
+                  <p>Fairbanks</p>
+                </div>
+            </td>
+            <td class="dropdown"> Iowa
+                <div class="dropdown-content">
+                  <p>Cedar Rapid</p>
+                  <p>Iowa City</p>
+                  <p>De Moines</p>
+                </div>
+            </td>
+            <td class="dropdown">Nevada
+                <div class="dropdown-content">
+                  <p>Henderson</p>
+                  <p>Las Vegas</p>
+                  <p>North Las Vegas</p>
+                  <p>Reno</p>
+                  <p>Sparks</p>
+                </div>
+            </td>
+            <td class="dropdown">South Carolina
+                <div class="dropdown-content">
+                  <p>Charleston</p>
+                  <p>Columbia</p>
+                  <p>North Charleston</p>
+                  <p>Watertown</p>
+                </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="dropdown"> Arizona
+                <div class="dropdown-content">
+                  <p>Chandler</p>
+                  <p>Phoenix</p>
+                  <p>Tucson</p>
+                </div>
+            </td>
+            <td class="dropdown">Kansas
+                <div class="dropdown-content">
+                  <p>Topeka</p>
+                </div>
+            </td>
+            <td class="dropdown">New Hampshire
+                <div class="dropdown-content">
+                  <p>Concord</p>
+                  <p>Derry</p>
+                  <p>Nashua</p>
+                  <p>Manchester</p>
+                  <p></p>
+                </div>
+            </td>
+            <td class="dropdown">South Dakota
+                <div class="dropdown-content">
+                  <p>Aberdeen</p>
+                  <p>Sioux Falls</p>
+                </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="dropdown">Arkansas
+                <div class="dropdown-content">
+                  <p>Fayetteville</p>
+                  <p>Fort Smith</p>
+                  <p>Little Rock</p>
+                  <p>Springdale</p>
+                </div>
+            </td>
+            <td class="dropdown">Kentucky
+                <div class="dropdown-content">
+                  <p>Bowling Green</p>
+                  <p>Covington</p>
+                  <p>Lexington</p>
+                  <p>Louisville</p>
+                </div>
+            </td>
+            <td class="dropdown">New Jersey
+                <div class="dropdown-content">
+                  <p>Elizabeth</p>
+                  <p>Edison</p>
+                  <p>Jersey Shore</p>
+                </div>
+            </td>
+            <td class="dropdown">Tennessee
+                <div class="dropdown-content">
+                  <p>Chattanooga</p>
+                  <p>Knoxville</p>
+                  <p>Memphis</p>
+                  <p>Nashville</p>
+                </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="dropdown">California
+                <div class="dropdown-content">
+                  <p>Fresno</p>
+                  <p>Los Angeles</p>
+                  <p>San Diego</p>
+                  <p>San Francisco</p>
+                  <p>San Jose</p>
+                </div>
+            </td>
+            <td class="dropdown">Louisiana
+                <div class="dropdown-content">
+                  <p>Baton Rouge</p>
+                  <p>New Orleans</p>
+                  <p>Shreveport</p>
+                </div>
+            </td>
+            <td class="dropdown">New Mexico
+                <div class="dropdown-content">
+                  <p>Albuquerque</p>
+                  <p>Las Cruces</p>
+                  <p>Roswell</p>
+                  <p>Santa Fe</p>
+                </div>
+            </td>
+            <td class="dropdown">Texas
+                <div class="dropdown-content">
+                  <p>Arlington</p>
+                  <p>Austin</p>
+                  <p>College Station</p>
+                  <p>Corpus Christi</p>
+                  <p>Dallas</p>
+                  <p>El Paso</p>
+                  <p>Forth Worth</p>
+                  <p>Galveston</p>
+                  <p>Georgetown</p>
+                  <p>Houston</p>
+                  <p>Irving</p>
+                  <p>Plano</p>
+                  <p>San Antonio</p>
+                  <p>Waco</p>            
+                </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="dropdown">Colorado
+                <div class="dropdown-content">
+                  <p>Aurora</p>
+                  <p>Denver</p>
+                </div>
+            </td>
+            <td class="dropdown">Maine
+                <div class="dropdown-content">
+                  <p>Bangor</p>
+                  <p>Lewiston</p>
+                  <p>Portland</p>
+                  <p>South Portland</p>
+                </div>
+            </td>
+            <td class="dropdown">New York
+                <div class="dropdown-content">
+                  <p>Buffalo</p>
+                  <p>New York City </p>
+                </div>
+            </td>
+            <td class="dropdown">Utah
+                <div class="dropdown-content">
+                  <p>Salt Lake City</p>
+                  <p>West Valley City</p>
+                </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="dropdown">Connecticut
+                <div class="dropdown-content">
+                  <p>Bridgeport</p>
+                  <p>New Haven</p>
+                  <p>Stamford</p>
+                </div>
+            </td>
+            <td class="dropdown">Maryland
+                <div class="dropdown-content">
+                  <p>Baltimore</p>
+                  <p>Bowie</p>
+                  <p>Frederick</p>
+                  <p>Gaithersburg</p>
+                  <p>Rockville</p>
+                </div>
+            </td>
+            <td class="dropdown">North Carolina
+                <div class="dropdown-content">
+                  <p>Charlotte</p>
+                  <p>Durham</p>
+                  <p>Greensboro</p>
+                  <p>Raleigh</p>
+                  <p>Winston-Salem</p>
+                </div>
+            </td>
+            <td class="dropdown">Vermont
+                <div class="dropdown-content">
+                  <p>Burlington</p>
+                  <p>Essex</p>
+                  <p>South Burlington</p>
+                </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="dropdown">Delaware
+                <div class="dropdown-content">
+                  <p>Dover</p>
+                  <p>Newark</p>
+                  <p>Wilington</p>
+                </div>
+            </td>
+            <td class="dropdown">Massachusetts
+                <div class="dropdown-content">
+                  <p>Boston</p>
+                  <p>Cambridge</p>
+                  <p>Lowell</p>
+                  <p>Springfield</p>
+                  <p>Worcester</p>
+                </div>
+            </td>
+            <td class="dropdown">North Dakota
+                <div class="dropdown-content">
+                  <p>Bismarck</p>
+                  <p>Fargo</p>
+                </div>
+            </td>
+            <td class="dropdown">Virginia
+                <div class="dropdown-content">
+                  <p>Norfolk</p>
+                  <p>Richmond</p>
+                  <p>Virginia Beach</p>
+                </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="dropdown">Florida
+                <div class="dropdown-content">
+                  <p>Jacksonville</p>
+                  <p>Miami</p>
+                  <p>Orlando</p>
+                  <p>Tampa</p>
+                </div>
+            </td>
+            <td class="dropdown">Michigan
+                <div class="dropdown-content">
+                  <p>Ann Arbor</p>
+                  <p>Detroit</p>
+                  <p>Grand Rapids</p>
+                </div>
+            </td>
+            <td class="dropdown">Ohio
+                <div class="dropdown-content">
+                  <p>Cleveland</p>
+                  <p>Columbus</p>
+                  <p>Toledo</p>
+                </div>
+            </td>
+            <td class="dropdown">Washington
+                <div class="dropdown-content">
+                  <p>Seattle</p>
+                  <p>Tacoma</p>
+                </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="dropdown">Georgia
+                <div class="dropdown-content">
+                  <p>Atlanta</p>
+                  <p>Augusta</p>
+                  <p>Columbus</p>
+                  <p>Savannah</p>
+                </div>
+            </td>
+            <td class="dropdown">Minnesota
+                <div class="dropdown-content">
+                  <p>Minneapolis</p>
+                  <p>Rochester</p>
+                  <p>Saint Paul</p>
+                  <p></p>
+                  <p></p>
+                </div>
+            </td>
+            <td class="dropdown">Oklahoma
+                <div class="dropdown-content">
+                  <p>Oklahoma City</p>
+                  <p>Tulsa</p>
+                </div>
+            </td>
+            <td class="dropdown">West Virginia
+                <div class="dropdown-content">
+                  <p>Charleston</p>
+                  <p>Huntington</p>
+                  <p>Morgantown</p>
+                  <p>Parkersburg</p>
+                  <p>Wheeling</p>
+                </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="dropdown">Hawaii
+                <div class="dropdown-content">
+                  <p>Hilo</p>
+                  <p>Honolulu</p>
+                </div>
+            </td>
+            <td class="dropdown">Mississippi
+                <div class="dropdown-content">
+                  <p>Gulfport</p>
+                  <p>Jackson</p>
+                  <p>Southaven</p>
+                </div>
+            </td>
+            <td class="dropdown">Oregon
+                <div class="dropdown-content">
+                  <p>Eugene</p>
+                  <p>Portland</p>
+                  <p>Salem</p>
+                </div>
+            </td>
+            <td class="dropdown">Wisconsin
+                <div class="dropdown-content">
+                  <p>Madison</p>
+                  <p>Milwaukee</p>
+                </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="dropdown">Idaho
+                <div class="dropdown-content">
+                  <p>Boise</p>
+                </div>
+            </td>
+            <td class="dropdown">Missouri
+                <div class="dropdown-content">
+                  <p>Columbia</p>
+                  <p>Kansas City</p>
+                  <p>Saint Louis</p>
+                  <p>Springfield</p>
+                </div>
+            </td>
+            <td class="dropdown">Pennsylvania
+                <div class="dropdown-content">
+                  <p>Erie</p>
+                  <p>Philadelphia</p>
+                  <p>Pittsburgh</p>
+                  <p>Reading</p>
+                </div>
+            </td>
+            <td class="dropdown">Wyoming
+                <div class="dropdown-content">
+                  <p>Casper</p>
+                  <p>Cheyenne</p>
+                  <p>Gilette</p>
+                </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="dropdown">Illinois
+                <div class="dropdown-content">
+                  <p>Aurora</p>
+                  <p>Chicago</p>
+                </div>
+            </td>
+            <td class="dropdown">Montana
+                <div class="dropdown-content">
+                  <p>Billings</p>
+                  <p>Bozeman</p>
+                  <p>Butte</p>
+                  <p></p>
+                  <p></p>
+                </div>
+            </td>
+          </tr>
+        </table>
+
   </div>
 
 <!--</div>-->
