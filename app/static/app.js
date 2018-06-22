@@ -96,48 +96,12 @@ function register(){
             alert(err);
             return;
         }
-        console.log('user name is ' + cognitoUser.getUsername());
         cognitoUser = result.user;
-
-        var AWS = require('aws-sdk');
-
-        var region = "us-east-1";
-        var accessKeyId = AKIAJTVTRVAK4WUKHOZA ;
-        var secretAccessKey = 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;
-        var tableName = "Customer_information";
-
-        var dynamoDB = new AWS.DynamoDB({
-          region: region,
-          accessKeyId: accessKeyId,
-          secretAccessKey: secretAccessKey,
-        });
-
-        // One item with two properties: question_id and title.
-        var params = {
-          Item: {
-            username: {
-              S: cognitoUser.getUsername() // Number value.
-            },
-            title: {
-              S: "Foo foo foo" // String value.
-            }
-          },
-          ReturnConsumedCapacity: "TOTAL",
-          TableName: tableName,
-        };
-
-        dynamoDB.putItem(params, function(err, data) {
-          if (err) {
-            console.log(err, err.stack);
-          }
-          else {
-            console.log(data);
-          }
-        });
-
+        console.log(result)
+        console.log('user name is ' + cognitoUser.getUsername());
         window.location.href  = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny/code_validation";
 
-});
+    });
 }
 
 function validate () {
