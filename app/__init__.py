@@ -69,6 +69,7 @@ def vendor():
 
 @app.route("/logincustomer")
 def logincustomer():
+
     return render_template("logincustomer.html")
 	#return redirect("https://project-intership.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=457v0csehtuoprbf6as9q3aenc&redirect_uri=https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/")
 
@@ -112,6 +113,11 @@ def code_validation():
 
     return render_template("code_validation.html")
 
+@app.route("/code_validation_dealer")
+def code_validation_dealer():
+
+    return render_template("code_validation_dealer.html")
+
 @app.route("/api/protected_api", methods=["POST"])
 def protected_api():
     #access_token = request.from['access_token']
@@ -122,3 +128,51 @@ def protected_api():
 
 
 
+@app.route("/kristen")
+def kristen():
+
+    return render_template('finddealer.html')
+
+
+@app.route("/homehvac")
+def homehvac():
+
+    return render_template("homehvac.html")
+
+
+@app.route("/employees")
+def employees():
+
+    return render_template("employees.html")
+
+@app.route("/customers")
+def customers():
+
+    return render_template("customers.html")
+
+@app.route("/suppliers")
+def suppliers():
+
+    return render_template("suppliers.html")
+
+
+@app.route("/hvacaboutx")
+def hvacaboutx():
+
+    return render_template("hvacaboutx.html")
+
+@app.route("/hvacfaqs")
+def hvacfaqs():
+
+    return render_template("hvacfaqs.html")
+
+@app.route("/hvaccontactus")
+def hvaccontactus():
+
+    return render_template("hvaccontactus.html")
+
+
+@app.route("/hvacaccount")
+def hvacaccount():
+
+    return render_template("hvacaccount.html")

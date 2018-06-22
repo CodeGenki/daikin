@@ -1,7 +1,3 @@
-//AWSCognito.config.region = 'us-east-1'; 
-//var CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
-//var CognitoUser = AmazonCognitoIdentity.CognitoUser;
-//var AuthenticationDetails = AmazonCognitoIdentity.AuthenticationDetails;
 
 var poolData = {
 	UserPoolId : 'us-east-1_2o7S9Pswl', // Your user pool id here
@@ -30,6 +26,7 @@ function signIn(){
     console.log(cognitoUser);
 
     cognitoUser.authenticateUser(authenticationDetails, {
+
         onSuccess: function (result) {
         	console.log('access token + ' + result.getAccessToken().getJwtToken());
             window.location.href = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny/customer";
@@ -100,17 +97,13 @@ function register(){
         console.log(result)
         console.log('user name is ' + cognitoUser.getUsername());
         window.location.href  = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny/code_validation";
-
     });
 }
 
 function validate () {
     var username = $('#code_username').val();
     var code = $('#code_code').val();
-
-	console.log(username);
-	console.log(code);
-
+    
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
     var userData = {
@@ -120,11 +113,16 @@ function validate () {
  	var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
     cognitoUser.confirmRegistration(code, true, function(err, result) {
         if (err) {
+        	console.log(err);
             alert(err);
             return;
         }
     console.log('call result: ' + result);
+<<<<<<< HEAD
     window.location.href = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny/customer";
+=======
+    window.location.href = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/customer";
+>>>>>>> 7dd07ed9a9f7860cf79422a0456caa4004f431ab
 
 });
 }
@@ -136,7 +134,11 @@ function signOut(){
     if (cognitoUser != null){
     	cognitoUser.signOut();
     }
+<<<<<<< HEAD
     window.location.href  = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
+=======
+    window.location.href  = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/";
+>>>>>>> 7dd07ed9a9f7860cf79422a0456caa4004f431ab
 }
 
 function setWelcome () {
@@ -158,4 +160,9 @@ function setWelcome () {
     .done(function (data) {
         $('#data_from_protected_api').html(data);
     });
+}
+
+function update_database(){
+
+    console.log("hello from app js")
 }
