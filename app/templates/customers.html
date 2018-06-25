@@ -11,6 +11,28 @@
 <script>
 
 
+function queryData() {
+	document.getElementByID('textarea').innerHTML += "Querying for McCann Services Inc.";
+
+	var params= {
+		TableName : "customers",
+
+
+		KeyConditionExpression:'company = :vvv',
+		ExpressionAttributeValues: {
+			':vvv':'McCann Services Inc.'
+		}
+	};
+	console.log("hi")
+	docClient.query(params,function(err,data){
+		if (err) {
+			document.getElementById('textarea').innerHTML += "Unable to query.Error:"+"\n"+ JSON.stringify(err,undefined,2);	
+		} else {
+			document.getElementById('textarea').innerHTML += "Querying for McCann:"+"\n" +JSON.stringify(data,undefined,2);
+		}
+	});
+
+
 </script>
 
 <style>

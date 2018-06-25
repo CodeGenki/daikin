@@ -20,7 +20,7 @@
 	{% endfor %}
 </head>
 
-<body style="padding-top: 10px;">
+<body style="padding-top: 10px;" onload="get_user()">
 
 <!--header-->
 <div class="navbar navbar-inverse navbar-fixed-top bg-primary" role="navigation">
@@ -64,7 +64,7 @@
       <img src= {{config.CONTRACTOR}} class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s8 w3-bar">
-      <span>Welcome, <strong>(Customer's Name)</strong></span><br>
+      <span>Welcome, <strong id="usernamekey"></strong></span><br>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
@@ -94,6 +94,10 @@
 
 {% block content %}{% endblock %}
 
+<script src="/jenny/static/amazon-cognito-identity.min.js"></script>
+<script src="/jenny/static/aws-cognito-sdk.min.js"></script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+<script src="{{ url_for('static', filename='appdeal.js') }}"></script>
 
 </div>
 </body>
