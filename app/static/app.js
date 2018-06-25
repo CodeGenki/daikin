@@ -34,7 +34,15 @@ function signIn(){
 		}, 
 		onFailure: function(err){
 			console.log(err);
-            alert(err);
+            //alert(err);
+            if(err.code == "InvalidParameterException"){
+                document.getElementById("noUsername").innerHTML = "Please enter a valid username.";
+                document.getElementById("invalidCredentials").innerHTML = "";
+            }
+            else if(err.code == "NotAuthorizedException" || err.code == "UserNotFoundException"){
+                document.getElementById("invalidCredentials").innerHTML = "Incorrect username or password."
+                document.getElementById("noUsername").innerHTML = "";
+            }
 		}
 	});
 
@@ -90,7 +98,8 @@ function register(){
 	userPool.signUp(username, password, attributeList, null, function(err, result){
         if (err) {
         	console.log(err);
-            alert(err);
+            alert(err.message);
+            document.getElementById("registerError").innerHTML = err.message;
             return;
         }
         cognitoUser = result.user;
@@ -118,11 +127,7 @@ function validate () {
             return;
         }
     console.log('call result: ' + result);
-<<<<<<< HEAD
     window.location.href = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny/customer";
-=======
-    window.location.href = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/customer";
->>>>>>> 7dd07ed9a9f7860cf79422a0456caa4004f431ab
 
 });
 }
@@ -134,11 +139,7 @@ function signOut(){
     if (cognitoUser != null){
     	cognitoUser.signOut();
     }
-<<<<<<< HEAD
     window.location.href  = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
-=======
-    window.location.href  = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/";
->>>>>>> 7dd07ed9a9f7860cf79422a0456caa4004f431ab
 }
 
 function setWelcome () {
@@ -165,4 +166,21 @@ function setWelcome () {
 function update_database(){
 
     console.log("hello from app js")
+}
+
+function get_user(){
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    var cognitoUser = userPool.getCurrentUser();
+
+    if(cognitoUser != null){
+        cognitoUser.getSession(function(err, session) {
+            if(err){
+                alert(err);
+                return;
+            }
+            console.log('session validity: ' + session.isValid());
+            console.log(cognitoUser.username);
+            document.getElementById("usernamekey").innerHTML=cognitoUser.username;
+        });
+    }
 }
