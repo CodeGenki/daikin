@@ -12,7 +12,7 @@
 	{% endfor %}
 </head>
 
-<body style="padding-top:70px;">
+<body style="padding-top:70px;" onload="get_user()">
 
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Verdana"}
@@ -60,8 +60,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Verdana"}
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
 
-<script src="/dev/static/amazon-cognito-identity.min.js"></script>
-<script src="/dev/static/amazon-cognito-sdk.min.js"></script>
+<script src="/jenny/static/amazon-cognito-identity.min.js"></script>
+<script src="/jenny/static/aws-cognito-sdk.min.js"></script>
 <script src="{{ url_for('static', filename='app.js') }}"></script>
 <script src="{{ url_for('static', filename='appdeal.js') }}"></script>
 
