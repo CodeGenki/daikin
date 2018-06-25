@@ -46,19 +46,18 @@ def is_token_valid(token):
             return False 
 
 
-def pull_current_user(UserName):
-	dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+#def pull_current_user(UserName):
+#	dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+#
+#	table = dynamodb.Table("Customer_information")
 
-	table = dynamodb.Table("Customer_information")
+#	username = UserName
 
-	username = UserName
-
-	response = table.query(
-    KeyConditionExpression=Key('username').eq(username)
-	)
-	for i in response['Items']:
+#	response = table.query(
+ #   KeyConditionExpression=Key('username').eq(username)
+#	)
+#	print(response['Items'])
 		
-
 
 @app.route("/")
 def index():
@@ -69,7 +68,6 @@ def index():
     #just using render_template for now to 
 
     return render_template('index1.html')
-
 
 @app.route("/customer")
 def customer():
@@ -85,7 +83,6 @@ def vendor():
 def logincustomer():
 
     return render_template("logincustomer.html")
-	#return redirect("https://project-intership.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=457v0csehtuoprbf6as9q3aenc&redirect_uri=https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/")
 
 @app.route("/logindealer")
 def logindealer():
