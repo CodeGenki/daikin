@@ -46,17 +46,17 @@ def is_token_valid(token):
             return False 
 
 
-def pull_current_user(UserName):
-	dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+# def pull_current_user(UserName):
+# 	dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 
-	table = dynamodb.Table("Customer_information")
+# 	table = dynamodb.Table("Customer_information")
 
-	username = UserName
+# 	username = UserName
 
-	response = table.query(
-    KeyConditionExpression=Key('username').eq(username)
-	)
-	for i in response['Items']:
+# 	response = table.query(
+#     KeyConditionExpression=Key('username').eq(username)
+# 	)
+# 	for i in response['Items']:
 		
 
 
@@ -190,3 +190,13 @@ def hvaccontactus():
 def hvacaccount():
 
     return render_template("hvacaccount.html")
+
+@app.route("/registeruser")
+def registeruser():
+
+    return render_template("registeruser.html")
+
+@app.route("/registerdealer")
+def registerdealer():
+
+    return render_template("registerdealer.html")
