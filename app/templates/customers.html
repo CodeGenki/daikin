@@ -9,36 +9,8 @@
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
 
 <script>
-AWS.config.update({
-	region:"None",
-	endpoint:'http://localhost:800',
-	accessKeyId: "AKIAJMFY6T66INANMV5A",
-	secretAccessKey: "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"
-});	
 
 
-function queryData() {
-	document.getElementByID('textarea').innerHTML += "Querying for McCann Services Inc.";
-
-	var params= {
-		TableName : "customers",
-
-
-		KeyConditionExpression:'company = :vvv',
-		ExpressionAttributeValues: {
-			':vvv':'McCann Services Inc.'
-		}
-	};
-	console.log("hi")
-	docClient.query(params,function(err,data){
-		if (err) {
-			document.getElementById('textarea').innerHTML += "Unable to query.Error:"+"\n"+ JSON.stringify(err,undefined,2);	
-		} else {
-			document.getElementById('textarea').innerHTML += "Querying for McCann:"+"\n" +JSON.stringify(data,undefined,2);
-		}
-	});
-
-}
 </script>
 
 <style>
