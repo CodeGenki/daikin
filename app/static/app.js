@@ -178,9 +178,17 @@ function get_user(){
                 alert(err);
                 return;
             }
+
             console.log('session validity: ' + session.isValid());
             console.log(cognitoUser.username);
             document.getElementById("usernamekey").innerHTML=cognitoUser.username;
+            $.ajax({
+                type: "POST",
+                url: "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny/test?param=" + cognitoUser.username,
+                data: cognitoUser.username
+            }).done(function( o ) {
+                console.log("Sent request to python file");
+            });
         });
     }
 }
