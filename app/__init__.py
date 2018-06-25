@@ -23,7 +23,7 @@ s3.create_bucket(Bucket=bucketname)
 
 dynamodb = boto3.resource('dynamodb')
 
-
+global username
 #token validation code 
 def is_token_valid(token):
         pem = "KEY HERE how do i get this "
@@ -158,7 +158,7 @@ def employees():
 
 @app.route("/customers")
 def customers():
-
+    
     return render_template("customers.html")
 
 @app.route("/suppliers")
@@ -187,3 +187,12 @@ def hvaccontactus():
 def hvacaccount():
 
     return render_template("hvacaccount.html")
+
+@app.route("/test", methods=["POST"])
+def test():
+    if request.method == "POST":
+        global username
+        username = request.args.get('param', '')
+        
+        return request.args.get('param', '')
+    #return request.args.get('param', '')
