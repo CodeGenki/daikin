@@ -23,7 +23,7 @@ s3.create_bucket(Bucket=bucketname)
 
 dynamodb = boto3.resource('dynamodb')
 
-
+global username
 #token validation code 
 def is_token_valid(token):
         pem = "KEY HERE how do i get this "
@@ -46,6 +46,7 @@ def is_token_valid(token):
             return False 
 
 
+<<<<<<< HEAD
 # def pull_current_user(UserName):
 # 	dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 
@@ -57,8 +58,20 @@ def is_token_valid(token):
 #     KeyConditionExpression=Key('username').eq(username)
 # 	)
 # 	for i in response['Items']:
-		
+=======
+#def pull_current_user(UserName):
+#	dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+#
+#	table = dynamodb.Table("Customer_information")
 
+#	username = UserName
+
+#	response = table.query(
+ #   KeyConditionExpression=Key('username').eq(username)
+#	)
+#	print(response['Items'])
+>>>>>>> 3f8f7b756149bdc64dc8d4b2d0b577ee0177b4f8
+		
 
 @app.route("/")
 def index():
@@ -69,7 +82,6 @@ def index():
     #just using render_template for now to 
 
     return render_template('index1.html')
-
 
 @app.route("/customer")
 def customer():
@@ -85,7 +97,6 @@ def vendor():
 def logincustomer():
 
     return render_template("logincustomer.html")
-	#return redirect("https://project-intership.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=457v0csehtuoprbf6as9q3aenc&redirect_uri=https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/")
 
 @app.route("/logindealer")
 def logindealer():
@@ -161,7 +172,7 @@ def employees():
 
 @app.route("/customers")
 def customers():
-
+    
     return render_template("customers.html")
 
 @app.route("/suppliers")
@@ -191,6 +202,7 @@ def hvacaccount():
 
     return render_template("hvacaccount.html")
 
+<<<<<<< HEAD
 @app.route("/registeruser")
 def registeruser():
 
@@ -200,3 +212,13 @@ def registeruser():
 def registerdealer():
 
     return render_template("registerdealer.html")
+=======
+@app.route("/test", methods=["POST"])
+def test():
+    if request.method == "POST":
+        global username
+        username = request.args.get('param', '')
+        
+        return request.args.get('param', '')
+    #return request.args.get('param', '')
+>>>>>>> 3f8f7b756149bdc64dc8d4b2d0b577ee0177b4f8

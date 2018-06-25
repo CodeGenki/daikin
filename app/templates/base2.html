@@ -29,6 +29,14 @@ body, html {height: 100%}
 
 <body>
 <head>
+
+	<style>
+		html,body,h1,h2,h3,h4,h5 {font-family: "Verdana"}
+	</style> 
+	<link rel="icon" href={{config.FAV_ICON}}>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<!--<title> {{ config.SITE_TITLE }} </title>--> 
+	<!-- Include several stylesheets to improve the look and feel of our web page -->
 	{% for css_url in config.CSS_INCLUDES %}
 		<link rel="stylesheet" href="{{ css_url }}">
 	{% endfor %}
