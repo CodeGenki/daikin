@@ -50,7 +50,16 @@ body {font-family: "Verdana", sans-serif}
     <div class="form-group">
         <div>Password</div>
         <p><input id="sign_in_password" type="password" class="w3-input w3-padding-16 w3-border form-control" placeholder="Enter password"></p>
+        <script type="text/javascript">
+            var pass = document.getElementById("sign_in_password");
 
+            pass.onkeyup = function(){
+                if(pass.value.length >= 6)
+                    document.getElementById("passwordError").innerHTML = "";
+                else
+                    document.getElementById("passwordError").innerHTML = "Password must have 6 or more letters";
+            }
+        </script>
         </div>  
         <br>
     <button type="submit" class="btn btn-primary btn-block" onclick="signIn();" > Sign In </button>
