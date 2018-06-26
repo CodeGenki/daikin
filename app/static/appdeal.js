@@ -35,9 +35,17 @@ function signInDEAL(){
             //test
 		}, 
 		onFailure: function(err){
-			console.log(err);
-            alert(err);
-		}
+            console.log(err);
+            //alert(err);
+            if(err.code == "InvalidParameterException"){
+                document.getElementById("noUsername").innerHTML = "Please enter a valid username.";
+                document.getElementById("invalidCredentials").innerHTML = "";
+            }
+            else if(err.code == "NotAuthorizedException" || err.code == "UserNotFoundException"){
+                document.getElementById("invalidCredentials").innerHTML = "Incorrect username or password."
+                document.getElementById("noUsername").innerHTML = "";
+            }
+        }
 	});
 
 }

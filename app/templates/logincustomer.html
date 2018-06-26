@@ -45,15 +45,19 @@ body {font-family: "Verdana", sans-serif}
       <div class="form-group">
         <div>Username</div>
         <p><input id="sign_in_username" type="text" class="w3-input w3-padding-16 w3-border form-control" placeholder="Enter username"></p>
+        <p id="noUsername" style="color:red"></p>
     </div>
     <div class="form-group">
         <div>Password</div>
         <p><input id="sign_in_password" type="password" class="w3-input w3-padding-16 w3-border form-control" placeholder="Enter password"></p>
+
         </div>  
         <br>
     <button type="submit" class="btn btn-primary btn-block" onclick="signIn();" > Sign In </button>
+    <p id="invalidCredentials" style="color:red"></p>
     <br><br>
     <a href="{{ url_for('registeruser') }}">New User? Register Here.</a>
+
     </form> 
     </div>
   </div>
