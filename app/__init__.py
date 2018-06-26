@@ -16,6 +16,7 @@ app = Flask(__name__)
 
 app.config.from_object('config')
 app.config.from_object('bucketConfig')
+app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
 
 s3 = boto3.resource('s3')
 bucketname = 'json-to-dynamodb-mh423'
@@ -24,6 +25,7 @@ s3.create_bucket(Bucket=bucketname)
 dynamodb = boto3.resource('dynamodb')
 
 global username
+global usernameDEAL
 #token validation code 
 def is_token_valid(token):
         pem = ""
@@ -44,7 +46,7 @@ def is_token_valid(token):
             #return decoded_token['username']
         except Exception:
             return False 
-		
+
 @app.route("/")
 def index():
     """
@@ -55,9 +57,9 @@ def index():
 
     return render_template('index1.html')
 
+
 @app.route("/customer")
 def customer():
-
     return render_template("customer.html")
 
 @app.route("/vendor")
@@ -174,6 +176,27 @@ def hvacaccount():
 
     return render_template("hvacaccount.html")
 
+
+@app.route("/test", methods=["GET", "POST"])
+def test():
+    #if request.method == "POST":
+    global username
+    username = request.args.get('param', '')
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+    table = dynamodb.Table("Customer_information")
+    response = table.query(KeyConditionExpression=Key('username').eq(username))
+    return json.dumps(response['Items'])
+
+@app.route("/testdeal", methods=["GET", "POST"])
+def testdeal():
+    #if request.method == "POST":
+    global usernameDEAL
+    usernameDEAL = request.args.get('param', '')
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+    tableDEAL = dynamodb.Table("Customer_information")
+    responseDEAL = tableDEAL.query(KeyConditionExpression=Key('username').eq(usernameDEAL))
+    return json.dumps(responseDEAL['Items'])
+
 @app.route("/registeruser")
 def registeruser():
 
@@ -183,22 +206,3 @@ def registeruser():
 def registerdealer():
 
     return render_template("registerdealer.html")
-
-@app.route("/test", methods=["POST"])
-def test():
-    if request.method == "POST":
-        global username
-        username = request.args.get('param', '')
-        
-        dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
-
-		table = dynamodb.Table("Customer_information")
-
-		#username = "hagaman318"
-
-		response = table.query(KeyConditionExpression=Key('username').eq(username))
-
-		print(response['Items'])
-        return request.args.get('param', '')
-    	#return request.args.get('param', '')
-
