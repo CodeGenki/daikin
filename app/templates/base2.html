@@ -82,5 +82,8 @@ body, html {height: 100%}
 
 
 </div>
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
 </body>
 </html>

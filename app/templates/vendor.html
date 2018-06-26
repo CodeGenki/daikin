@@ -106,7 +106,9 @@ function w3_close() {
     overlayBg.style.display = "none";
 }
 </script>
-
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
 </body>
 </html>
 

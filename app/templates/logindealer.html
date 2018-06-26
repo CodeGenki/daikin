@@ -58,7 +58,9 @@ body {font-family: "Verdana", sans-serif}
   </div>
 </div>
 </div>
-
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
 <!--
 <script src="/michael/static/amazon-cognito-identity.min.js"></script>
 <script src="/michael/static/aws-cognito-sdk.min.js"></script>
