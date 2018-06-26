@@ -29,7 +29,7 @@ function signIn(){
 
         onSuccess: function (result) {
         	console.log('access token + ' + result.getAccessToken().getJwtToken());
-            window.location.href = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny/customer";
+            window.location.href = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/customer";
             //test
 		}, 
 		onFailure: function(err){
@@ -105,7 +105,7 @@ function register(){
         cognitoUser = result.user;
         console.log(result)
         console.log('user name is ' + cognitoUser.getUsername());
-        window.location.href  = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny/code_validation";
+        window.location.href  = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/code_validation";
     });
 }
 
@@ -127,7 +127,7 @@ function validate () {
             return;
         }
     console.log('call result: ' + result);
-    window.location.href = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny/customer";
+    window.location.href = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/customer";
 
 });
 }
@@ -139,7 +139,7 @@ function signOut(){
     if (cognitoUser != null){
     	cognitoUser.signOut();
     }
-    window.location.href  = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
+    window.location.href  = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/";
 }
 
 function setWelcome () {
@@ -181,7 +181,6 @@ function get_user(){
 
             console.log('session validity: ' + session.isValid());
             console.log(cognitoUser.username);
-            //document.getElementById("usernamekey").innerHTML=cognitoUser.username;
             $.ajax({
                 type: "GET",
                 url: "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny/test?param=" + cognitoUser.username,
@@ -196,3 +195,4 @@ function get_user(){
         });
     }
 }
+

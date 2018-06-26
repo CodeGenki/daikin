@@ -46,6 +46,32 @@ def is_token_valid(token):
         except Exception:
             return False 
 
+# def pull_current_user(UserName):
+# 	dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+
+# 	table = dynamodb.Table("Customer_information")
+
+# 	username = UserName
+
+# 	response = table.query(
+#     KeyConditionExpression=Key('username').eq(username)
+# 	)
+# 	for i in response['Items']:
+
+#######################################################
+
+#def pull_current_user(UserName):
+#	dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+#
+#	table = dynamodb.Table("Customer_information")
+
+#	username = UserName
+
+#	response = table.query(
+ #   KeyConditionExpression=Key('username').eq(username)
+#	)
+#	print(response['Items'])
+
 @app.route("/")
 def index():
     """
@@ -57,7 +83,7 @@ def index():
     return render_template('index1.html')
 
 
-@app.route("/customer", methods=["GET", "POST"])
+@app.route("/customer")
 def customer():
     return render_template("customer.html")
 
@@ -70,7 +96,6 @@ def vendor():
 def logincustomer():
 
     return render_template("logincustomer.html")
-	#return redirect("https://project-intership.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=457v0csehtuoprbf6as9q3aenc&redirect_uri=https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/")
 
 @app.route("/logindealer")
 def logindealer():
@@ -183,3 +208,14 @@ def test():
     username = request.args.get('param', '')
     print("posted: " + username)
     return username
+
+@app.route("/registeruser")
+def registeruser():
+
+    return render_template("registeruser.html")
+
+@app.route("/registerdealer")
+def registerdealer():
+
+    return render_template("registerdealer.html")
+

@@ -1,24 +1,32 @@
-<{% extends "base2.html" %}
-{% block content %}
-<!-- <style type="text/css">
-  body
-  {
-    background-image: url(https://ideasphere.com/wp-content/uploads/2016/08/Savin-NY-Website-Background-Web-1-1024x576.jpg)
-  }
-
-</style> -->
-
-
-
-<body style="padding-top: 30px;">
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:300px;margin-top:43px; z-index: 10">
-  <!-- Header -->
-  <header class="w3-container" style="padding-top:43px;">
-    <h5 style="color:black; text-align: center;"><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
+<!DOCTYPE html>
+<html>
+<title>Customer Homepage</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% for css_url in config.CSS_INCLUDES %}
+		<link rel="stylesheet" href="{{ css_url }}">
+	{% endfor %}
+	<!-- Include several javascript scripts to improve the dynamic feel of our web page -->
+	{% for js_url in config.JS_INCLUDES %}
+		<script src="{{ js_url }}"></script>
+	{% endfor %}
+<style>
+body, html {height: 100%}
+.bgimg {
+    background-image: url(http://hotcopperaustralia.com/wp-content/uploads/2013/04/Daikin_-multi_split_home_solution.jpg);
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+    color: black;
+}
+</style>
+<body>
+<div class="bgimg w3-display-container">
+ <header class="w3-container" style="padding-top:80px; margin-left: 60px; margin-right: 60px;">
+    <h3 style="color:black; text-align: center;"><b>Welcome, (customer's name)!</b></h3>
   </header>
 
-  <div class="w3-row-padding w3-margin-bottom" style="padding-top:20px;">
+  <div class="w3-row-padding w3-margin-bottom" style="padding-top:80px;">
     <div class="w3-quarter">
       <div class="w3-container w3-padding-16" style="background-color: lightsteelblue; outline: 1px solid black;">
         <div class="w3-left"><i class="fa fa-heart w3-xxxlarge"></i></div>
@@ -84,30 +92,14 @@
       </div>
     </div>
   </div>
- 
-</body>
-
-
-
 </div>
 
-<script>
-// Get the Sidebar
-var mySidebar = document.getElementById("mySidebar");
+<script src="/michael/static/amazon-cognito-identity.min.js"></script>
+<script src="/michael/static/aws-cognito-sdk.min.js"></script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
 
-// Get the DIV with overlay effect
-var overlayBg = document.getElementById("myOverlay");
 
-// Toggle between showing and hiding the sidebar, and add overlay effect
-function w3_open() {
-    if (mySidebar.style.display === 'block') {
-        mySidebar.style.display = 'none';
-        overlayBg.style.display = "none";
-    } else {
-        mySidebar.style.display = 'block';
-        overlayBg.style.display = "block";
-    }
-}
+</body>
 
 // Close the sidebar with the close button
 function w3_close() {
@@ -115,10 +107,13 @@ function w3_close() {
     overlayBg.style.display = "none";
 }
 </script>
-
+<!--
+<script src="/michael/static/amazon-cognito-identity.min.js"></script>
+<script src="/michael/static/aws-cognito-sdk.min.js"></script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+--> 
 </body>
 </html>
 
 
 
-{% endblock %}

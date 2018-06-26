@@ -1,9 +1,5 @@
-//AWSCognito.config.region = 'us-east-1'; 
-//var CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
-//var CognitoUser = AmazonCognitoIdentity.CognitoUser;
-//var AuthenticationDetails = AmazonCognitoIdentity.AuthenticationDetails;
 
-var poolData = {
+var poolDataDEAL = {
 	UserPoolId : 'us-east-1_QFcNXf7g8', // Your user pool id here
 	ClientId : '4ut1fjlf1v35jbj2v9cks6981l' // Your client id here
 };
@@ -12,13 +8,13 @@ function signInDEAL(){
 	var username = $('#sign_in_username').val();
 	var password = $('#sign_in_password').val();
 
-	var authenticationData = {
+	var authenticationDataDEAL = {
 		Username : username,
 		Password : password,
 	};
 
-	var authenticationDetails = new  AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
-    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+	var authenticationDetails = new  AmazonCognitoIdentity.AuthenticationDetails(authenticationDataDEAL);
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
 
     var userData = {
         Username : username,
@@ -32,7 +28,7 @@ function signInDEAL(){
     cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
         	console.log('access token + ' + result.getAccessToken().getJwtToken());
-            window.location.href = "https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/vendor";
+            window.location.href = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/vendor";
             //test
 		}, 
 		onFailure: function(err){
@@ -53,7 +49,7 @@ function registerDEAL(){
 	var address = $('#registration_address').val();	
 	var password = $('#registration_password').val();
 
-    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
 
     var attributeList = [];
 
@@ -118,7 +114,7 @@ function validateDEAL() {
 	console.log(username);
 	console.log(code);
 
-    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
 
     var userData = {
         Username : username,
@@ -137,7 +133,7 @@ function validateDEAL() {
 }
 
 function signOutDEAL(){
-    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
     var cognitoUser = userPool.getCurrentUser();
 
     if (cognitoUser != null){
@@ -147,7 +143,7 @@ function signOutDEAL(){
 }
 
 function setWelcomeDEAL() {
-    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
     var cognitoUser = userPool.getCurrentUser();
 
     if (cognitoUser != null){
