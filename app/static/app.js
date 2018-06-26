@@ -181,10 +181,14 @@ function get_user(){
 
             console.log('session validity: ' + session.isValid());
             console.log(cognitoUser.username);
-            document.getElementById("usernamekey").innerHTML=cognitoUser.username;
+            //document.getElementById("usernamekey").innerHTML=cognitoUser.username;
             $.ajax({
-                type: "POST",
+                type: "GET",
                 url: "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny/test?param=" + cognitoUser.username,
+                success: function(data){
+                    console.log("got return statement - " + data);
+                    document.getElementById("usernamekey").innerHTML = data;
+                },
                 data: cognitoUser.username
             }).done(function( o ) {
                 console.log("Sent request to python file");

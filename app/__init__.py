@@ -16,6 +16,7 @@ app = Flask(__name__)
 
 app.config.from_object('config')
 app.config.from_object('bucketConfig')
+app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
 
 s3 = boto3.resource('s3')
 bucketname = 'json-to-dynamodb-mh423'
@@ -45,21 +46,6 @@ def is_token_valid(token):
         except Exception:
             return False 
 
-
-def pull_current_user(UserName):
-	dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
-
-	table = dynamodb.Table("Customer_information")
-
-	username = UserName
-
-	response = table.query(
-    KeyConditionExpression=Key('username').eq(username)
-	)
-	for i in response['Items']:
-		
-
-
 @app.route("/")
 def index():
     """
@@ -71,9 +57,8 @@ def index():
     return render_template('index1.html')
 
 
-@app.route("/customer")
+@app.route("/customer", methods=["GET", "POST"])
 def customer():
-
     return render_template("customer.html")
 
 @app.route("/vendor")
@@ -191,11 +176,10 @@ def hvacaccount():
 
     return render_template("hvacaccount.html")
 
-@app.route("/test", methods=["POST"])
+@app.route("/test", methods=["GET", "POST"])
 def test():
-    if request.method == "POST":
-        global username
-        username = request.args.get('param', '')
-        
-        return request.args.get('param', '')
-    #return request.args.get('param', '')
+    #if request.method == "POST":
+    global username
+    username = request.args.get('param', '')
+    print("posted: " + username)
+    return username
