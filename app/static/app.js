@@ -181,11 +181,19 @@ function get_user(){
 
             console.log('session validity: ' + session.isValid());
             console.log(cognitoUser.username);
-            document.getElementById("usernamekey").innerHTML=cognitoUser.username;
-
             $.ajax({
-                type: "POST",
-                url: "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny/test?param=" + cognitoUser.username,
+                type: "GET",
+                url: "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/test?param=" + cognitoUser.username,
+                success: function(data){
+                    var tempInfo = JSON.parse(data); //save please
+                    var userInfo = tempInfo[0];
+                    document.getElementById("usernamekey").innerHTML = userInfo.username;
+                    document.getElementById("phone_numberkey").innerHTML = userInfo.phone_number;
+                    document.getElementById("family_namekey").innerHTML = userInfo.family_name;
+                    document.getElementById("given_namekey").innerHTML = userInfo.given_name;
+                    document.getElementById("addresskey").innerHTML = userInfo.address;
+                    document.getElementById("emailkey").innerHTML = userInfo.email;
+                },
                 data: cognitoUser.username
             }).done(function( o ) {
                 console.log("Sent request to python file");

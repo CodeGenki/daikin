@@ -25,6 +25,7 @@ s3.create_bucket(Bucket=bucketname)
 dynamodb = boto3.resource('dynamodb')
 
 global username
+global usernameDEAL
 #token validation code 
 def is_token_valid(token):
         pem = ""
@@ -186,8 +187,22 @@ def test():
     response = table.query(KeyConditionExpression=Key('username').eq(username))
 
 
-    print("posted: " + response['Items'])
-    return response['Items']
+
+    # print("posted: " + response['Items'])
+    # return response['Items']
+
+    return json.dumps(response['Items'])
+
+@app.route("/testdeal", methods=["GET", "POST"])
+def testdeal():
+    #if request.method == "POST":
+    global usernameDEAL
+    usernameDEAL = request.args.get('param', '')
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+    tableDEAL = dynamodb.Table("Customer_information")
+    responseDEAL = tableDEAL.query(KeyConditionExpression=Key('username').eq(usernameDEAL))
+    return json.dumps(responseDEAL['Items'])
+
 
 @app.route("/registeruser")
 def registeruser():
@@ -198,3 +213,4 @@ def registeruser():
 def registerdealer():
 
     return render_template("registerdealer.html")
+
