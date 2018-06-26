@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body,h1 {font-family: "Raleway", sans-serif}
 body, html {height: 100%}
 .bgimg {
     background-image: url('https://i.pinimg.com/originals/86/37/35/863735d7645286ccaf4a36ae20092ad1.jpg');
@@ -19,6 +18,7 @@ body, html {height: 100%}
 
 .body {
 	color: black;
+    height: 100%;
 }
 
 .p {
@@ -48,7 +48,8 @@ body, html {height: 100%}
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-collapse w3-animate-left" style="z-index:3;width:300px;background-color: lightgrey;" id="mySidebar"><br>
 
-  <div class="w3-bar-block" style="padding-top: 60px;" >
+  <div class="w3-bar-block" style="padding-top: 100px;" >
+    <h5 style="color:steelblue; text-align: center;"><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
     <a href= "{{ url_for('customer') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-users fa-fw"></i>  Overview</a>
     <a href="{{ url_for('unithealth') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-heart fa-fw"></i>  Your Unit's Health</a>
     <a href="{{ url_for('finddealer') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-address-book fa-fw"></i>  Find A Contractor</a>

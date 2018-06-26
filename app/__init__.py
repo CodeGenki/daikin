@@ -16,6 +16,7 @@ app = Flask(__name__)
 
 app.config.from_object('config')
 app.config.from_object('bucketConfig')
+app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
 
 s3 = boto3.resource('s3')
 bucketname = 'json-to-dynamodb-mh423'
@@ -26,7 +27,7 @@ dynamodb = boto3.resource('dynamodb')
 global username
 #token validation code 
 def is_token_valid(token):
-        pem = "KEY HERE how do i get this "
+        pem = ""
         try:
             decoded_token = jwt.decode(token, pem, algorithms=['RS256'])
             iss = "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_2o7S9Pswl"
@@ -45,34 +46,6 @@ def is_token_valid(token):
         except Exception:
             return False 
 
-
-<<<<<<< HEAD
-# def pull_current_user(UserName):
-# 	dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
-
-# 	table = dynamodb.Table("Customer_information")
-
-# 	username = UserName
-
-# 	response = table.query(
-#     KeyConditionExpression=Key('username').eq(username)
-# 	)
-# 	for i in response['Items']:
-=======
-#def pull_current_user(UserName):
-#	dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
-#
-#	table = dynamodb.Table("Customer_information")
-
-#	username = UserName
-
-#	response = table.query(
- #   KeyConditionExpression=Key('username').eq(username)
-#	)
-#	print(response['Items'])
->>>>>>> 3f8f7b756149bdc64dc8d4b2d0b577ee0177b4f8
-		
-
 @app.route("/")
 def index():
     """
@@ -83,9 +56,9 @@ def index():
 
     return render_template('index1.html')
 
+
 @app.route("/customer")
 def customer():
-
     return render_template("customer.html")
 
 @app.route("/vendor")
@@ -202,7 +175,20 @@ def hvacaccount():
 
     return render_template("hvacaccount.html")
 
-<<<<<<< HEAD
+
+@app.route("/test", methods=["GET", "POST"])
+def test():
+    #if request.method == "POST":
+    global username
+    username = request.args.get('param', '')
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+    table = dynamodb.Table("Customer_information")
+    response = table.query(KeyConditionExpression=Key('username').eq(username))
+
+
+    print("posted: " + response['Items'])
+    return response['Items']
+
 @app.route("/registeruser")
 def registeruser():
 
@@ -212,13 +198,3 @@ def registeruser():
 def registerdealer():
 
     return render_template("registerdealer.html")
-=======
-@app.route("/test", methods=["POST"])
-def test():
-    if request.method == "POST":
-        global username
-        username = request.args.get('param', '')
-        
-        return request.args.get('param', '')
-    #return request.args.get('param', '')
->>>>>>> 3f8f7b756149bdc64dc8d4b2d0b577ee0177b4f8
