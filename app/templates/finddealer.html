@@ -1,16 +1,11 @@
-{% extends "base2.html" %}
+{% extends "greybase.html" %}
 {% block content %}
 
 <body>
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:300px;">
- 
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
 
-  <header class="w3-container" style="padding-top:86px">
-      <h5 style="color:black;text-align: center;"><b> Find a Dealer</b></h5>
+<style>
 
-
-      <style>
         .dropdown {
                 position: relative;
                 display: inline-block;
@@ -29,16 +24,38 @@
         .dropdown:hover .dropdown-content {
                 display: block;
                                           }
+        .table { 
+        border: 1px solid;
+        width: 600px;
+        border-spacing: 0.5rem
 
-      </style>
+         }
+
+         .td {
+          padding: 5px;
+          font-size: medium;
+        }
+
+
+
+
+
+</style>
+
+<body>
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;">
+ 
+  <header class="w3-container" style="padding-top:43px">
+      <h5 style="color:steelblue;text-align: center;"><b> Find a Dealer</b></h5>
 
     </header>
    
     <hr>
-	 <div class="w3-half w3-container" style="padding-top:10px">
-    <p style="color: black; text-align: center;"> <b> Near You </b> </p>
+	 <div class="w3-half w3-container" style="padding-top:10px; width:400px; height: 300px; margin-left: 40px;">
+    <p style="color: steelblue; text-align: center;"> <b> Near You </b> </p>
     <br>
-      <div id="map" style="width:90%; height:45%;"></div>
+      <div id="map" style="width:100%; height:100%; color: black"></div>
       <script>
         var map, infoWindow, locations, count, marker;
         function initMap() {
@@ -105,17 +122,17 @@
         }
     </script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDffQOjP_RhBsNrSYUyqaQ5_xow6DnZHpc&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&callback=initMap">
     </script>
   </div>
 
 
-  <div class="w3-half w3-container" style="padding-top:10px; text-align:center;">
-    <p style= "color: black; text-align: center;"><b>All Dealers</b></p>
+  <div class="w3-half w3-container" style="padding-top:10px; text-align:center; width:500px; height: 700px;">
+    <p style= "color: steelblue; text-align: center;"><b>All Dealers</b></p>
         <br>
-        <table class="w3-table w3-striped w3-white w3-container">
-          <tr>
-            <td class="dropdown">Alabama
+        <table class="table">
+          <col span="4"/>
+            <td class="dropdown td" >Alabama
                 <div class="dropdown-content">
                   <p>Birmingham</p>
                   <p>Huntsville</p>
@@ -123,7 +140,7 @@
                   <p>Montgomery</p>
                 </div>
                 </td>
-            <td class="dropdown">Indiana
+            <td class="dropdown td">Indiana
                   <div class="dropdown-content">
                   <p>Carmel</p>
                   <p>Evansville</p>
@@ -132,14 +149,14 @@
                   <p>South Bend</p>
                 </div>
             </td>
-            <td class="dropdown">Nebraska
+            <td class="dropdown td">Nebraska
                 <div class="dropdown-content">
                   <p>Bellevue</p>
                   <p>Lincoln</p>
                   <p>Omaha</p>
                 </div>
             </td>
-            <td class="dropdown">Rhode Island
+            <td class="dropdown td">Rhode Island
                 <div class="dropdown-content">
                   <p>Cranston</p>
                   <p>East Providence</p>
@@ -148,21 +165,21 @@
                 </div>
             </td>
           </tr>
-          <tr>
-            <td class="dropdown">Alaska
+          <tr style="background-color: lightsteelblue">
+            <td class="dropdown td">Alaska
                 <div class="dropdown-content">
                   <p>Anchorage</p>
                   <p>Fairbanks</p>
                 </div>
             </td>
-            <td class="dropdown"> Iowa
+            <td class="dropdown td"> Iowa
                 <div class="dropdown-content">
                   <p>Cedar Rapid</p>
                   <p>Iowa City</p>
                   <p>De Moines</p>
                 </div>
             </td>
-            <td class="dropdown">Nevada
+            <td class="dropdown td">Nevada
                 <div class="dropdown-content">
                   <p>Henderson</p>
                   <p>Las Vegas</p>
@@ -171,7 +188,7 @@
                   <p>Sparks</p>
                 </div>
             </td>
-            <td class="dropdown">South Carolina
+            <td class="dropdown td">South Carolina
                 <div class="dropdown-content">
                   <p>Charleston</p>
                   <p>Columbia</p>
@@ -181,19 +198,19 @@
             </td>
           </tr>
           <tr>
-            <td class="dropdown"> Arizona
+            <td class="dropdown td"> Arizona
                 <div class="dropdown-content">
                   <p>Chandler</p>
                   <p>Phoenix</p>
                   <p>Tucson</p>
                 </div>
             </td>
-            <td class="dropdown">Kansas
+            <td class="dropdown td">Kansas
                 <div class="dropdown-content">
                   <p>Topeka</p>
                 </div>
             </td>
-            <td class="dropdown">New Hampshire
+            <td class="dropdown td">New Hampshire
                 <div class="dropdown-content">
                   <p>Concord</p>
                   <p>Derry</p>
@@ -202,15 +219,15 @@
                   <p></p>
                 </div>
             </td>
-            <td class="dropdown">South Dakota
+            <td class="dropdown td">South Dakota
                 <div class="dropdown-content">
                   <p>Aberdeen</p>
                   <p>Sioux Falls</p>
                 </div>
             </td>
           </tr>
-          <tr>
-            <td class="dropdown">Arkansas
+          <tr style="background-color: lightsteelblue">
+            <td class="dropdown td">Arkansas
                 <div class="dropdown-content">
                   <p>Fayetteville</p>
                   <p>Fort Smith</p>
@@ -218,7 +235,7 @@
                   <p>Springdale</p>
                 </div>
             </td>
-            <td class="dropdown">Kentucky
+            <td class="dropdown td">Kentucky
                 <div class="dropdown-content">
                   <p>Bowling Green</p>
                   <p>Covington</p>
@@ -226,14 +243,14 @@
                   <p>Louisville</p>
                 </div>
             </td>
-            <td class="dropdown">New Jersey
+            <td class="dropdown td">New Jersey
                 <div class="dropdown-content">
                   <p>Elizabeth</p>
                   <p>Edison</p>
                   <p>Jersey Shore</p>
                 </div>
             </td>
-            <td class="dropdown">Tennessee
+            <td class="dropdown td">Tennessee
                 <div class="dropdown-content">
                   <p>Chattanooga</p>
                   <p>Knoxville</p>
@@ -243,7 +260,7 @@
             </td>
           </tr>
           <tr>
-            <td class="dropdown">California
+            <td class="dropdown td">California
                 <div class="dropdown-content">
                   <p>Fresno</p>
                   <p>Los Angeles</p>
@@ -252,14 +269,14 @@
                   <p>San Jose</p>
                 </div>
             </td>
-            <td class="dropdown">Louisiana
+            <td class="dropdown td">Louisiana
                 <div class="dropdown-content">
                   <p>Baton Rouge</p>
                   <p>New Orleans</p>
                   <p>Shreveport</p>
                 </div>
             </td>
-            <td class="dropdown">New Mexico
+            <td class="dropdown td">New Mexico
                 <div class="dropdown-content">
                   <p>Albuquerque</p>
                   <p>Las Cruces</p>
@@ -267,7 +284,7 @@
                   <p>Santa Fe</p>
                 </div>
             </td>
-            <td class="dropdown">Texas
+            <td class="dropdown td">Texas
                 <div class="dropdown-content">
                   <p>Arlington</p>
                   <p>Austin</p>
@@ -286,14 +303,14 @@
                 </div>
             </td>
           </tr>
-          <tr>
-            <td class="dropdown">Colorado
+          <tr style="background-color: lightsteelblue">
+            <td class="dropdown td">Colorado
                 <div class="dropdown-content">
                   <p>Aurora</p>
                   <p>Denver</p>
                 </div>
             </td>
-            <td class="dropdown">Maine
+            <td class="dropdown td">Maine
                 <div class="dropdown-content">
                   <p>Bangor</p>
                   <p>Lewiston</p>
@@ -301,13 +318,13 @@
                   <p>South Portland</p>
                 </div>
             </td>
-            <td class="dropdown">New York
+            <td class="dropdown td">New York
                 <div class="dropdown-content">
                   <p>Buffalo</p>
                   <p>New York City </p>
                 </div>
             </td>
-            <td class="dropdown">Utah
+            <td class="dropdown td">Utah
                 <div class="dropdown-content">
                   <p>Salt Lake City</p>
                   <p>West Valley City</p>
@@ -315,14 +332,14 @@
             </td>
           </tr>
           <tr>
-            <td class="dropdown">Connecticut
+            <td class="dropdown td">Connecticut
                 <div class="dropdown-content">
                   <p>Bridgeport</p>
                   <p>New Haven</p>
                   <p>Stamford</p>
                 </div>
             </td>
-            <td class="dropdown">Maryland
+            <td class="dropdown td">Maryland
                 <div class="dropdown-content">
                   <p>Baltimore</p>
                   <p>Bowie</p>
@@ -331,7 +348,7 @@
                   <p>Rockville</p>
                 </div>
             </td>
-            <td class="dropdown">North Carolina
+            <td class="dropdown td">North Carolina
                 <div class="dropdown-content">
                   <p>Charlotte</p>
                   <p>Durham</p>
@@ -340,7 +357,7 @@
                   <p>Winston-Salem</p>
                 </div>
             </td>
-            <td class="dropdown">Vermont
+            <td class="dropdown td">Vermont
                 <div class="dropdown-content">
                   <p>Burlington</p>
                   <p>Essex</p>
@@ -348,15 +365,15 @@
                 </div>
             </td>
           </tr>
-          <tr>
-            <td class="dropdown">Delaware
+          <tr style="background-color: lightsteelblue">
+            <td class="dropdown td">Delaware
                 <div class="dropdown-content">
                   <p>Dover</p>
                   <p>Newark</p>
                   <p>Wilington</p>
                 </div>
             </td>
-            <td class="dropdown">Massachusetts
+            <td class="dropdown td">Massachusetts
                 <div class="dropdown-content">
                   <p>Boston</p>
                   <p>Cambridge</p>
@@ -365,13 +382,13 @@
                   <p>Worcester</p>
                 </div>
             </td>
-            <td class="dropdown">North Dakota
+            <td class="dropdown td">North Dakota
                 <div class="dropdown-content">
                   <p>Bismarck</p>
                   <p>Fargo</p>
                 </div>
             </td>
-            <td class="dropdown">Virginia
+            <td class="dropdown td">Virginia
                 <div class="dropdown-content">
                   <p>Norfolk</p>
                   <p>Richmond</p>
@@ -380,7 +397,7 @@
             </td>
           </tr>
           <tr>
-            <td class="dropdown">Florida
+            <td class="dropdown td">Florida
                 <div class="dropdown-content">
                   <p>Jacksonville</p>
                   <p>Miami</p>
@@ -388,29 +405,29 @@
                   <p>Tampa</p>
                 </div>
             </td>
-            <td class="dropdown">Michigan
+            <td class="dropdown td">Michigan
                 <div class="dropdown-content">
                   <p>Ann Arbor</p>
                   <p>Detroit</p>
                   <p>Grand Rapids</p>
                 </div>
             </td>
-            <td class="dropdown">Ohio
+            <td class="dropdown td">Ohio
                 <div class="dropdown-content">
                   <p>Cleveland</p>
                   <p>Columbus</p>
                   <p>Toledo</p>
                 </div>
             </td>
-            <td class="dropdown">Washington
+            <td class="dropdown td">Washington
                 <div class="dropdown-content">
                   <p>Seattle</p>
                   <p>Tacoma</p>
                 </div>
             </td>
           </tr>
-          <tr>
-            <td class="dropdown">Georgia
+          <tr style="background-color: lightsteelblue">
+            <td class="dropdown td">Georgia
                 <div class="dropdown-content">
                   <p>Atlanta</p>
                   <p>Augusta</p>
@@ -418,7 +435,7 @@
                   <p>Savannah</p>
                 </div>
             </td>
-            <td class="dropdown">Minnesota
+            <td class="dropdown td">Minnesota
                 <div class="dropdown-content">
                   <p>Minneapolis</p>
                   <p>Rochester</p>
@@ -427,13 +444,13 @@
                   <p></p>
                 </div>
             </td>
-            <td class="dropdown">Oklahoma
+            <td class="dropdown td">Oklahoma
                 <div class="dropdown-content">
                   <p>Oklahoma City</p>
                   <p>Tulsa</p>
                 </div>
             </td>
-            <td class="dropdown">West Virginia
+            <td class="dropdown td">West Virginia
                 <div class="dropdown-content">
                   <p>Charleston</p>
                   <p>Huntington</p>
@@ -444,40 +461,40 @@
             </td>
           </tr>
           <tr>
-            <td class="dropdown">Hawaii
+            <td class="dropdown td">Hawaii
                 <div class="dropdown-content">
                   <p>Hilo</p>
                   <p>Honolulu</p>
                 </div>
             </td>
-            <td class="dropdown">Mississippi
+            <td class="dropdown td">Mississippi
                 <div class="dropdown-content">
                   <p>Gulfport</p>
                   <p>Jackson</p>
                   <p>Southaven</p>
                 </div>
             </td>
-            <td class="dropdown">Oregon
+            <td class="dropdown td">Oregon
                 <div class="dropdown-content">
                   <p>Eugene</p>
                   <p>Portland</p>
                   <p>Salem</p>
                 </div>
             </td>
-            <td class="dropdown">Wisconsin
+            <td class="dropdown td">Wisconsin
                 <div class="dropdown-content">
                   <p>Madison</p>
                   <p>Milwaukee</p>
                 </div>
             </td>
           </tr>
-          <tr>
-            <td class="dropdown">Idaho
+          <tr style="background-color: lightsteelblue">
+            <td class="dropdown td">Idaho
                 <div class="dropdown-content">
                   <p>Boise</p>
                 </div>
             </td>
-            <td class="dropdown">Missouri
+            <td class="dropdown td">Missouri
                 <div class="dropdown-content">
                   <p>Columbia</p>
                   <p>Kansas City</p>
@@ -485,7 +502,7 @@
                   <p>Springfield</p>
                 </div>
             </td>
-            <td class="dropdown">Pennsylvania
+            <td class="dropdown td">Pennsylvania
                 <div class="dropdown-content">
                   <p>Erie</p>
                   <p>Philadelphia</p>
@@ -493,7 +510,7 @@
                   <p>Reading</p>
                 </div>
             </td>
-            <td class="dropdown">Wyoming
+            <td class="dropdown td">Wyoming
                 <div class="dropdown-content">
                   <p>Casper</p>
                   <p>Cheyenne</p>
@@ -502,26 +519,30 @@
             </td>
           </tr>
           <tr>
-            <td class="dropdown">Illinois
+            <td class="dropdown td">Illinois
                 <div class="dropdown-content">
                   <p>Aurora</p>
                   <p>Chicago</p>
                 </div>
             </td>
-            <td class="dropdown">Montana
+            <td class="dropdown td">Montana
                 <div class="dropdown-content">
                   <p>Billings</p>
                   <p>Bozeman</p>
                   <p>Butte</p>
-                  <p></p>
-                  <p></p>
                 </div>
+            </td>
+            <td>
+              <p></p>
+            </td>
+            <td>
+              <p></p>
             </td>
           </tr>
         </table>
 
   </div>
-
+</div>
 <!--</div>-->
 </div>
 </body>

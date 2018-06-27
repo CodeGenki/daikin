@@ -1,45 +1,40 @@
-{% extends "base.html" %}
+{% extends "loginbase.html" %}
 {% block content %}
 
 
-<head>
-    <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous">
-</head>
 <body>
-	<div class="container">
-        <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6">
+<div class="bgimg2 w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
+
+<div class="w3-display-middle w3-container w3-white w3-text-black" style="width:350px; height: 350px; border: 5px black; margin-top: 50px">
+<div class="w3-padding-32 w3-padding-large">
+  <label style="font-size:18px; text-align: center;"><b>Validate Here:</b></label>
+                <br><br>
                 <form onsubmit="return false;">
                     <div class="form-group">
                         <div>Username</div>
-                        <input id="code_username" type="text"
-                            class="form-control" placeholder="Enter username">
+                        <p><input id="code_username" type="text"
+                            class="w3-input w3-padding-16 w3-border form-control" placeholder="Enter username"></p>
                     </div>
                     <div class="form-group">
                         <div>Code</div>
-                        <input id="code_code" type="text"
-                            class="form-control" placeholder="Code">
+                        <p><input id="code_code" type="text"
+                            class="w3-input w3-padding-16 w3-border form-control" placeholder="Code"></p>
                     </div>
                     <button type="submit"
                         class="btn btn-primary btn-block"
-                        onclick="validateDEAL()">
+                        onclick="validateDEAL()" style="text-align: center;">
                         Validate
                     </button>
                 </form>
             </div>
-            <div class="col-sm-3"></div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
 
-<script src="/michael/static/amazon-cognito-identity.min.js"></script>
-<script src="/michael/static/aws-cognito-sdk.min.js"></script>
+<script src="/kristen/static/amazon-cognito-identity.min.js"></script>
+<script src="/kristen/static/aws-cognito-sdk.min.js"></script>
 <script src="{{ url_for('static', filename='appdeal.js') }}"></script>
 </body>
 

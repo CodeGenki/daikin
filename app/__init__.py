@@ -185,6 +185,12 @@ def test():
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
     table = dynamodb.Table("Customer_information")
     response = table.query(KeyConditionExpression=Key('username').eq(username))
+
+
+
+    # print("posted: " + response['Items'])
+    # return response['Items']
+
     return json.dumps(response['Items'])
 
 @app.route("/testdeal", methods=["GET", "POST"])
@@ -197,6 +203,7 @@ def testdeal():
     responseDEAL = tableDEAL.query(KeyConditionExpression=Key('username').eq(usernameDEAL))
     return json.dumps(responseDEAL['Items'])
 
+
 @app.route("/registeruser")
 def registeruser():
 
@@ -206,3 +213,4 @@ def registeruser():
 def registerdealer():
 
     return render_template("registerdealer.html")
+
