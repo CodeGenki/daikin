@@ -26,6 +26,13 @@ body, html {height: 100%}
 
 <body>
 
+{% for js_url in config.JS_INCLUDES %}
+        <script src="{{ js_url }}"></script>
+{% endfor %}
+
+
+
+
 <!-- Navbar -->
 <div class="w3-top">
   <div class="w3-bar w3-black w3-card">
@@ -44,6 +51,8 @@ body, html {height: 100%}
   <a href="#contact" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">CONTACT</a>
   <!--<a href="#" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">MERCH</a>--> 
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 
 {% block content %}{% endblock %}
 

@@ -1,6 +1,9 @@
 # config.py
 import os
 
+#YOUR USERNAME HERE
+username = "kristen"
+
 # Title of the site
 SITE_TITLE = 'Daikin Summer 2018 Intern Project'
 # The URL for static files/images
@@ -27,7 +30,6 @@ PAGES=[
     {'title':'Jenny','route':'customer'}
     ]
 
-
 # Bootstrap CSS files to include in each page included in ./app/templates/base.html
 CSS_INCLUDES=[
     'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
@@ -44,5 +46,8 @@ JS_INCLUDES=[
     'https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js',
     'https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js',
     'https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.1/jquery.form.min.js',
-    'https://s3.amazonaws.com/flasklambdalab-dev-thumbnails-a261bdec/aws-sdk-2.254.1.min.js', 
+    'https://s3.amazonaws.com/flasklambdalab-dev-thumbnails-a261bdec/aws-sdk-2.254.1.min.js',
+    '/' + username + '/static/amazon-cognito-identity.min.js',
+    '/' + username + '/static/aws-cognito-sdk.min.js',
+    'https://sdk.amazonaws.com/js/aws-sdk-2.259.1.min.js' 
     ]

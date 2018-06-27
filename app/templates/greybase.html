@@ -18,12 +18,12 @@ body, html {height: 100%}
     }   
 
 .body {
-	color: black;
+    color: black;
     height: 100%;
 }
 
 .p {
-	color:black;
+    color:black;
 }
 
 </style>
@@ -31,19 +31,19 @@ body, html {height: 100%}
 <body>
 <head>
 
-	<style>
-		html,body,h1,h2,h3,h4,h5 {font-family: "Verdana"}
-	</style> 
-	<link rel="icon" href={{config.FAV_ICON}}>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<!--<title> {{ config.SITE_TITLE }} </title>--> 
-	<!-- Include several stylesheets to improve the look and feel of our web page -->
-	{% for css_url in config.CSS_INCLUDES %}
-		<link rel="stylesheet" href="{{ css_url }}">
-	{% endfor %}
-	{% for js_url in config.JS_INCLUDES %}
-		<script src="{{ js_url }}"></script>
-	{% endfor %}
+    <style>
+        html,body,h1,h2,h3,h4,h5 {font-family: "Verdana"}
+    </style> 
+    <link rel="icon" href={{config.FAV_ICON}}>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!--<title> {{ config.SITE_TITLE }} </title>--> 
+    <!-- Include several stylesheets to improve the look and feel of our web page -->
+    {% for css_url in config.CSS_INCLUDES %}
+        <link rel="stylesheet" href="{{ css_url }}">
+    {% endfor %}
+    {% for js_url in config.JS_INCLUDES %}
+        <script src="{{ js_url }}"></script>
+    {% endfor %}
 </head>
 
 <!-- Sidebar/menu -->
@@ -71,8 +71,8 @@ body, html {height: 100%}
 
 {% block content %}{% endblock %}
 
-<script src="/michael/static/amazon-cognito-identity.min.js"></script>
-<script src="/michael/static/aws-cognito-sdk.min.js"></script>
+<script src="/kristen/static/amazon-cognito-identity.min.js"></script>
+<script src="/kristen/static/aws-cognito-sdk.min.js"></script>
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.259.1.min.js"></script>
 <script src="{{ url_for('static', filename='app.js') }}"></script>
 

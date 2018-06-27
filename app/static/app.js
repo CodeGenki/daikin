@@ -1,19 +1,18 @@
-
 var poolData = {
-	UserPoolId : 'us-east-1_2o7S9Pswl', // Your user pool id here
-	ClientId : 'kqrsickoaotsll8j4fhfahgpt' // Your client id here
+    UserPoolId : 'us-east-1_2o7S9Pswl', // Your user pool id here
+    ClientId : 'kqrsickoaotsll8j4fhfahgpt' // Your client id here
 };
 
 function signIn(){
-	var username = $('#sign_in_username').val();
-	var password = $('#sign_in_password').val();
+    var username = $('#sign_in_username').val();
+    var password = $('#sign_in_password').val();
 
-	var authenticationData = {
-		Username : username,
-		Password : password,
-	};
+    var authenticationData = {
+        Username : username,
+        Password : password,
+    };
 
-	var authenticationDetails = new  AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
+    var authenticationDetails = new  AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
     var userData = {
@@ -28,12 +27,12 @@ function signIn(){
     cognitoUser.authenticateUser(authenticationDetails, {
 
         onSuccess: function (result) {
-        	console.log('access token + ' + result.getAccessToken().getJwtToken());
-            window.location.href = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/customer";
+            console.log('access token + ' + result.getAccessToken().getJwtToken());
+            window.location.href = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen/customer";
             //test
-		}, 
-		onFailure: function(err){
-			console.log(err);
+        }, 
+        onFailure: function(err){
+            console.log(err);
             //alert(err);
             if(err.code == "InvalidParameterException"){
                 document.getElementById("noUsername").innerHTML = "Please enter a valid username.";
@@ -43,19 +42,19 @@ function signIn(){
                 document.getElementById("invalidCredentials").innerHTML = "Incorrect username or password."
                 document.getElementById("noUsername").innerHTML = "";
             }
-		}
-	});
+        }
+    });
 
 }
 
 function register(){
-	var username = $('#registration_username').val();
-	var given_name = $('#registration_given_name').val();
-	var family_name = $('#registration_family_name').val();
-	var email = $('#registration_email').val();
-	var phone_number = $('#registration_phone_number').val();
-	var address = $('#registration_address').val();	
-	var password = $('#registration_password').val();
+    var username = $('#registration_username').val();
+    var given_name = $('#registration_given_name').val();
+    var family_name = $('#registration_family_name').val();
+    var email = $('#registration_email').val();
+    var phone_number = $('#registration_phone_number').val();
+    var address = $('#registration_address').val(); 
+    var password = $('#registration_password').val();
 
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
@@ -64,40 +63,40 @@ function register(){
     var datagiven_name = {
         Name : 'given_name',
         Value : given_name
-	};
+    };
     var datafamily_name = {
         Name : 'family_name',
         Value : family_name
-	};  
+    };  
     var dataEmail = {
         Name : 'email',
         Value : email
-	};
-	var dataaddress = {
+    };
+    var dataaddress = {
         Name : 'address',
         Value : address
-	};
-	var dataphone_number = {
+    };
+    var dataphone_number = {
         Name : 'phone_number',
         Value : phone_number
-	};
+    };
     var attributegiven_name = new AmazonCognitoIdentity.CognitoUserAttribute(datagiven_name);
     var attributefamily_name = new AmazonCognitoIdentity.CognitoUserAttribute(datafamily_name);
     var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
     var attributeaddress = new AmazonCognitoIdentity.CognitoUserAttribute(dataaddress);
     var attributephone_number = new AmazonCognitoIdentity.CognitoUserAttribute(dataphone_number);
 
-	attributeList.push(attributegiven_name);
-	attributeList.push(attributefamily_name);
-	attributeList.push(attributeEmail);
-	attributeList.push(attributeaddress);
-	attributeList.push(attributephone_number);
+    attributeList.push(attributegiven_name);
+    attributeList.push(attributefamily_name);
+    attributeList.push(attributeEmail);
+    attributeList.push(attributeaddress);
+    attributeList.push(attributephone_number);
 
 
-	var cognitoUser;
-	userPool.signUp(username, password, attributeList, null, function(err, result){
+    var cognitoUser;
+    userPool.signUp(username, password, attributeList, null, function(err, result){
         if (err) {
-        	console.log(err);
+            console.log(err);
             alert(err.message);
             document.getElementById("registerError").innerHTML = err.message;
             return;
@@ -105,7 +104,7 @@ function register(){
         cognitoUser = result.user;
         console.log(result)
         console.log('user name is ' + cognitoUser.getUsername());
-        window.location.href  = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/code_validation";
+        window.location.href  = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen/code_validation";
     });
 }
 
@@ -118,16 +117,16 @@ function validate () {
     var userData = {
         Username : username,
         Pool : userPool
-	};
- 	var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    };
+    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
     cognitoUser.confirmRegistration(code, true, function(err, result) {
         if (err) {
-        	console.log(err);
+            console.log(err);
             alert(err);
             return;
         }
     console.log('call result: ' + result);
-    window.location.href = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/customer";
+    window.location.href = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen/customer";
 
 });
 }
@@ -137,9 +136,9 @@ function signOut(){
     var cognitoUser = userPool.getCurrentUser();
 
     if (cognitoUser != null){
-    	cognitoUser.signOut();
+        cognitoUser.signOut();
     }
-    window.location.href  = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/";
+    window.location.href  = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen/";
 }
 
 function setWelcome () {
@@ -183,7 +182,7 @@ function get_user(){
             console.log(cognitoUser.username);
             $.ajax({
                 type: "GET",
-                url: "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/test?param=" + cognitoUser.username,
+                url: "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen/test?param=" + cognitoUser.username,
                 success: function(data){
                     var tempInfo = JSON.parse(data); //save please
                     var userInfo = tempInfo[0];
@@ -201,4 +200,3 @@ function get_user(){
         });
     }
 }
-
