@@ -99,12 +99,37 @@ function register(){
 
 	var cognitoUser;
 	userPool.signUp(username, password, attributeList, null, function(err, result){
+        var e = false;
+        if(email.search('@') == -1)
+            document.getElementById("emailError").innerHTML = "Please enter a valid email.";
+            e = true;
+
+        if (phone_number.search('+1') == -1 || phone_number.length != 12)
+            document.getElementById("phonenumberError").innerHTML = "Please enter a valid phone number in the following format: +11234567890.";
+            e = true;
+
         if (err) {
+            // var error_string = "4 validation errors detected: Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 6; Value at 'password' failed to satisfy constraint: Member must satisfy regular expression pattern: [\\S]+; Value at 'username' failed to satisfy constraint: Member must have length greater than or equal to 1; Value at 'username' failed to satisfy constraint: Member must satisfy regular expression pattern: [\\p{L}\\p{M}\\p{S}\\p{N}\\p{P}]+";
+            if(err.code == "InvalidParameterException"){
+                var e1 = "Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 6";
+                var e2 = "Value at 'password' failed to satisfy constraint: Member must satisfy regular expression pattern: [\\S]+";
+                var e3 = "Value at 'username' failed to satisfy constraint: Member must have length greater than or equal to 1";
+                var e4 = "Value at 'username' failed to satisfy constraint: Member must satisfy regular expression pattern: [\\p{L}\\p{M}\\p{S}\\p{N}\\p{P}]+";
+                if (err.message.search(e3) != -1 || err.message.search(e4) != -1)
+                    document.getElementById("usernameError").innerHTML = "Please enter a username with length greater than 1.";
+                    e = true;               
+                else if (err.message.search(e1) != -1 || err.message.search(e2) != -1)
+                    document.getElementById("passwordError").innerHTML = "Please enter a password with length greater than 6.";
+                    e = true;
+            }
         	console.log(err);
-            alert(err.message);
-            document.getElementById("registerError").innerHTML = err.message;
-            return;
+            // alert(err.message);
+            // document.getElementById("registerError").innerHTML = err.message;
         }
+
+        if(e)
+            return;
+        
         cognitoUser = result.user;
         console.log(result)
         console.log('user name is ' + cognitoUser.getUsername());

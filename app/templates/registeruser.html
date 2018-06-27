@@ -44,6 +44,7 @@ body {font-family: "Verdana", sans-serif}
       <div class="form-group">
         <div style="text-align: left;">Username</div>
         <label><input id="registration_username" type="text" class="w3-input w3-padding-13 w3-border form-control" placeholder="Enter Username:"></label>
+        <p id="usernameError" style="color:red"></p>
     </div>
     <br>
     <div class="form-group">
@@ -58,12 +59,14 @@ body {font-family: "Verdana", sans-serif}
     <br>
     <div class="form-group">
         <div style="text-align: left;">Phone Number</div>
-        <label><input id="registration_phone_number" type="text" class="w3-input w3-padding-13 w3-border form-control" placeholder="Enter Phone Number:"></label>
+        <label><input id="registration_phone_number" type="text" class="w3-input w3-padding-13 w3-border form-control" placeholder="Enter Phone Number: +11234567890"></label>
+        <p id="phonenumberError" style="color:red"></p>
     </div> 
     <br>
     <div class="form-group">
         <div style="text-align: left;">Email Address</div>
         <label><input id="registration_email" type="text" class="w3-input w3-padding-13 w3-border form-control" placeholder="Enter Email Address:"></label>
+        <p id="emailError" style="color:red"></p>
     </div>
     <br>
     <div class="form-group">
