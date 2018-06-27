@@ -78,6 +78,16 @@ body {font-family: "Verdana", sans-serif}
         <div style="text-align: left;">Password</div>
         <label><input id="registration_password" type="password" class="w3-input w3-padding-13 w3-border form-control" placeholder="Enter Password:"></label>
         <div id="passwordError" style="color:red"></div>
+        <script type="text/javascript">
+        var pass = document.getElementById("registration_password");
+
+        pass.onkeyup = function(){
+            if(pass.value.length >= 6)
+                document.getElementById("passwordError").innerHTML = "";
+            else
+                document.getElementById("passwordError").innerHTML = "Password must have 6 or more letters";
+        }
+    </script>
     </div> 
     <br>
     <button type="submit" class="btn btn-primary btn-block" onclick="update_database(), register()" > Register </button>
