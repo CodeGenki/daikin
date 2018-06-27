@@ -1,7 +1,7 @@
 
 // var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael"
-var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen"
-//var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny"
+// var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen"
+var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny"
 
 var poolData = {
     UserPoolId : 'us-east-1_2o7S9Pswl', // Your user pool id here
@@ -98,84 +98,99 @@ function register(){
     attributeList.push(attributeaddress);
     attributeList.push(attributephone_number);
 
+    document.getElementById("givennameError").innerHTML = "";
+    document.getElementById("familynameError").innerHTML = "";
+    document.getElementById("addressError").innerHTML = "";
+    document.getElementById("emailError").innerHTML = "";
+    document.getElementById("phonenumberError").innerHTML = "";
+    document.getElementById("usernameError").innerHTML = "";
+    document.getElementById("passwordError").innerHTML = "";
+    
+    var e = false;
+    if (username.length == 0){
+        document.getElementById("usernameError").innerHTML = "Please enter a username.";
+        e = true
+    }
+    if (given_name.length == 0){
+        document.getElementById("givennameError").innerHTML = "Please enter a given name.";
+        e = true
+    }
+    if (family_name.length == 0){
+        document.getElementById("familynameError").innerHTML = "Please enter a family name.";
+        e = true
+    }
+    if (address.length == 0){
+        document.getElementById("addressError").innerHTML = "Please enter an address.";
+        e = true
+    }
+    if (phone_number.indexOf('+1') != 0 || phone_number.length != 12){
+        document.getElementById("phonenumberError").innerHTML = "Please enter a valid phone number in the following format: +11234567890.";
+        e = true;
+    }
+    if (email.indexOf('@') == -1 || email.indexOf('.') == -1){
+        document.getElementById("emailError").innerHTML = "Please enter a valid email.";
+        e = true;
+    }
+    if (password.length == 0){
+        document.getElementById("passwordError").innerHTML = "Please enter a password.";
+        e = true
+    }
 
-
-	var cognitoUser;
-	userPool.signUp(username, password, attributeList, null, function(err, result){
-        document.getElementById("givennameError").innerHTML = "";
-        document.getElementById("familynameError").innerHTML = "";
-        document.getElementById("addressError").innerHTML = "";
-        document.getElementById("emailError").innerHTML = "";
-        document.getElementById("phonenumberError").innerHTML = "";
-        document.getElementById("usernameError").innerHTML = "";
-        document.getElementById("passwordError").innerHTML = "";
-
-        var e = false;
-        if (given_name.length == 0){
-            document.getElementById("givennameError").innerHTML = "Please enter a given name.";
-            e = true
-        }
-        if (family_name.length == 0){
-            document.getElementById("familynameError").innerHTML = "Please enter a family name.";
-            e = true
-        }
-        if (address.length == 0){
-            document.getElementById("addressError").innerHTML = "Please enter an address.";
-            e = true
-        }
-        if (phone_number.indexOf('+1') != 0 || phone_number.length != 12){
-            document.getElementById("phonenumberError").innerHTML = "Please enter a valid phone number in the following format: +11234567890.";
-            e = true;
-        }
-        if (email.indexOf('@') == -1 || email.indexOf('.') == -1){
-            document.getElementById("emailError").innerHTML = "Please enter a valid email.";
-            e = true;
-        }
-        if (err) {
-            // var error_string = "4 validation errors detected: Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 6; Value at 'password' failed to satisfy constraint: Member must satisfy regular expression pattern: [\\S]+; Value at 'username' failed to satisfy constraint: Member must have length greater than or equal to 1; Value at 'username' failed to satisfy constraint: Member must satisfy regular expression pattern: [\\p{L}\\p{M}\\p{S}\\p{N}\\p{P}]+";
-            if(err.code == "InvalidParameterException"){
-                var e1 = "Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 6";
-                var e2 = "Value at 'password' failed to satisfy constraint: Member must satisfy regular expression pattern: [\\S]+";
-                var e3 = "Value at 'username' failed to satisfy constraint: Member must have length greater than or equal to 1";
-                var e4 = "Value at 'username' failed to satisfy constraint: Member must satisfy regular expression pattern: [\\p{L}\\p{M}\\p{S}\\p{N}\\p{P}]+";
-                var e5 = "Invalid phone number format."
-                var e6 = "Invalid email address format."
-                if (err.message.search(e3) != -1 || err.message.search(e4) != -1)
-                    document.getElementById("usernameError").innerHTML = "Please enter a username with length greater than 1.";
-                    e = true;               
-                if (err.message.search(e1) != -1 || err.message.search(e2) != -1)
-                    document.getElementById("passwordError").innerHTML = "Please enter a password with length greater than 6.";
-                    e = true;
-                if (err.message.search(e5) != -1)
-                    document.getElementById("phonenumberError").innerHTML = "Please enter a valid phone number in the following format: +11234567890.";
-                    e = true;
-                if (err.message.search(e6) != -1)
-                    document.getElementById("emailError").innerHTML = "Please enter a valid email.";
-                    e = true;
-            }
-            if (err.code == "UsernameExistsException"){
-                var e7 = "User already exists"
-                if (err.message.search(e7) != -1){
-                    document.getElementById("usernameError").innerHTML = e7 + ".";
-                    e = true
+    if (!e){
+    	var cognitoUser;
+    	userPool.signUp(username, password, attributeList, null, function(err, result){
+            
+            
+            if (err) {
+                // var error_string = "4 validation errors detected: Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 6; Value at 'password' failed to satisfy constraint: Member must satisfy regular expression pattern: [\\S]+; Value at 'username' failed to satisfy constraint: Member must have length greater than or equal to 1; Value at 'username' failed to satisfy constraint: Member must satisfy regular expression pattern: [\\p{L}\\p{M}\\p{S}\\p{N}\\p{P}]+";
+                if(err.code == "InvalidParameterException"){
+                    var e1 = "Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 6";
+                    var e2 = "Value at 'password' failed to satisfy constraint: Member must satisfy regular expression pattern: [\\S]+";
+                    var e3 = "Value at 'username' failed to satisfy constraint: Member must have length greater than or equal to 1";
+                    var e4 = "Value at 'username' failed to satisfy constraint: Member must satisfy regular expression pattern: [\\p{L}\\p{M}\\p{S}\\p{N}\\p{P}]+";
+                    var e5 = "Invalid phone number format."
+                    var e6 = "Invalid email address format."
+                    if (err.message.search(e3) != -1 || err.message.search(e4) != -1){
+                        document.getElementById("usernameError").innerHTML = "Please enter a username with length greater than 1.";
+                        e = true;      
+                    }         
+                    if (err.message.search(e1) != -1 || err.message.search(e2) != -1){
+                        document.getElementById("passwordError").innerHTML = "Please enter a password with length greater than 6.";
+                        e = true;
+                    }
+                    if (err.message.search(e5) != -1){
+                        document.getElementById("phonenumberError").innerHTML = "Please enter a valid phone number in the following format: +11234567890.";
+                        e = true;
+                    }
+                    if (err.message.search(e6) != -1){
+                        document.getElementById("emailError").innerHTML = "Please enter a valid email.";
+                        e = true;
+                    }
                 }
+                if (err.code == "UsernameExistsException"){
+                    var e7 = "User already exists"
+                    if (err.message.search(e7) != -1){
+                        document.getElementById("usernameError").innerHTML = e7 + ".";
+                        e = true
+                    }
+                }
+
+            	console.log(err);
+                // alert(err.message);
+                // document.getElementById("registerError").innerHTML = err.message;
             }
 
-        	console.log(err);
-            // alert(err.message);
-            // document.getElementById("registerError").innerHTML = err.message;
-        }
+            if(e)
+                return;
+            
+            cognitoUser = result.user;
+            console.log(result)
+            console.log('user name is ' + cognitoUser.getUsername());
 
-        if(e)
-            return;
-        
-        cognitoUser = result.user;
-        console.log(result)
-        console.log('user name is ' + cognitoUser.getUsername());
+            window.location.href  = url_name + "/code_validation";
 
-        window.location.href  = url_name + "/code_validation";
-
-    });
+        });
+    }
 }
 
 function validate () {
@@ -189,6 +204,7 @@ function validate () {
         Pool : userPool
     };
     var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    document.getElementById("codeError").innerHTML = "";
     cognitoUser.confirmRegistration(code, true, function(err, result) {
         if (err) {
             console.log(err);
