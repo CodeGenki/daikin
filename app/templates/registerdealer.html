@@ -12,60 +12,147 @@
       <div class="form-group">
         <div style="text-align: left;">Username</div>
         <label><input id="registration_username" type="text" class="w3-input w3-padding-10 w3-border form-control" placeholder="Enter Username:"></label>
+        <p id="usernameError" style="color:red"></p>
     </div>
     <br>
     <div class="form-group">
         <div style="text-align: left;">Given Name</div>
         <label><input id="registration_given_name" type="text" class="w3-input w3-padding-10 w3-border form-control" placeholder="Enter Given Name:"></label>
+        <p id="givennameError" style="color:red"></p>
     </div> 
     <br>
     <div class="form-group">
         <div style="text-align: left;">Family Name</div>
         <label><input id="registration_family_name" type="text" class="w3-input w3-padding-10 w3-border form-control" placeholder="Enter Family Name:"></label>
+        <p id="familynameError" style="color:red"></p>
     </div>
     <br>
     <div class="form-group">
         <div style="text-align: left;">Phone Number</div>
         <label><input id="registration_phone_number" type="text" class="w3-input w3-padding-10 w3-border form-control" placeholder="Enter Phone Number:"></label>
+        <p id="phonenumberError" style="color:red"></p>
     </div> 
     <br>
     <div class="form-group">
         <div style="text-align: left;">Email Address</div>
         <label><input id="registration_email" type="text" class="w3-input w3-padding-10 w3-border form-control" placeholder="Enter Email Address:"></label>
+        <p id="emailError" style="color:red"></p>
     </div>
     <br> 
     <div class="form-group">
         <div style="text-align: left;">Address</div>
         <label><input id="registration_address" type="text" class="w3-input w3-padding-10 w3-border form-control" placeholder="Enter Address:"></label>
+        <p id="addressError" style="color:red"></p>
     </div>  
     <br>
     <div class="form-group">
         <div style="text-align: left;">Company</div>
         <label><input id="registration_company" type="password" class="w3-input w3-padding-10 w3-border form-control" placeholder="Enter Company:"></label>
-        <div id="passwordError" style="color:red"></div>
+        <div id="companyError" style="color:red"></div>
     </div> 
     <br>
     <div class="form-group">
         <div style="text-align: left;">Password</div>
         <label><input id="registration_password" type="password" class="w3-input w3-padding-10 w3-border form-control" placeholder="Enter Password:"></label>
         <div id="passwordError" style="color:red"></div>
+    <script type="text/javascript">
+        var pass = document.getElementById("registration_password");
+
+        pass.onkeyup = function(){
+            if(pass.value.length >= 6)
+                document.getElementById("passwordError").innerHTML = "";
+            else
+                document.getElementById("passwordError").innerHTML = "Password must have 6 or more letters";
+        }
+    </script>
     </div> 
-    <br>
-    <button type="submit" class="btn btn-primary btn-block" onclick="update_database(), register()" > Register </button>
+    <br><br>
+    <button type="submit" class="btn btn-primary btn-block" onclick="registerDEAL()" > Register </button>
     <div style="color:red;" id="registerError"></div>
     </form> 
     </div>
   </div>
 
-<script src="{{ url_for('static', filename='app.js') }}"></script>
+<script src="{{ url_for('static', filename='appdeal.js') }}"></script>
 
 </div>
 </div>
+<script>
+      // This example displays an address form, using the autocomplete feature
+      // of the Google Places API to help users fill in the information.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+      var placeSearch, autocomplete;
+      var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'short_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+      };
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('registration_address')),
+            {types: ['geocode']});
+
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete.addListener('place_changed', fillInAddress);
+      }
+
+      function fillInAddress() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
+
+        for (var component in componentForm) {
+          document.getElementById(component).value = '';
+          document.getElementById(component).disabled = false;
+        }
+
+        // Get each component of the address from the place details
+        // and fill the corresponding field on the form.
+        for (var i = 0; i < place.address_components.length; i++) {
+          var addressType = place.address_components[i].types[0];
+          if (componentForm[addressType]) {
+            var val = place.address_components[i][componentForm[addressType]];
+            document.getElementById(addressType).value = val;
+          }
+        }
+      }
+
+      // Bias the autocomplete object to the user's geographical location,
+      // as supplied by the browser's 'navigator.geolocation' object.
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&libraries=places&callback=initAutocomplete"
+        async defer></script>
+
 {% for js_url in config.JS_INCLUDES %}
     <script src="{{ js_url }}"></script>
 {% endfor %}
 <script src="{{ url_for('static', filename='appdeal.js') }}"></script>
 </body>
-
+</html>
 
 {% endblock %} 
