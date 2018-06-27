@@ -27,10 +27,13 @@ function signInDEAL(){
     var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
     
     console.log(cognitoUser);
-
+    document.getElementById("noUsername").innerHTML = "";
+    document.getElementById("invalidCredentials").innerHTML = "";
     cognitoUser.authenticateUser(authenticationDetails, {
+        
         onSuccess: function (result) {
-        	console.log('access token + ' + result.getAccessToken().getJwtToken());
+        	
+            console.log('access token + ' + result.getAccessToken().getJwtToken());
             window.location.href = url_name + "/vendor";
             //test
 		}, 
@@ -39,11 +42,9 @@ function signInDEAL(){
             //alert(err);
             if(err.code == "InvalidParameterException"){
                 document.getElementById("noUsername").innerHTML = "Please enter a valid username.";
-                document.getElementById("invalidCredentials").innerHTML = "";
             }
-            else if(err.code == "NotAuthorizedException" || err.code == "UserNotFoundException"){
+            else if(err.code == "NotAuthorizedException" || err.code == "UserNotFoundException" || err.code == "UserNotConfirmedException"){
                 document.getElementById("invalidCredentials").innerHTML = "Incorrect username or password."
-                document.getElementById("noUsername").innerHTML = "";
             }
         }
 	});
@@ -103,27 +104,102 @@ function registerDEAL(){
 	attributeList.push(attributephone_number);
     attributeList.push(attributecompany);
 
+    document.getElementById("givennameError").innerHTML = "";
+    document.getElementById("familynameError").innerHTML = "";
+    document.getElementById("addressError").innerHTML = "";
+    document.getElementById("emailError").innerHTML = "";
+    document.getElementById("phonenumberError").innerHTML = "";
+    document.getElementById("usernameError").innerHTML = "";
+    document.getElementById("companyError").innerHTML = "";
+    document.getElementById("passwordError").innerHTML = "";
 
-	var cognitoUser;
-	userPool.signUp(username, password, attributeList, null, function(err, result){
-        if (err) {
-        	console.log(err);
-            alert(err);
-            return;
-        }
-    	cognitoUser = result.user;
-        console.log('user name is ' + cognitoUser.getUsername());
-        window.location.href  = url_name + "/code_validation_dealer";
+    var e = false;
+    if (username.length == 0){
+        document.getElementById("usernameError").innerHTML = "Please enter a username.";
+        e = true
+    }
+    if (given_name.length == 0){
+        document.getElementById("givennameError").innerHTML = "Please enter a given name.";
+        e = true
+    }
+    if (family_name.length == 0){
+        document.getElementById("familynameError").innerHTML = "Please enter a family name.";
+        e = true
+    }
+    if (address.length == 0){
+        document.getElementById("addressError").innerHTML = "Please enter an address.";
+        e = true
+    }
+    if (phone_number.indexOf('+1') != 0 || phone_number.length != 12){
+        document.getElementById("phonenumberError").innerHTML = "Please enter a valid phone number in the following format: +11234567890.";
+        e = true;
+    }
+    if (email.indexOf('@') == -1 || email.indexOf('.') == -1){
+        document.getElementById("emailError").innerHTML = "Please enter a valid email.";
+        e = true;
+    }
+    if (company.length == 0){
+        document.getElementById("companyError").innerHTML = "Please enter a company name.";
+        e = true
+    }
+    if (password.length == 0){
+        document.getElementById("passwordError").innerHTML = "Please enter a password.";
+        e = true
+    }
 
-});
+    if (!e){
+    	var cognitoUser;
+    	userPool.signUp(username, password, attributeList, null, function(err, result){
+            if (err) {
+                if(err.code == "InvalidParameterException"){
+                    var e1 = "Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 6";
+                    var e2 = "Value at 'password' failed to satisfy constraint: Member must satisfy regular expression pattern: [\\S]+";
+                    var e3 = "Value at 'username' failed to satisfy constraint: Member must have length greater than or equal to 1";
+                    var e4 = "Value at 'username' failed to satisfy constraint: Member must satisfy regular expression pattern: [\\p{L}\\p{M}\\p{S}\\p{N}\\p{P}]+";
+                    var e5 = "Invalid phone number format."
+                    var e6 = "Invalid email address format."
+                    if (err.message.search(e3) != -1 || err.message.search(e4) != -1){
+                        document.getElementById("usernameError").innerHTML = "Please enter a username with length greater than 1.";
+                        e = true;      
+                    }         
+                    if (err.message.search(e1) != -1 || err.message.search(e2) != -1){
+                        document.getElementById("passwordError").innerHTML = "Please enter a password with length greater than 6.";
+                        e = true;
+                    }
+                    if (err.message.search(e5) != -1){
+                        document.getElementById("phonenumberError").innerHTML = "Please enter a valid phone number in the following format: +11234567890.";
+                        e = true;
+                    }
+                    if (err.message.search(e6) != -1){
+                        document.getElementById("emailError").innerHTML = "Please enter a valid email.";
+                        e = true;
+                    }
+                }
+                if (err.code == "UsernameExistsException"){
+                    var e7 = "User already exists"
+                    if (err.message.search(e7) != -1){
+                        document.getElementById("usernameError").innerHTML = e7 + ".";
+                        e = true
+                    }
+                }
+
+                console.log(err);	
+            }
+
+            if(e)
+                return;
+
+        	cognitoUser = result.user;
+            console.log('user name is ' + cognitoUser.getUsername());
+            window.location.href  = url_name + "/code_validation_dealer";
+
+        });
+    }
 }
 
 function validateDEAL() {
     var username = $('#code_username').val();
     var code = $('#code_code').val();
-
-	console.log(username);
-	console.log(code);
 
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
 
@@ -132,12 +208,17 @@ function validateDEAL() {
         Pool : userPool
 	};
  	var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    document.getElementById("codeError").innerHTML = "";
     cognitoUser.confirmRegistration(code, true, function(err, result) {
         if (err) {
-            alert(err);
+            console.log(err);
+            document.getElementById("codeError").innerHTML = "Invalid username or code";
+
+            // alert(err);
             return;
         }
     console.log('call result: ' + result);
+
     window.location.href = url_name + "/vendor";
 
 });
