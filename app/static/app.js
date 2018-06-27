@@ -100,12 +100,21 @@ function register(){
 	var cognitoUser;
 	userPool.signUp(username, password, attributeList, null, function(err, result){
         var e = false;
-        if(email.search('@') == -1)
-            document.getElementById("emailError").innerHTML = "Please enter a valid email.";
+        if (given_name.length == 0)
+            document.getElementById("givennameError").innerHTML = "Please enter a valid phone number in the following format: +11234567890.";
+            e = true
+        if (family_name.length == 0)
+            document.getElementById("familynameError").innerHTML = "Please enter a valid phone number in the following format: +11234567890.";
+            e = true
+        if (address.length == 0)
+            document.getElementById("addressError").innerHTML = "Please enter a valid phone number in the following format: +11234567890.";
+            e = true
+        if (phone_number.indexOf('+1') != 0 || phone_number.length != 12)
+            document.getElementById("phonenumberError").innerHTML = "Please enter a valid phone number in the following format: +11234567890.";
             e = true;
 
-        if (phone_number.search('+1') == -1 || phone_number.length != 12)
-            document.getElementById("phonenumberError").innerHTML = "Please enter a valid phone number in the following format: +11234567890.";
+        if (email.search('@') == -1)
+            document.getElementById("emailError").innerHTML = "Please enter a valid email.";
             e = true;
 
         if (err) {
@@ -118,7 +127,7 @@ function register(){
                 if (err.message.search(e3) != -1 || err.message.search(e4) != -1)
                     document.getElementById("usernameError").innerHTML = "Please enter a username with length greater than 1.";
                     e = true;               
-                else if (err.message.search(e1) != -1 || err.message.search(e2) != -1)
+                if (err.message.search(e1) != -1 || err.message.search(e2) != -1)
                     document.getElementById("passwordError").innerHTML = "Please enter a password with length greater than 6.";
                     e = true;
             }
