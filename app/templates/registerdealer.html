@@ -93,5 +93,6 @@ body {font-family: "Verdana", sans-serif}
 {% for js_url in config.JS_INCLUDES %}
     <script src="{{ js_url }}"></script>
 {% endfor %}
+<script src="{{ url_for('static', filename='appdeal.js') }}"></script>
 </body>
 </html>
