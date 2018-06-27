@@ -28,9 +28,10 @@ function signIn(){
     var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
     
     console.log(cognitoUser);
-
+    document.getElementById("noUsername").innerHTML = "";
+    document.getElementById("invalidCredentials").innerHTML = "";
     cognitoUser.authenticateUser(authenticationDetails, {
-
+        
         onSuccess: function (result) {
 
         	console.log('access token + ' + result.getAccessToken().getJwtToken());
@@ -42,12 +43,11 @@ function signIn(){
             //alert(err);
             if(err.code == "InvalidParameterException"){
                 document.getElementById("noUsername").innerHTML = "Please enter a valid username.";
-                document.getElementById("invalidCredentials").innerHTML = "";
             }
-            else if(err.code == "NotAuthorizedException" || err.code == "UserNotFoundException"){
+            else if(err.code == "NotAuthorizedException" || err.code == "UserNotFoundException" || err.code == "UserNotConfirmedException"){
                 document.getElementById("invalidCredentials").innerHTML = "Incorrect username or password."
-                document.getElementById("noUsername").innerHTML = "";
             }
+
         }
     });
 
