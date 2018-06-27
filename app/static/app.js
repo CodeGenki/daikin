@@ -110,8 +110,6 @@ function register(){
         document.getElementById("usernameError").innerHTML = "";
         document.getElementById("passwordError").innerHTML = "";
 
-        console.log(username);
-
         var e = false;
         if (given_name.length == 0){
             document.getElementById("givennameError").innerHTML = "Please enter a given name.";
@@ -166,8 +164,6 @@ function register(){
         	console.log(err);
             // alert(err.message);
             // document.getElementById("registerError").innerHTML = err.message;
-           
-
         }
 
         if(e)
@@ -196,7 +192,9 @@ function validate () {
     cognitoUser.confirmRegistration(code, true, function(err, result) {
         if (err) {
             console.log(err);
-            alert(err);
+            document.getElementById("codeError").innerHTML = "Invalid username or code";
+
+            // alert(err);
             return;
         }
     console.log('call result: ' + result);
