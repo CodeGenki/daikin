@@ -99,15 +99,24 @@ function register(){
 
 	var cognitoUser;
 	userPool.signUp(username, password, attributeList, null, function(err, result){
+        document.getElementById("givennameError").innerHTML = "";
+        document.getElementById("familynameError").innerHTML = "";
+        document.getElementById("addressError").innerHTML = "";
+        document.getElementById("emailError").innerHTML = "";
+        document.getElementById("phonenumberError").innerHTML = "";
+        document.getElementById("usernameError").innerHTML = "";
+        document.getElementById("passwordError").innerHTML = "";
+
+
         var e = false;
         if (given_name.length == 0)
-            document.getElementById("givennameError").innerHTML = "Please enter a valid phone number in the following format: +11234567890.";
+            document.getElementById("givennameError").innerHTML = "Please enter a given name.";
             e = true
         if (family_name.length == 0)
-            document.getElementById("familynameError").innerHTML = "Please enter a valid phone number in the following format: +11234567890.";
+            document.getElementById("familynameError").innerHTML = "Please enter a family name.";
             e = true
         if (address.length == 0)
-            document.getElementById("addressError").innerHTML = "Please enter a valid phone number in the following format: +11234567890.";
+            document.getElementById("addressError").innerHTML = "Please enter an address.";
             e = true
         if (phone_number.indexOf('+1') != 0 || phone_number.length != 12)
             document.getElementById("phonenumberError").innerHTML = "Please enter a valid phone number in the following format: +11234567890.";
