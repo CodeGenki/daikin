@@ -27,12 +27,21 @@
   </div>
 </div>
 
+</div>
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
+<!--
+<script src="/michael/static/amazon-cognito-identity.min.js"></script>
+<script src="/michael/static/aws-cognito-sdk.min.js"></script>
+>>>>>>> 5ed46cc430e31a5529b0c6b0c86359860afeb219
+
 <script src="/kristen/static/amazon-cognito-identity.min.js"></script>
 <script src="/kristen/static/aws-cognito-sdk.min.js"></script>
 <script src="{{ url_for('static', filename='appdeal.js') }}"></script></body>
  
 </body>
 </html>
-
+-->
 {% endblock %} 
 

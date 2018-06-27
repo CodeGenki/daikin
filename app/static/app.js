@@ -1,3 +1,8 @@
+
+// var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael"
+var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen"
+//var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny"
+
 var poolData = {
     UserPoolId : 'us-east-1_2o7S9Pswl', // Your user pool id here
     ClientId : 'kqrsickoaotsll8j4fhfahgpt' // Your client id here
@@ -27,8 +32,9 @@ function signIn(){
     cognitoUser.authenticateUser(authenticationDetails, {
 
         onSuccess: function (result) {
-            console.log('access token + ' + result.getAccessToken().getJwtToken());
-            window.location.href = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen/customer";
+
+        	console.log('access token + ' + result.getAccessToken().getJwtToken());
+            window.location.href = url_name + "/customer";
             //test
         }, 
         onFailure: function(err){
@@ -104,7 +110,9 @@ function register(){
         cognitoUser = result.user;
         console.log(result)
         console.log('user name is ' + cognitoUser.getUsername());
-        window.location.href  = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen/code_validation";
+
+        window.location.href  = url_name + "/code_validation";
+
     });
 }
 
@@ -126,7 +134,8 @@ function validate () {
             return;
         }
     console.log('call result: ' + result);
-    window.location.href = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen/customer";
+
+    window.location.href = url_name + "/customer";
 
 });
 }
@@ -138,7 +147,8 @@ function signOut(){
     if (cognitoUser != null){
         cognitoUser.signOut();
     }
-    window.location.href  = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen/";
+    window.location.href  = url_name + "/";
+
 }
 
 function setWelcome () {
@@ -182,7 +192,9 @@ function get_user(){
             console.log(cognitoUser.username);
             $.ajax({
                 type: "GET",
-                url: "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen/test?param=" + cognitoUser.username,
+
+                url: url_name + "/test?param=" + cognitoUser.username,
+
                 success: function(data){
                     var tempInfo = JSON.parse(data); //save please
                     var userInfo = tempInfo[0];

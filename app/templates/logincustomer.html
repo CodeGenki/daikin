@@ -27,6 +27,12 @@
   </div>
 </div>
 
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
+</body>
+</html>
+
 
 <script src="/kristen/static/amazon-cognito-identity.min.js"></script>
 <script src="/kristen/static/aws-cognito-sdk.min.js"></script>

@@ -1,3 +1,6 @@
+// var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael"
+// var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen"
+var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny"
 
 var poolDataDEAL = {
 	UserPoolId : 'us-east-1_QFcNXf7g8', // Your user pool id here
@@ -28,7 +31,7 @@ function signInDEAL(){
     cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
         	console.log('access token + ' + result.getAccessToken().getJwtToken());
-            window.location.href = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/vendor";
+            window.location.href = url_name + "/vendor";
             //test
 		}, 
 		onFailure: function(err){
@@ -102,7 +105,7 @@ function registerDEAL(){
         }
     	cognitoUser = result.user;
         console.log('user name is ' + cognitoUser.getUsername());
-        window.location.href  = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/code_validation_dealer";
+        window.location.href  = url_name + "/code_validation_dealer";
 
 });
 }
@@ -127,7 +130,7 @@ function validateDEAL() {
             return;
         }
     console.log('call result: ' + result);
-    window.location.href = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/vendor";
+    window.location.href = url_name + "/vendor";
 
 });
 }
@@ -139,7 +142,7 @@ function signOutDEAL(){
     if (cognitoUser != null){
     	cognitoUser.signOut();
     }
-    window.location.href  = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/";
+    window.location.href  = url_name + "/";
 }
 
 function setWelcomeDEAL() {
@@ -178,7 +181,7 @@ function get_userDEAL(){
             console.log(cognitoUser.username);
             $.ajax({
                 type: "GET",
-                url: "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/testdeal?param=" + cognitoUser.username,
+                url: url_name + "/testdeal?param=" + cognitoUser.username,
                 success: function(data){
                     var tempInfoDEAL = JSON.parse(data); //save please
                     var userInfoDEAL = tempInfoDEAL[0];

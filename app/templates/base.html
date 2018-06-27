@@ -66,5 +66,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Verdana"}
 <script src="{{ url_for('static', filename='appdeal.js') }}"></script>
 
 </div>
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
 </body>
 </html>
