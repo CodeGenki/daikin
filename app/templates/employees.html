@@ -1,11 +1,6 @@
 {% extends "hvacbase.html" %}
 {% block content %}
 
-
-<!DOCTYPE html>
-<html>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <style></style> -->
 <style>
 #employees {
     border-collapse: collapse;
@@ -17,7 +12,7 @@
     padding: 10px;
 }
 
-#employees tr:nth-child(even){background-color: #f2f2f2;}
+#employees tr:{background-color: white}
 
 #employees tr:hover {background-color: #ddd;}
 
@@ -28,21 +23,33 @@
     background-color: lightsteelblue;
     color: black;
 }
+
+.bgimge {
+
+    background-image: url('https://static1.squarespace.com/static/59b8998a197aea4b21ae7c5f/t/59f78cf82774d142a1e3a345/1509395757873/Cora+%281%29.jpg?format=750w');
+    min-height: 100%;
+    background-position: center;
+    background-size: 100% 100% ;
+    color: black;    
+
+}
+
+
 </style>
 
 <body>
-
+<div class="bgimge w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
 <div class="w3-main" style="margin-left:300px;">
 
     <header class="w3-container" style="padding-top:86px">
-      <h5 style="color:black;text-align: center;"><b>Employees</b></h5>
+      <h5 style="color:steelblue;text-align: center;"><b>Employees</b></h5>
     </header>
 
 	<hr>
 
-	<div class="w3-half w3-container" style="padding-top:10px; text-align: center">
+	<div class="w3-half w3-container" style="padding-top:13px; text-align: center">
 
-<div id="map" style="width:90%; height:40%;"></div>
+<div id="map" style="width:90%; height:40%; color: black;"></div>
       <script>
         var map, infoWindow;
         // , locations, count, marker;
@@ -91,33 +98,33 @@
 
     </script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDffQOjP_RhBsNrSYUyqaQ5_xow6DnZHpc&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&callback=initMap">
     </script>
   </div>
 
 
-	<div class="w3-half w3-container" style="padding-top:10px; text-align: center">
+	<div class="w3-half w3-container" style="padding-top:13px; text-align: center">
 
 		<table id="employees">
-		  <tr>
+		  <tr style="background-color: lightsteelblue">
 		    <th>Number</th>
 		    <th>Name</th>
 		    <th>Email</th>
 		    <th>Phone Number</th>
 		  </tr>
-		  <tr>
+		  <tr style="background-color: white">
 		    <td>1</td>
 		    <td>Post Malone</td>
 		    <td>xxxxxxx</td>
 		    <td>xxxxxxx</td>
 		  </tr>
-		  <tr>
+		  <tr style="background-color: white">
 		    <td>2</td>
 		    <td>Jay Z</td>
 		    <td>xxxxxxx</td>
 		    <td>xxxxxxx</td>
 		  </tr>
-		  <tr>
+		  <tr style="background-color: white">
 		    <td>3</td>
 		    <td>Kendrick Lamar</td>
 		    <td>xxxxxxx</td>
@@ -127,7 +134,7 @@
 	</div>
 
 </div>
+</div>
 </body>
-</html>
 
 {% endblock %}
