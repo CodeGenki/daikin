@@ -290,7 +290,6 @@ function get_user(){
         });
     }
 }
-
 function get_unit(){
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
     var cognitoUser = userPool.getCurrentUser();

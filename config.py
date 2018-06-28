@@ -3,6 +3,7 @@ import os
 
 #YOUR USERNAME HERE
 username = "jenny"
+url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny"
 
 # Title of the site
 SITE_TITLE = 'Daikin Summer 2018 Intern Project'

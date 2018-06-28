@@ -74,25 +74,28 @@
   <body>
     <div id="map"></div>
     <script>
-      var map, infoWindow;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
+       function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 35.397, lng: -95.644},
           zoom: 15
         });
-        infoWindow = new google.maps.InfoWindow;
-
+        //infoWindow = new google.maps.InfoWindow;
+        var newaddress = {lat : 35, long : 95};
+        var geocoder = new google.maps.Geocoder();
+        var testaddress ="1001 Bissonnet St, Houston, TX 77005";
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
+            var pos = { // users current location 
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
-            infoWindow.open(map);
+            setinfowindow(pos);
+            addmarker(pos);
             map.setCenter(pos);
+            //newaddress = new getcoordinates(geocoder, map, testaddress);
+            //console.log(getcoordinates(geocoder, map, testaddress).lat + ", " + getcoordinates(geocoder, map, testaddress).long + "outside");
+            addmarker(new getcoordinates(geocoder, map, testaddress));
+            map.setCenter(new getcoordinates(geocoder, map, testaddress));
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });
@@ -101,6 +104,7 @@
         }
       }
 
+
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
         infoWindow.setContent(browserHasGeolocation ?
@@ -108,8 +112,20 @@
                               'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
       }
+      function addmarker(position){
+        var marker = new google.maps.Marker({
+          position:position,
+          setMap:map,
+        });
+      }
+      function setinfowindow(position){
+        var infoWindow = new google.maps.InfoWindow;
+        infoWindow.setPosition(position);
+        infoWindow.setContent('You are here.');
+        infoWindow.open(map);
+      }
     </script>
-    <script async defer
+    <script 
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&callback=initMap">
     </script>
 
@@ -120,6 +136,7 @@
     <script src="/jenny/static/amazon-cognito-identity.min.js"></script>
     <script src="/jenny/static/aws-cognito-sdk.min.js"></script>
     <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script src="{{ url_for('static', filename='maphelper.js') }}"></script>
 
     <script>
         $(window).ready(setWelcome);
