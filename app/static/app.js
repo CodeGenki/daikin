@@ -271,7 +271,7 @@ function get_user(){
             $.ajax({
                 type: "GET",
 
-                url: url_name + "/test?param=" + cognitoUser.username,
+                url: url_name + "/test?ci=" + cognitoUser.username,
 
                 success: function(data){
                     var tempInfo = JSON.parse(data); //save please
@@ -282,6 +282,41 @@ function get_user(){
                     document.getElementById("given_namekey").innerHTML = userInfo.given_name;
                     document.getElementById("addresskey").innerHTML = userInfo.address;
                     document.getElementById("emailkey").innerHTML = userInfo.email;
+                },
+                data: cognitoUser.username
+            }).done(function( o ) {
+                console.log("Sent request to python file");
+            });
+        });
+    }
+}
+
+function get_unit(){
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    var cognitoUser = userPool.getCurrentUser();
+
+    if(cognitoUser != null){
+        cognitoUser.getSession(function(err, session) {
+            if(err){
+                alert(err);
+                return;
+            }
+
+            console.log('session validity: ' + session.isValid());
+            console.log(cognitoUser.username);
+            $.ajax({
+                type: "GET",
+
+                url: url_name + "/test?c=" + cognitoUser.username,
+
+                success: function(data){
+                    var tempInfo = JSON.parse(data); //save please
+                    var userInfo = tempInfo[0];
+                    document.getElementById("username").innerHTML = userInfo.username;
+                    document.getElementById("refrigerant").innerHTML = Math.round((1 - userInfo.refrigerantleak + 0.005) * 100) / 100;
+                    document.getElementById("unitstatus").innerHTML = userInfo.unithealth;
+                    document.getElementById("location").innerHTML = userInfo.location;
+                    document.getElementById("company").innerHTML = userInfo.company;
                 },
                 data: cognitoUser.username
             }).done(function( o ) {

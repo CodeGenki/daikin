@@ -181,9 +181,20 @@ def hvacaccount():
 def test():
     #if request.method == "POST":
     global username
-    username = request.args.get('param', '')
+    tablenames = ["Customer_information", "customer"]
+
+    if request.args.get('ci', '') != null:
+        username = request.args.get('ci', '')
+        tablename = tablenames[0]
+    
+    elif request.args.get('c','') != null:
+        username = request.args.get('c','')
+        tablename = tablenames[1]
+
+    # username = request.args.get('param', '')
+    # tablename = request.args.get('table','')
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
-    table = dynamodb.Table("Customer_information")
+    table = dynamodb.Table(tablename)
     response = table.query(KeyConditionExpression=Key('username').eq(username))
 
 
