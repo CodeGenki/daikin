@@ -183,11 +183,11 @@ def test():
     global username
     tablenames = ["Customer_information", "customer"]
 
-    if request.args.get('ci', '') != null:
+    if request.args.get('ci', '') is not None:
         username = request.args.get('ci', '')
         tablename = tablenames[0]
     
-    elif request.args.get('c','') != null:
+    elif request.args.get('c','') is not None:
         username = request.args.get('c','')
         tablename = tablenames[1]
 
@@ -201,7 +201,7 @@ def test():
 
     # print("posted: " + response['Items'])
     # return response['Items']
-
+    print(json.dumps(response['Items']))
     return json.dumps(response['Items'])
 
 @app.route("/testdeal", methods=["GET", "POST"])

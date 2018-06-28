@@ -92,10 +92,10 @@
             setinfowindow(pos);
             addmarker(pos);
             map.setCenter(pos);
-            //newaddress = new getcoordinates(geocoder, map, testaddress);
+            newaddress = new getcoordinates(geocoder, map, testaddress);
             //console.log(getcoordinates(geocoder, map, testaddress).lat + ", " + getcoordinates(geocoder, map, testaddress).long + "outside");
-            addmarker(new getcoordinates(geocoder, map, testaddress));
-            map.setCenter(new getcoordinates(geocoder, map, testaddress));
+            //addmarker(getcoordinates(geocoder, map, testaddress));
+            //map.setCenter(getcoordinates(geocoder, map, testaddress));
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });
