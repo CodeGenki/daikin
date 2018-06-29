@@ -182,15 +182,20 @@ def test():
     #if request.method == "POST":
     global username
     tablenames = ["Customer_information", "customer"]
+    ci = str(request.args.get('ci', ''))
+    c = str(request.args.get('c',''))
+    print("@" +str(request.args.get('c', '')) + "@")
 
-    if request.args.get('ci', '') is not None:
-        username = str(request.args.get('ci', ''))
+
+    if  ci != "":
+        username = str(ci)
         tablename = tablenames[0]
     
-    elif request.args.get('c','') is not None:
-        username = str(request.args.get('c',''))
+    elif c != "":
+        username = str(c)
         tablename = tablenames[1]
 
+    print("username is:@" + username + "@")
     # username = request.args.get('param', '')
     # tablename = request.args.get('table','')
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')

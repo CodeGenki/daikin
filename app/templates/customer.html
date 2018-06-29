@@ -94,9 +94,6 @@ body, html {height: 100%}
   </div>
 </div>
 
-<script src="{{ url_for('static', filename='app.js') }}"></script>
-
-
 </body>
 <script>
 // Close the sidebar with the close button
@@ -110,6 +107,7 @@ function w3_close() {
 <script src="/michael/static/aws-cognito-sdk.min.js"></script>
 <script src="{{ url_for('static', filename='app.js') }}"></script>
 -->
+<script src="{{ url_for('static', filename='app.js') }}"></script>
 {% for js_url in config.JS_INCLUDES %}
     <script src="{{ js_url }}"></script>
 {% endfor %} 
