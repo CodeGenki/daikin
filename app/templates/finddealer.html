@@ -57,7 +57,9 @@
     <br>
       <div id="map" style="width:100%; height:100%; color: black"></div>
       <script>
-        var map, infoWindow, locations, count, marker;
+        var locations;
+        var map, infoWindow, count, marker;
+
         function initMap() {
           map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 35.397, lng: -95.644},
@@ -65,7 +67,7 @@
           });
           infoWindow = new google.maps.InfoWindow;
 
-          get_employees()
+          get_employees();
           // locations = [
           //         ['a', 29.698255, -95.491095, 0],
           //   ['a', 29.938908, -95.399725, 1],
@@ -120,6 +122,47 @@
                                 'Error: Your browser doesn\'t support geolocation.');
           infoWindow.open(map);
         }
+
+        function get_employees(){
+          var poolData = {
+              UserPoolId : 'us-east-1_2o7S9Pswl', // Your user pool id here
+              ClientId : 'kqrsickoaotsll8j4fhfahgpt' // Your client id here
+          };
+          // var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael";
+          // var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen";
+          var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
+          var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+          var cognitoUser = userPool.getCurrentUser();
+
+          if(cognitoUser !== null){
+              cognitoUser.getSession(function(err, session) {
+                  if(err){
+                      alert(err);
+                      return;
+                  }
+
+                  console.log('session validity: ' + session.isValid());
+                  console.log(cognitoUser.username);
+                  $.ajax({
+                      type: "GET",
+
+                      url: url_name + "/test?e=" + cognitoUser.username,
+
+                      success: function(data){
+                          var tempInfo = JSON.parse(data); //save please
+                          for(var i = 0, size = tempInfo.length; i < size ; i++){
+                             var item = tempInfo[i];
+                             var l = item['location'].split(', ');
+                             locations.push(['a',parseFloat(l[0]),parseFloat(l[1]),item['employeename']]);                       
+                          } 
+                      },
+                      data: cognitoUser.username
+                  }).done(function( o ) {
+                      console.log("Sent request to python file");
+                  });
+              });
+          }
+      }
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&callback=initMap">
