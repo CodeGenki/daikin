@@ -182,11 +182,12 @@ def test():
     #if request.method == "POST":
     global key
     
-    tablenames = ["Customer_information", "customer", "ErrorCode"]
-    keynames = ["username","username","E"]
+    tablenames = ["Customer_information", "customer", "ErrorCode","employees"]
+    keynames = ["username","username","E","company"]
     ci = str(request.args.get('ci', ''))
     c = str(request.args.get('c',''))
     ec = str(request.args.get('ec',''))
+    e = str(request.args.get('e',''))
     print("@" +str(request.args.get('c', '')) + "@")
 
 
@@ -205,6 +206,11 @@ def test():
         key = "E"
         tablename = tablenames[2]
         keyname = keynames[2]
+
+    elif e != "":
+        key = "McCann Services Inc."
+        tablename = tablenames[3]
+        keyname = keynames[3]
 
     print("username is:@" + key + "@")
     # username = request.args.get('param', '')

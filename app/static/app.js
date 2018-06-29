@@ -313,7 +313,7 @@ function parseError(){
                 type: "GET",
 
                 url: url_name + "/test?ec=" + cognitoUser.username,
-
+                async: false,
                 success: function(data){
                     var tempInfo = JSON.parse(data); //save please
                     
@@ -517,6 +517,42 @@ function get_unit(){
                 //     document.getElementById("location").innerHTML = userInfo.location;
                 //     document.getElementById("company").innerHTML = userInfo.company;
                 },
+                data: cognitoUser.username
+            }).done(function( o ) {
+                console.log("Sent request to python file");
+            });
+        });
+    }
+}
+
+function get_employees(){
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    var cognitoUser = userPool.getCurrentUser();
+
+    if(cognitoUser != null){
+        cognitoUser.getSession(function(err, session) {
+            if(err){
+                alert(err);
+                return;
+            }
+
+            console.log('session validity: ' + session.isValid());
+            console.log(cognitoUser.username);
+            $.ajax({
+                type: "GET",
+
+                url: url_name + "/test?e=" + cognitoUser.username,
+
+                success: function(data){
+                    var tempInfo = JSON.parse(data); //save please
+
+                    for(var i = 0, size = tempInfo.length; i < size ; i++){
+                       var item = tempInfo[i];
+                       l = item['location'].split(', ');
+                       locations.push(['a',l[0],l[1],item['employeename']]);                       
+                    } 
+                }
+          
                 data: cognitoUser.username
             }).done(function( o ) {
                 console.log("Sent request to python file");
