@@ -1,7 +1,7 @@
 {% extends "greybase.html" %}
 {% block content %}
 
-<body onload="get_unit()">>
+<body onload="get_unit(); parseError()">>
 <style>
   header > h5 { display: inline-block; }
   header span { margin-left: 20px; color: black; }
@@ -41,7 +41,7 @@
       </div>
       <br>
       <p style="color: steelblue; text-align: center;"><b> Errors:</b></p>
-      <p style="color: black">Error <strong id="errorcode1"></strong>:<strong id="t"></strong></p>
+      <p style="color: black">Error <strong id="errorcode1"></strong>:</p>
       <p style="color: black">Error <strong id="errorcode2"></strong>:</p>
       <p style="color: black">Error <strong id="errorcode3"></strong>:</p>
       <p style="color: black">Error <strong id="errorcode4"></strong>:</p>
@@ -56,7 +56,7 @@
         <table id="updateT">
           <tr>
             <td>Your Unit was last visited on 7/21/2016. Maintenance needed soon. </td>
-            <td><i>Time Stamp</i></td>
+            <td><i><strong id="t"></strong></i></td>
           </tr>
           <tr>
             <td>Daikin released a new AC Unit! Check it out. </td>
