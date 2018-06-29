@@ -316,14 +316,14 @@ function parseError(){
 
                 success: function(data){
                     var tempInfo = JSON.parse(data); //save please
-                    var userInfo = tempInfo[0];
                     
                     document.getElementById("des1").innerHTML = "N/A";
                     document.getElementById("des2").innerHTML = "N/A";
                     document.getElementById("des3").innerHTML = "N/A";
                     document.getElementById("des4").innerHTML = "N/A";
-
+                    var i = -1;
                     if (e1 != "None") {
+
                         if (isNaN(parseInt(e1))){
                             if (e1 == "b0"){
                                 i = 33;
@@ -353,8 +353,8 @@ function parseError(){
                         else {
                             i = parseInt(e1) - 11;
                         }
-
-                        document.getElementById("des1").innerHTML = userInfo[i][('Descriptions'];
+                        console.log("e1 index" + i)
+                        document.getElementById("des1").innerHTML = tempInfo[i]['Descriptions'];
 
                     }
 
@@ -388,8 +388,8 @@ function parseError(){
                         else {
                             i = parseInt(e2) - 11;
                         }
-
-                        document.getElementById("des2").innerHTML = userInfo[i][('Descriptions'];
+                        console.log("e2 index" + i)
+                        document.getElementById("des2").innerHTML = tempInfo[i]['Descriptions'];
 
                     }
                     if (e3 != "None") {
@@ -422,8 +422,8 @@ function parseError(){
                         else {
                             i = parseInt(e3) - 11;
                         }
-
-                        document.getElementById("des3").innerHTML = userInfo[i][('Descriptions'];
+                        console.log("e3 index" + i)
+                        document.getElementById("des3").innerHTML = tempInfo[i]['Descriptions'];
                     }
                     if (e4 != "None") {
                         if (isNaN(parseInt(e4))){
@@ -455,8 +455,8 @@ function parseError(){
                         else {
                             i = parseInt(e4) - 11;
                         }
-
-                        document.getElementById("des4").innerHTML = userInfo[i][('Descriptions'];
+                        console.log("e4 index" + i)
+                        document.getElementById("des4").innerHTML = tempInfo[i]['Descriptions'];
                     }                   
 
                 },
