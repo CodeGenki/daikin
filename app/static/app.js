@@ -308,7 +308,7 @@ function parseError(){
             var e2 = document.getElementById("errorcode2").innerHTML;
             var e3 = document.getElementById("errorcode3").innerHTML;
             var e4 = document.getElementById("errorcode4").innerHTML;
-            
+
             $.ajax({
                 type: "GET",
 
@@ -318,22 +318,145 @@ function parseError(){
                     var tempInfo = JSON.parse(data); //save please
                     var userInfo = tempInfo[0];
                     
-                    
-
-                    document.getElementById("unitstatus").innerHTML = userInfo.unithealth;
+                    document.getElementById("des1").innerHTML = "N/A";
+                    document.getElementById("des2").innerHTML = "N/A";
+                    document.getElementById("des3").innerHTML = "N/A";
+                    document.getElementById("des4").innerHTML = "N/A";
 
                     if (e1 != "None") {
+                        if (isNaN(parseInt(e1))){
+                            if (e1 == "b0"){
+                                i = 33;
+                            }
+                            else if (e1 == "b9"){
+                                i = 34;
+                            }
+                            else if (e1 == "b9"){
+                                i = 35;
+                            }
+                            else if (e1 == "d0"){
+                                i = 36;
+                            }
+                            else if (e1 == "d1"){
+                                i = 37;
+                            }
+                            else if (e1 == "d2"){
+                                i = 38;
+                            }
+                            else if (e1 == "d3"){
+                                i = 39;
+                            }
+                            else if (e1 == "d4"){
+                                i = 40;
+                            }
+                        }
+                        else {
+                            i = parseInt(e1) - 11;
+                        }
 
+                        document.getElementById("des1").innerHTML = userInfo[i][('Descriptions'];
 
                     }
+
                     if (e2 != "None") {
+                        if (isNaN(parseInt(e2))){
+                            if (e2 == "b0"){
+                                i = 33;
+                            }
+                            else if (e2 == "b9"){
+                                i = 34;
+                            }
+                            else if (e2 == "b9"){
+                                i = 35;
+                            }
+                            else if (e2 == "d0"){
+                                i = 36;
+                            }
+                            else if (e2 == "d1"){
+                                i = 37;
+                            }
+                            else if (e2 == "d2"){
+                                i = 38;
+                            }
+                            else if (e2 == "d3"){
+                                i = 39;
+                            }
+                            else if (e2 == "d4"){
+                                i = 40;
+                            }
+                        }
+                        else {
+                            i = parseInt(e2) - 11;
+                        }
+
+                        document.getElementById("des2").innerHTML = userInfo[i][('Descriptions'];
 
                     }
                     if (e3 != "None") {
+                        if (isNaN(parseInt(e3))){
+                            if (e3 == "b0"){
+                                i = 33;
+                            }
+                            else if (e3 == "b9"){
+                                i = 34;
+                            }
+                            else if (e3 == "b9"){
+                                i = 35;
+                            }
+                            else if (e3 == "d0"){
+                                i = 36;
+                            }
+                            else if (e3 == "d1"){
+                                i = 37;
+                            }
+                            else if (e3 == "d2"){
+                                i = 38;
+                            }
+                            else if (e3 == "d3"){
+                                i = 39;
+                            }
+                            else if (e3 == "d4"){
+                                i = 40;
+                            }
+                        }
+                        else {
+                            i = parseInt(e3) - 11;
+                        }
 
+                        document.getElementById("des3").innerHTML = userInfo[i][('Descriptions'];
                     }
                     if (e4 != "None") {
+                        if (isNaN(parseInt(e4))){
+                            if (e4 == "b0"){
+                                i = 33;
+                            }
+                            else if (e4 == "b9"){
+                                i = 34;
+                            }
+                            else if (e4 == "b9"){
+                                i = 35;
+                            }
+                            else if (e4 == "d0"){
+                                i = 36;
+                            }
+                            else if (e4 == "d1"){
+                                i = 37;
+                            }
+                            else if (e4 == "d2"){
+                                i = 38;
+                            }
+                            else if (e4 == "d3"){
+                                i = 39;
+                            }
+                            else if (e4 == "d4"){
+                                i = 40;
+                            }
+                        }
+                        else {
+                            i = parseInt(e4) - 11;
+                        }
 
+                        document.getElementById("des4").innerHTML = userInfo[i][('Descriptions'];
                     }                   
 
                 },

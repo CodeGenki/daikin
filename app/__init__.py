@@ -180,12 +180,10 @@ def hvacaccount():
 @app.route("/test", methods=["GET", "POST"])
 def test():
     #if request.method == "POST":
-    global keyname
-
-    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+    global key
     
     tablenames = ["Customer_information", "customer", "ErrorCode"]
-    keys = ["username","username","E"]
+    keynames = ["username","username","E"]
     ci = str(request.args.get('ci', ''))
     c = str(request.args.get('c',''))
     ec = str(request.args.get('ec',''))
@@ -194,25 +192,26 @@ def test():
 
 
     if  ci != "":
-        keyname = str(ci)
+        key = str(ci)
         tablename = tablenames[0]
-        key = keys[0]
+        keyname = keynames[0]
     
     elif c != "":
-        keyname = str(c)
+        key = str(c)
         tablename = tablenames[1]
-        key = keys[1]
+        keyname = keynames[1]
 
     elif ec != "":
-        keyname = str(ec)
+        key = "E"
         tablename = tablenames[2]
-        key = keys[2]
+        keyname = keynames[2]
 
-    print("username is:@" + keyname + "@")
+    print("username is:@" + key + "@")
     # username = request.args.get('param', '')
     # tablename = request.args.get('table','')
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
     table = dynamodb.Table(tablename)
-    response = table.query(KeyConditionExpression=Key(key).eq(keyname))
+    response = table.query(KeyConditionExpression=Key(keyname).eq(key))
 
 
 
