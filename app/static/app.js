@@ -310,14 +310,14 @@ function parseError(){
             var e4 = document.getElementById("errorcode4").innerHTML;
             
             var request = new XMLHttpRequest();
-            request.open('GET', url_name + "/test?e=" + cognitoUser.username, false);  // `false` makes the request synchronous
+            request.open('GET', url_name + "/test?ec=" + cognitoUser.username, false);  // `false` makes the request synchronous
             request.send(null);
 
             if (request.status === 200) {
                 console.log(request.response);
                 var data = request.response;
                 var tempInfo = JSON.parse(data); //save please
-                
+
                 document.getElementById("des1").innerHTML = "N/A";
                 document.getElementById("des2").innerHTML = "N/A";
                 document.getElementById("des3").innerHTML = "N/A";
