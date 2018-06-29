@@ -290,6 +290,61 @@ function get_user(){
         });
     }
 }
+function parseError(){
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    var cognitoUser = userPool.getCurrentUser();
+
+    if(cognitoUser != null){
+        cognitoUser.getSession(function(err, session) {
+            if(err){
+                alert(err);
+                return;
+            }
+
+            console.log('session validity: ' + session.isValid());
+            console.log(cognitoUser.username);
+
+            var e1 = document.getElementById("errorcode1").innerHTML;
+            var e2 = document.getElementById("errorcode2").innerHTML;
+            var e3 = document.getElementById("errorcode3").innerHTML;
+            var e4 = document.getElementById("errorcode4").innerHTML;
+            
+            $.ajax({
+                type: "GET",
+
+                url: url_name + "/test?ec=" + cognitoUser.username,
+
+                success: function(data){
+                    var tempInfo = JSON.parse(data); //save please
+                    var userInfo = tempInfo[0];
+                    
+                    
+
+                    document.getElementById("unitstatus").innerHTML = userInfo.unithealth;
+
+                    if (e1 != "None") {
+
+
+                    }
+                    if (e2 != "None") {
+
+                    }
+                    if (e3 != "None") {
+
+                    }
+                    if (e4 != "None") {
+
+                    }                   
+
+                },
+                data: cognitoUser.username
+            }).done(function( o ) {
+                console.log("Sent request to python file");
+            });
+        });
+    }
+}
+
 function get_unit(){
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
     var cognitoUser = userPool.getCurrentUser();
@@ -313,7 +368,29 @@ function get_unit(){
                     var userInfo = tempInfo[0];
                     // document.getElementById("username").innerHTML = userInfo.username;
                     document.getElementById("refrigerant").innerHTML = userInfo.refrigerantleak;
-                //     document.getElementById("unitstatus").innerHTML = userInfo.unithealth;
+                    document.getElementById("unitstatus").innerHTML = userInfo.unithealth;
+                    document.getElementById("t").innerHTML = userInfo.Time;
+                    
+                    var errorArray = userInfo.ErrorCode.split(" ");
+
+                    document.getElementById("errorcode1").innerHTML = "None";
+                    document.getElementById("errorcode2").innerHTML = "None";
+                    document.getElementById("errorcode3").innerHTML = "None";
+                    document.getElementById("errorcode4").innerHTML = "None";
+                                              
+                    if (errorArray.length > 0)
+                        document.getElementById("errorcode1").innerHTML = errorArray[0];
+                    
+                    if (errorArray.length > 1)
+                        document.getElementById("errorcode2").innerHTML = errorArray[1];
+                    
+                    if (errorArray.length > 2)
+                        document.getElementById("errorcode3").innerHTML = errorArray[2];
+
+                    if (errorArray.length > 3)
+                        document.getElementById("errorcode4").innerHTML = errorArray[3];    
+                     
+                    
                 //     document.getElementById("location").innerHTML = userInfo.location;
                 //     document.getElementById("company").innerHTML = userInfo.company;
                 },
