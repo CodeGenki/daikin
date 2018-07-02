@@ -38,7 +38,7 @@
 
 </style>
 
-<body>
+<body onload="createTableSup();">
 <div class="bgimgs w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
 <div class="w3-main" style="margin-left:300px;">
 
@@ -52,8 +52,57 @@
 
 <div id="map" style="width:90%; height:40%; color: black;"></div>
       <script>
-        var map, infoWindow;
-        // , locations, count, marker;
+        var map, infoWindow,count,marker,data;
+        var locations = [];
+        function get_suppliers(){
+          var poolDataDEAL = {
+            UserPoolId : 'us-east-1_QFcNXf7g8', // Your user pool id here
+            ClientId : '4ut1fjlf1v35jbj2v9cks6981l' // Your client id here
+          };
+          // var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael";
+          // var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen";
+          var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
+          var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
+          var cognitoUser = userPool.getCurrentUser();
+
+          if(cognitoUser !== null){
+              cognitoUser.getSession(function(err, session) {
+                  if(err){
+                      alert(err);
+                      return;
+                  }
+
+                  console.log('session validity: ' + session.isValid());
+                  console.log(cognitoUser.username);
+
+                  var request = new XMLHttpRequest();
+                  request.open('GET', url_name + "/testdeal?vi=" + cognitoUser.username, false);  // `false` makes the request synchronous
+                  request.send(null);
+
+                  if (request.status === 200) {
+                    console.log(request.response);
+                    data = request.response;
+                    var tempInfo = JSON.parse(data)[0]; //save please
+                    var comp = tempInfo.company;                    
+                    console.log(comp)
+                    var request = new XMLHttpRequest();
+                    request.open('GET', url_name + "/testdeal?s=" + comp, false);  // `false` makes the request synchronous
+                    request.send(null);
+
+                    if (request.status === 200) {
+                      console.log(request.response);
+                      data = request.response;
+                      var tempInfo = JSON.parse(data); //save please
+                      for(var i = 0, size = tempInfo.length; i < size ; i++){
+                        var item = tempInfo[i];
+                        var l = item['location'].split(', ');
+                        locations.push([item['companyname'],parseFloat(l[0]),parseFloat(l[1])]);
+                      }
+                    }
+                  }
+            });
+          }
+        }
         function initMap() {
           map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 35.397, lng: -95.644},
@@ -70,6 +119,19 @@
       	
        //  }
   	    // }
+          get_suppliers();
+          console.log('hi');
+          console.log(locations);
+
+          for (count=0; count<locations.length; count++) {
+            marker= new google.maps.Marker({
+              position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
+              map:map,
+              title: locations[count][0]
+            });
+          
+          }
+        
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
               var pos = {
@@ -108,12 +170,11 @@
 
 		<table id="suppliers">
 		  <tr style="background-color: lightsteelblue">
-		    <th>Number</th>
 		    <th>Name</th>
-		    <th>Email</th>
 		    <th>Phone Number</th>
+        <th>Components</th>
 		  </tr>
-		  <tr style="background-color: white">
+		  <!-- <tr style="background-color: white">
 		    <td>1</td>
 		    <td>Post Malone</td>
 		    <td>xxxxxxx</td>
@@ -129,13 +190,17 @@
 		    <td>3</td>
 		    <td>Kendrick Lamar</td>
 		    <td>xxxxxxx</td>
-		    <td>xxxxxxx</td>
-		  </tr>
+		    <td>xxxxxxx</td> -->
+		  <!-- </tr> -->
 		</table>
 	</div>
 
 </div>
 </div>
+<script src="{{ url_for('static', filename='appdeal.js') }}"></script>
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
 </body>
 
 {% endblock %}

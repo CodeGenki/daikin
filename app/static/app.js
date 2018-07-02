@@ -381,7 +381,8 @@ function get_unit(){
                 // document.getElementById("username").innerHTML = userInfo.username;
                 document.getElementById("refrigerant").innerHTML = userInfo.refrigerantleak;
                 document.getElementById("unitstatus").innerHTML = userInfo.unithealth;
-                document.getElementById("t").innerHTML = userInfo.Time;
+                // document.getElementById("t").innerHTML = userInfo.Time;
+                document.getElementById("t").innerHTML = userInfo.curr_time;
                 
                 var errorArray = userInfo.ErrorCode.split(" ");
 
