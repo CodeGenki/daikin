@@ -93,7 +93,7 @@
                     for(var i = 0, size = tempInfo.length; i < size ; i++){
                       var item = tempInfo[i];
                       var l = item['location'].split(', ');
-                      locations.push([item['employeename'],parseFloat(l[0]),parseFloat(l[1]),i]);
+                      locations.push([item['employeename'],parseFloat(l[0]),parseFloat(l[1]),item['available']]);
                     }
                   }
             });
@@ -132,12 +132,18 @@
             console.log('hi');
             console.log(locations);
 
-
+        var icon;
       	for (count=0; count<locations.length; count++) {
-          console.log(locations[count][1]);
-      		marker= new google.maps.Marker({
+          if (locations[count][3] == "yes"){
+            icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+          }
+          else {
+            'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+          }
+        	marker= new google.maps.Marker({
       			position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
       			map:map,
+            icon: icon,
       			title: locations[count][0]
       		});
       	

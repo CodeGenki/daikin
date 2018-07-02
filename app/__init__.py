@@ -203,7 +203,7 @@ def test():
         keyname = keynames[1]
 
     elif ec != "":
-        key = "E"
+        key = str(ec)
         tablename = tablenames[2]
         keyname = keynames[2]
 

@@ -291,179 +291,67 @@ function get_user(){
     }
 }
 function parseError(){
-    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-    var cognitoUser = userPool.getCurrentUser();
+    
+    var e1 = document.getElementById("errorcode1").innerHTML;
+    var e2 = document.getElementById("errorcode2").innerHTML;
+    var e3 = document.getElementById("errorcode3").innerHTML;
+    var e4 = document.getElementById("errorcode4").innerHTML;
+    
+    var request = new XMLHttpRequest();
+    request.open('GET', url_name + "/test?ec=" + "E", false);  // `false` makes the request synchronous
+    request.send(null);
 
-    if(cognitoUser !== null){
-        cognitoUser.getSession(function(err, session) {
-            if(err){
-                alert(err);
-                return;
+    if (request.status === 200) {
+        // console.log(request.response);
+        var data = request.response;
+        var tempInfo = JSON.parse(data); //save please
+
+        document.getElementById("des1").innerHTML = "N/A";
+        document.getElementById("des2").innerHTML = "N/A";
+        document.getElementById("des3").innerHTML = "N/A";
+        document.getElementById("des4").innerHTML = "N/A";
+        var e = [e1,e2,e3,e4];
+        var j = [];
+        var d = ['des1','des2','des3','des4'];
+        for (var i = 0; i < e.length; i++) {
+
+            if (e[i] != "None") {
+
+                if (isNaN(parseInt(e1))){
+                    if (e[i] == "b0"){
+                        j.push(33);
+                    }
+                    else if (e[i] == "b9"){
+                        j.push(34);
+                    }
+                    else if (e[i] == "b9"){
+                        j.push(35);
+                    }
+                    else if (e[i] == "d0"){
+                        j.push(36);
+                    }
+                    else if (e[i] == "d1"){
+                        j.push(37);
+                    }
+                    else if (e[i] == "d2"){
+                        j.push(38);
+                    }
+                    else if (e[i] == "d3"){
+                        j.push(39);
+                    }
+                    else if (e[i] == "d4"){
+                        j.push(40);
+                    }
+                }
+                else {
+                    j.push(parseInt(e[i]) - 11);
+                }
             }
-
-            console.log('session validity: ' + session.isValid());
-            console.log(cognitoUser.username);
-
-            var e1 = document.getElementById("errorcode1").innerHTML;
-            var e2 = document.getElementById("errorcode2").innerHTML;
-            var e3 = document.getElementById("errorcode3").innerHTML;
-            var e4 = document.getElementById("errorcode4").innerHTML;
-            
-            var request = new XMLHttpRequest();
-            request.open('GET', url_name + "/test?ec=" + cognitoUser.username, false);  // `false` makes the request synchronous
-            request.send(null);
-
-            if (request.status === 200) {
-                console.log(request.response);
-                var data = request.response;
-                var tempInfo = JSON.parse(data); //save please
-
-                document.getElementById("des1").innerHTML = "N/A";
-                document.getElementById("des2").innerHTML = "N/A";
-                document.getElementById("des3").innerHTML = "N/A";
-                document.getElementById("des4").innerHTML = "N/A";
-                var i = -1;
-                if (e1 != "None") {
-
-                    if (isNaN(parseInt(e1))){
-                        if (e1 == "b0"){
-                            i = 33;
-                        }
-                        else if (e1 == "b9"){
-                            i = 34;
-                        }
-                        else if (e1 == "b9"){
-                            i = 35;
-                        }
-                        else if (e1 == "d0"){
-                            i = 36;
-                        }
-                        else if (e1 == "d1"){
-                            i = 37;
-                        }
-                        else if (e1 == "d2"){
-                            i = 38;
-                        }
-                        else if (e1 == "d3"){
-                            i = 39;
-                        }
-                        else if (e1 == "d4"){
-                            i = 40;
-                        }
-                    }
-                    else {
-                        i = parseInt(e1) - 11;
-                    }
-                    console.log("e1 index" + i);
-                    document.getElementById("des1").innerHTML = tempInfo[i]['Descriptions'];
-
-                }
-
-                if (e2 != "None") {
-                    if (isNaN(parseInt(e2))){
-                        if (e2 == "b0"){
-                            i = 33;
-                        }
-                        else if (e2 == "b9"){
-                            i = 34;
-                        }
-                        else if (e2 == "b9"){
-                            i = 35;
-                        }
-                        else if (e2 == "d0"){
-                            i = 36;
-                        }
-                        else if (e2 == "d1"){
-                            i = 37;
-                        }
-                        else if (e2 == "d2"){
-                            i = 38;
-                        }
-                        else if (e2 == "d3"){
-                            i = 39;
-                        }
-                        else if (e2 == "d4"){
-                            i = 40;
-                        }
-                    }
-                    else {
-                        i = parseInt(e2) - 11;
-                    }
-                    console.log("e2 index" + i);
-                    document.getElementById("des2").innerHTML = tempInfo[i]['Descriptions'];
-
-                }
-                if (e3 != "None") {
-                    if (isNaN(parseInt(e3))){
-                        if (e3 == "b0"){
-                            i = 33;
-                        }
-                        else if (e3 == "b9"){
-                            i = 34;
-                        }
-                        else if (e3 == "b9"){
-                            i = 35;
-                        }
-                        else if (e3 == "d0"){
-                            i = 36;
-                        }
-                        else if (e3 == "d1"){
-                            i = 37;
-                        }
-                        else if (e3 == "d2"){
-                            i = 38;
-                        }
-                        else if (e3 == "d3"){
-                            i = 39;
-                        }
-                        else if (e3 == "d4"){
-                            i = 40;
-                        }
-                    }
-                    else {
-                        i = parseInt(e3) - 11;
-                    }
-                    console.log("e3 index" + i);
-                    document.getElementById("des3").innerHTML = tempInfo[i]['Descriptions'];
-                }
-                if (e4 != "None") {
-                    if (isNaN(parseInt(e4))){
-                        if (e4 == "b0"){
-                            i = 33;
-                        }
-                        else if (e4 == "b9"){
-                            i = 34;
-                        }
-                        else if (e4 == "b9"){
-                            i = 35;
-                        }
-                        else if (e4 == "d0"){
-                            i = 36;
-                        }
-                        else if (e4 == "d1"){
-                            i = 37;
-                        }
-                        else if (e4 == "d2"){
-                            i = 38;
-                        }
-                        else if (e4 == "d3"){
-                            i = 39;
-                        }
-                        else if (e4 == "d4"){
-                            i = 40;
-                        }
-                    }
-                    else {
-                        i = parseInt(e4) - 11;
-                    }
-                    console.log("e4 index" + i);
-                    document.getElementById("des4").innerHTML = tempInfo[i]['Descriptions'];
-                }
-            }                   
-
-        });
+        
+        console.log("index: " + j[i]);
+        document.getElementById(d[i]).innerHTML = tempInfo[j[i]]['Descriptions'];
+        }
     }
-
 }
                
 
