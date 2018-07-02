@@ -1,6 +1,6 @@
-// var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael"
-// var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen"
-var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny"
+// var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael";
+// var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen";
+var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
 
 var poolDataDEAL = {
 	UserPoolId : 'us-east-1_QFcNXf7g8', // Your user pool id here
@@ -44,7 +44,7 @@ function signInDEAL(){
                 document.getElementById("noUsername").innerHTML = "Please enter a valid username.";
             }
             else if(err.code == "NotAuthorizedException" || err.code == "UserNotFoundException" || err.code == "UserNotConfirmedException"){
-                document.getElementById("invalidCredentials").innerHTML = "Incorrect username or password."
+                document.getElementById("invalidCredentials").innerHTML = "Incorrect username or password.";
             }
         }
 	});
@@ -114,23 +114,23 @@ function registerDEAL(){
     document.getElementById("passwordError").innerHTML = "";
 
     var e = false;
-    if (username.length == 0){
+    if (username.length === 0){
         document.getElementById("usernameError").innerHTML = "Please enter a username.";
-        e = true
+        e = true;
     }
-    if (given_name.length == 0){
+    if (given_name.length === 0){
         document.getElementById("givennameError").innerHTML = "Please enter a given name.";
-        e = true
+        e = true;
     }
-    if (family_name.length == 0){
+    if (family_name.length === 0){
         document.getElementById("familynameError").innerHTML = "Please enter a family name.";
-        e = true
+        e = true;
     }
-    if (address.length == 0){
+    if (address.length === 0){
         document.getElementById("addressError").innerHTML = "Please enter an address.";
-        e = true
+        e = true;
     }
-    if (phone_number.indexOf('+1') != 0 || phone_number.length != 12){
+    if (phone_number.indexOf('+1') !== 0 || phone_number.length != 12){
         document.getElementById("phonenumberError").innerHTML = "Please enter a valid phone number in the following format: +11234567890.";
         e = true;
     }
@@ -138,13 +138,13 @@ function registerDEAL(){
         document.getElementById("emailError").innerHTML = "Please enter a valid email.";
         e = true;
     }
-    if (company.length == 0){
+    if (company.length === 0){
         document.getElementById("companyError").innerHTML = "Please enter a company name.";
-        e = true
+        e = true;
     }
-    if (password.length == 0){
+    if (password.length === 0){
         document.getElementById("passwordError").innerHTML = "Please enter a password.";
-        e = true
+        e = true;
     }
 
     if (!e){
@@ -156,8 +156,8 @@ function registerDEAL(){
                     var e2 = "Value at 'password' failed to satisfy constraint: Member must satisfy regular expression pattern: [\\S]+";
                     var e3 = "Value at 'username' failed to satisfy constraint: Member must have length greater than or equal to 1";
                     var e4 = "Value at 'username' failed to satisfy constraint: Member must satisfy regular expression pattern: [\\p{L}\\p{M}\\p{S}\\p{N}\\p{P}]+";
-                    var e5 = "Invalid phone number format."
-                    var e6 = "Invalid email address format."
+                    var e5 = "Invalid phone number format.";
+                    var e6 = "Invalid email address format.";
                     if (err.message.search(e3) != -1 || err.message.search(e4) != -1){
                         document.getElementById("usernameError").innerHTML = "Please enter a username with length greater than 1.";
                         e = true;      
@@ -176,10 +176,10 @@ function registerDEAL(){
                     }
                 }
                 if (err.code == "UsernameExistsException"){
-                    var e7 = "User already exists"
+                    var e7 = "User already exists";
                     if (err.message.search(e7) != -1){
                         document.getElementById("usernameError").innerHTML = e7 + ".";
-                        e = true
+                        e = true;
                     }
                 }
 
@@ -228,7 +228,7 @@ function signOutDEAL(){
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
     var cognitoUser = userPool.getCurrentUser();
 
-    if (cognitoUser != null){
+    if (cognitoUser !== null){
     	cognitoUser.signOut();
     }
     window.location.href  = url_name + "/";
@@ -238,7 +238,7 @@ function setWelcomeDEAL() {
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
     var cognitoUser = userPool.getCurrentUser();
 
-    if (cognitoUser != null){
+    if (cognitoUser !== null){
         cognitoUser.getSession(function(err, session){
             if(err){
                 alert(err);
@@ -259,7 +259,7 @@ function get_userDEAL(){
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
     var cognitoUser = userPool.getCurrentUser();
 
-    if(cognitoUser != null){
+    if(cognitoUser !== null){
         cognitoUser.getSession(function(err, session) {
             if(err){
                 alert(err);

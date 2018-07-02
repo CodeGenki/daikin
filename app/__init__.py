@@ -184,13 +184,13 @@ def test():
     
     tablenames = ["Customer_information", "customer", "ErrorCode","employees"]
     keynames = ["username","username","E","company"]
+    
     ci = str(request.args.get('ci', ''))
     c = str(request.args.get('c',''))
     ec = str(request.args.get('ec',''))
     e = str(request.args.get('e',''))
+
     print("@" +str(request.args.get('c', '')) + "@")
-
-
 
     if  ci != "":
         key = str(ci)
@@ -208,7 +208,7 @@ def test():
         keyname = keynames[2]
 
     elif e != "":
-        key = "McCann Services Inc."
+        key = str(e)
         tablename = tablenames[3]
         keyname = keynames[3]
 

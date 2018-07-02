@@ -81,19 +81,32 @@
                   console.log('session validity: ' + session.isValid());
                   console.log(cognitoUser.username);
 
-
                   var request = new XMLHttpRequest();
-                  request.open('GET', url_name + "/test?e=" + cognitoUser.username, false);  // `false` makes the request synchronous
+                  request.open('GET', url_name + "/test?c=" + cognitoUser.username, false);  // `false` makes the request synchronous
                   request.send(null);
 
                   if (request.status === 200) {
                     console.log(request.response);
                     data = request.response
-                    var tempInfo = JSON.parse(data); //save please
-                    for(var i = 0, size = tempInfo.length; i < size ; i++){
-                      var item = tempInfo[i];
-                      var l = item['location'].split(', ');
-                      locations.push([item['employeename'],parseFloat(l[0]),parseFloat(l[1]),item['available']]);
+                    var tempInfo = JSON.parse(data)[0]; //save please
+                    var comp = tempInfo.company;                    
+                    
+
+                    
+
+                    var request = new XMLHttpRequest();
+                    request.open('GET', url_name + "/test?e=" + comp, false);  // `false` makes the request synchronous
+                    request.send(null);
+
+                    if (request.status === 200) {
+                      console.log(request.response);
+                      data = request.response
+                      var tempInfo = JSON.parse(data); //save please
+                      for(var i = 0, size = tempInfo.length; i < size ; i++){
+                        var item = tempInfo[i];
+                        var l = item['location'].split(', ');
+                        locations.push([item['employeename'],parseFloat(l[0]),parseFloat(l[1]),item['available']]);
+                      }
                     }
                   }
             });
