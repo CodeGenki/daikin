@@ -368,46 +368,41 @@ function get_unit(){
 
             console.log('session validity: ' + session.isValid());
             console.log(cognitoUser.username);
-            $.ajax({
-                type: "GET",
+            
+            var request = new XMLHttpRequest();
+            request.open('GET', url_name + "/test?c=" + "E", false);  // `false` makes the request synchronous
+            request.send(null);
 
-                url: url_name + "/test?c=" + cognitoUser.username,
+            if (request.status === 200) {
+                // document.getElementById("username").innerHTML = userInfo.username;
+                document.getElementById("refrigerant").innerHTML = userInfo.refrigerantleak;
+                document.getElementById("unitstatus").innerHTML = userInfo.unithealth;
+                document.getElementById("t").innerHTML = userInfo.Time;
+                
+                var errorArray = userInfo.ErrorCode.split(" ");
 
-                success: function(data){
-                    var tempInfo = JSON.parse(data); //save please
-                    var userInfo = tempInfo[0];
-                    // document.getElementById("username").innerHTML = userInfo.username;
-                    document.getElementById("refrigerant").innerHTML = userInfo.refrigerantleak;
-                    document.getElementById("unitstatus").innerHTML = userInfo.unithealth;
-                    document.getElementById("t").innerHTML = userInfo.Time;
-                    
-                    var errorArray = userInfo.ErrorCode.split(" ");
+                document.getElementById("errorcode1").innerHTML = "None";
+                document.getElementById("errorcode2").innerHTML = "None";
+                document.getElementById("errorcode3").innerHTML = "None";
+                document.getElementById("errorcode4").innerHTML = "None";
+                                          
+                if (errorArray.length > 0)
+                    document.getElementById("errorcode1").innerHTML = errorArray[0];
+                
+                if (errorArray.length > 1)
+                    document.getElementById("errorcode2").innerHTML = errorArray[1];
+                
+                if (errorArray.length > 2)
+                    document.getElementById("errorcode3").innerHTML = errorArray[2];
 
-                    document.getElementById("errorcode1").innerHTML = "None";
-                    document.getElementById("errorcode2").innerHTML = "None";
-                    document.getElementById("errorcode3").innerHTML = "None";
-                    document.getElementById("errorcode4").innerHTML = "None";
-                                              
-                    if (errorArray.length > 0)
-                        document.getElementById("errorcode1").innerHTML = errorArray[0];
-                    
-                    if (errorArray.length > 1)
-                        document.getElementById("errorcode2").innerHTML = errorArray[1];
-                    
-                    if (errorArray.length > 2)
-                        document.getElementById("errorcode3").innerHTML = errorArray[2];
-
-                    if (errorArray.length > 3)
-                        document.getElementById("errorcode4").innerHTML = errorArray[3];    
-                     
-                    
-                //     document.getElementById("location").innerHTML = userInfo.location;
-                //     document.getElementById("company").innerHTML = userInfo.company;
-                },
-                data: cognitoUser.username
-            }).done(function( o ) {
-                console.log("Sent request to python file");
-            });
+                if (errorArray.length > 3)
+                    document.getElementById("errorcode4").innerHTML = errorArray[3];    
+                 
+                
+            //     document.getElementById("location").innerHTML = userInfo.location;
+            //     document.getElementById("company").innerHTML = userInfo.company;
+            }
+              
         });
     }
 }
