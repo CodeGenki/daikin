@@ -370,10 +370,13 @@ function get_unit(){
             console.log(cognitoUser.username);
             
             var request = new XMLHttpRequest();
-            request.open('GET', url_name + "/test?c=" + "E", false);  // `false` makes the request synchronous
+            request.open('GET', url_name + "/test?c=" + cognitoUser.username, false);  // `false` makes the request synchronous
             request.send(null);
 
             if (request.status === 200) {
+                var data = request.response;
+                var userInfo = JSON.parse(data)[0]; //save please
+
                 // document.getElementById("username").innerHTML = userInfo.username;
                 document.getElementById("refrigerant").innerHTML = userInfo.refrigerantleak;
                 document.getElementById("unitstatus").innerHTML = userInfo.unithealth;
