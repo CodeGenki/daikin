@@ -51,7 +51,7 @@
 
 <div id="map" style="width:90%; height:40%; color: black;"></div>
       <script>
-        var map, infoWindow,count,marker;
+        var map, infoWindow,count,marker,data;
         var locations = [];
         function get_employees(){
           var poolDataDEAL = {
@@ -80,20 +80,17 @@
 
                   if (request.status === 200) {
                     console.log(request.response);
-                    data = request.response
+                    data = request.response;
                     var tempInfo = JSON.parse(data)[0]; //save please
                     var comp = tempInfo.company;                    
                     
-
-                    
-
                     var request = new XMLHttpRequest();
                     request.open('GET', url_name + "/testdeal?e=" + comp, false);  // `false` makes the request synchronous
                     request.send(null);
 
                     if (request.status === 200) {
                       console.log(request.response);
-                      data = request.response
+                      data = request.response;
                       var tempInfo = JSON.parse(data); //save please
                       for(var i = 0, size = tempInfo.length; i < size ; i++){
                         var item = tempInfo[i];
@@ -123,7 +120,7 @@
               icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
             }
             else {
-              'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+              icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
             }
             marker= new google.maps.Marker({
               position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
@@ -133,6 +130,7 @@
             });
           
           }
+        }
 
           // locations = [ ];
       	// for (count=0; count<locations.length; count++) {
@@ -169,7 +167,7 @@
                                 'Error: Your browser doesn\'t support geolocation.');
           infoWindow.open(map);
         }
-    }
+    
 
     </script>
     <script async defer

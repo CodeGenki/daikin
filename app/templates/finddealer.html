@@ -58,7 +58,7 @@
       <div id="map" style="width:100%; height:100%; color: black"></div>
       <script>
         var locations = [];
-        var map, infoWindow, count, marker;
+        var map, infoWindow, count, marker, data;
         
         function get_employees(){
           var poolData = {
@@ -91,9 +91,6 @@
                     var tempInfo = JSON.parse(data)[0]; //save please
                     var comp = tempInfo.company;                    
                     
-
-                    
-
                     var request = new XMLHttpRequest();
                     request.open('GET', url_name + "/test?e=" + comp, false);  // `false` makes the request synchronous
                     request.send(null);
@@ -112,10 +109,7 @@
             });
           }
         }
-
-
-                  
-
+          
         function initMap() {
           map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 35.397, lng: -95.644},
@@ -151,7 +145,7 @@
             icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
           }
           else {
-            'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+            icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
           }
         	marker= new google.maps.Marker({
       			position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
@@ -189,6 +183,7 @@
                                 'Error: Your browser doesn\'t support geolocation.');
           infoWindow.open(map);
         }
+
 
 
     </script>
