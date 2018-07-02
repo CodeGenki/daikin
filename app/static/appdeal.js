@@ -384,3 +384,53 @@ function createTableSup() {
 }
 
 
+function createTableCus() {
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
+    var cognitoUser = userPool.getCurrentUser();
+
+    if(cognitoUser !== null){
+        cognitoUser.getSession(function(err, session) {
+            if(err){
+                alert(err);
+                return;
+            }
+            console.log('session validity: ' + session.isValid());
+            console.log(cognitoUser.username);
+
+            var request = new XMLHttpRequest();
+            request.open('GET', url_name + "/testdeal?vi=" + cognitoUser.username, false);  // `false` makes the request synchronous
+            request.send(null);
+
+            if (request.status === 200) {
+                console.log(request.response);
+                var data = request.response;
+                var tempInfo = JSON.parse(data)[0]; //save please
+                var customers = tempInfo.customers,split(" ");                    
+                
+                for (var j = 0, size = customers.length; j < size ; i++) {
+                    var cus = customers[j];
+                    var request = new XMLHttpRequest();
+                    request.open('GET', url_name + "/testdeal?ci=" + cus, false);  // `false` makes the request synchronous
+                    request.send(null);
+
+                    if (request.status === 200) {
+                        console.log(request.response);
+                        var data = request.response;
+                        var tableInfo = JSON.parse(data); //save please
+
+                        var d = ["unithealth","username","address","email","phone_number"];
+                        var rn = tableInfo.length;
+                        var cn = document.getElementById("customers").rows[0].cells.length;
+                        for(var r=1;r<=rn;r++) {
+                        var x=document.getElementById('customers').insertRow(r);
+                            for(var c=0;c<cn;c++) {
+                               var y=  x.insertCell(c);
+                                y.innerHTML=tableInfo[r-1][d[c]];
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+}

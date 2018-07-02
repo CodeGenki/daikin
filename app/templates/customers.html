@@ -11,28 +11,28 @@
 <script>
 
 
-function queryData() {
-	document.getElementByID('textarea').innerHTML += "Querying for McCann Services Inc.";
+// function queryData() {
+// 	document.getElementByID('textarea').innerHTML += "Querying for McCann Services Inc.";
 
-	var params= {
-		TableName : "customers",
-
-
-		KeyConditionExpression:'company = :vvv',
-		ExpressionAttributeValues: {
-			':vvv':'McCann Services Inc.'
-		}
-	};
-	console.log("hi")
-	docClient.query(params,function(err,data){
-		if (err) {
-			document.getElementById('textarea').innerHTML += "Unable to query.Error:"+"\n"+ JSON.stringify(err,undefined,2);	
-		} else {
-			document.getElementById('textarea').innerHTML += "Querying for McCann:"+"\n" +JSON.stringify(data,undefined,2);
-		}
-	});
+// 	var params= {
+// 		TableName : "customers",
 
 
+// 		KeyConditionExpression:'company = :vvv',
+// 		ExpressionAttributeValues: {
+// 			':vvv':'McCann Services Inc.'
+// 		}
+// 	};
+// 	console.log("hi")
+// 	docClient.query(params,function(err,data){
+// 		if (err) {
+// 			document.getElementById('textarea').innerHTML += "Unable to query.Error:"+"\n"+ JSON.stringify(err,undefined,2);	
+// 		} else {
+// 			document.getElementById('textarea').innerHTML += "Querying for McCann:"+"\n" +JSON.stringify(data,undefined,2);
+// 		}
+// 	});
+
+// }
 </script>
 
 <style>
@@ -70,7 +70,7 @@ function queryData() {
 }
 
 </style>
-<body>
+<body onload="createTableCus();">
 
 <div class="bgimgc w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
 <div class="w3-main" style="margin-left:300px;">
@@ -97,72 +97,72 @@ function queryData() {
           });
           infoWindow = new google.maps.InfoWindow;
 
-          //green customers
-          locationsg = [		
-          				['1',29.970276, -95.435214],
-          				['2',29.864250, -95.544214],
-          				['3',29.736557, -95.467971],
-          				['4',29.719679, -95.660597],
-          				['5',29.636634, -95.444669],
-          				['6',29.485177, -95.396787],
-          				['7',29.595775, -95.222718],
-          				['8',29.655681, -95.125609],
-          				['9',29.760033, -95.211939],
-          				['10',29.791824, -95.157195],
-          				['11',29.820785, -95.035227],
-          				['12',29.851412, -95.213873],
-          				['13',29.872776, -95.293785],
-          				['14',29.784867, -95.332280],
-           				['15',29.778216, -95.357816],
-           				['17',29.717611, -95.380881],
-           				['18',30.021806, -95.513613],
-           			];
-           locationsy=[
-           				['19',30.139947, -95.750629],
-           				['21',29.502676, -95.911116],
-           				['22',29.360796, -95.641705],
-           				['23',29.503293, -95.159034],
-           				['24',30.048370, -95.093205],
-           				['25',29.657371, -95.062926],
-           			];
+      //     //green customers
+      //     locationsg = [		
+      //     				['1',29.970276, -95.435214],
+      //     				['2',29.864250, -95.544214],
+      //     				['3',29.736557, -95.467971],
+      //     				['4',29.719679, -95.660597],
+      //     				['5',29.636634, -95.444669],
+      //     				['6',29.485177, -95.396787],
+      //     				['7',29.595775, -95.222718],
+      //     				['8',29.655681, -95.125609],
+      //     				['9',29.760033, -95.211939],
+      //     				['10',29.791824, -95.157195],
+      //     				['11',29.820785, -95.035227],
+      //     				['12',29.851412, -95.213873],
+      //     				['13',29.872776, -95.293785],
+      //     				['14',29.784867, -95.332280],
+      //      				['15',29.778216, -95.357816],
+      //      				['17',29.717611, -95.380881],
+      //      				['18',30.021806, -95.513613],
+      //      			];
+      //      locationsy=[
+      //      				['19',30.139947, -95.750629],
+      //      				['21',29.502676, -95.911116],
+      //      				['22',29.360796, -95.641705],
+      //      				['23',29.503293, -95.159034],
+      //      				['24',30.048370, -95.093205],
+      //      				['25',29.657371, -95.062926],
+      //      			];
 
-           	locationsr=[
-						['16',29.755637, -95.336662],
-						['20',29.881143, -95.959049],
+      //      	locationsr=[
+						// ['16',29.755637, -95.336662],
+						// ['20',29.881143, -95.959049],
 
-           			];
+      //      			];
 
 
-        //green customers
-      	for (count=0; count<locationsg.length; count++) {
-      		marker= new google.maps.Marker({
-      			position: new google.maps.LatLng(locationsg[count][1], locationsg[count][2]), 
-      			map:map,
-      			icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-      			title: locationsg[count][0]
-      		});
+      //   //green customers
+      // 	for (count=0; count<locationsg.length; count++) {
+      // 		marker= new google.maps.Marker({
+      // 			position: new google.maps.LatLng(locationsg[count][1], locationsg[count][2]), 
+      // 			map:map,
+      // 			icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+      // 			title: locationsg[count][0]
+      // 		});
       	
-        }
-        //yellow customers
-      	for (count=0; count<locationsy.length; count++) {
-      		marker= new google.maps.Marker({
-      			position: new google.maps.LatLng(locationsy[count][1], locationsy[count][2]), 
-      			map:map,
-      			icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
-      			title: locationsy[count][0]
-      		});
+      //   }
+      //   //yellow customers
+      // 	for (count=0; count<locationsy.length; count++) {
+      // 		marker= new google.maps.Marker({
+      // 			position: new google.maps.LatLng(locationsy[count][1], locationsy[count][2]), 
+      // 			map:map,
+      // 			icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+      // 			title: locationsy[count][0]
+      // 		});
       	
-        }
+      //   }
 
-      	for (count=0; count<locationsr.length; count++) {
-      		marker= new google.maps.Marker({
-      			position: new google.maps.LatLng(locationsr[count][1], locationsr[count][2]), 
-      			map:map,
-      			icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-      			title: locationsr[count][0]
-      		});
+      // 	for (count=0; count<locationsr.length; count++) {
+      // 		marker= new google.maps.Marker({
+      // 			position: new google.maps.LatLng(locationsr[count][1], locationsr[count][2]), 
+      // 			map:map,
+      // 			icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+      // 			title: locationsr[count][0]
+      // 		});
       	
-        }    
+      //   }    
 
 
   	    }
