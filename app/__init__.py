@@ -190,7 +190,7 @@ def test():
     ec = str(request.args.get('ec',''))
     e = str(request.args.get('e',''))
 
-    print("@" +str(request.args.get('c', '')) + "@")
+    # print("@" +str(request.args.get('c', '')) + "@")
 
     if  ci != "":
         key = str(ci)
@@ -212,7 +212,7 @@ def test():
         tablename = tablenames[3]
         keyname = keynames[3]
 
-    print("username is:@" + key + "@")
+    # print("username is:@" + key + "@")
     # username = request.args.get('param', '')
     # tablename = request.args.get('table','')
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
@@ -229,13 +229,44 @@ def test():
 @app.route("/testdeal", methods=["GET", "POST"])
 def testdeal():
     #if request.method == "POST":
-    global usernameDEAL
-    usernameDEAL = request.args.get('param', '')
-    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
-    tableDEAL = dynamodb.Table("Customer_information")
-    responseDEAL = tableDEAL.query(KeyConditionExpression=Key('username').eq(usernameDEAL))
-    return json.dumps(responseDEAL['Items'])
+    global key
+    
+    tablenames = ["Vendor_information", "customer", "ErrorCode","employees"]
+    keynames = ["username","username","E","company"]
+    
+    vi = str(request.args.get('vi', ''))
+    c = str(request.args.get('c',''))
+    ec = str(request.args.get('ec',''))
+    e = str(request.args.get('e',''))
 
+    if  vi != "":
+        key = str(vi)
+        tablename = tablenames[0]
+        keyname = keynames[0]
+    
+    elif c != "":
+        key = str(c)
+        tablename = tablenames[1]
+        keyname = keynames[1]
+
+    elif ec != "":
+        key = str(ec)
+        tablename = tablenames[2]
+        keyname = keynames[2]
+
+    elif e != "":
+        key = str(e)
+        tablename = tablenames[3]
+        keyname = keynames[3]
+
+    print("key is:@" + key + "@")
+    # username = request.args.get('param', '')
+    # tablename = request.args.get('table','')
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+    table = dynamodb.Table(tablename)
+    response = table.query(KeyConditionExpression=Key(keyname).eq(key))
+    print(json.dumps(response['Items']))
+    return json.dumps(response['Items'])
 
 @app.route("/registeruser")
 def registeruser():

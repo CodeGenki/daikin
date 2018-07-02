@@ -270,28 +270,14 @@ function get_userDEAL(){
             console.log(cognitoUser.username);
             $.ajax({
                 type: "GET",
-                url: url_name + "/testdeal?param=" + cognitoUser.username,
+
+                url: url_name + "/testdeal?vi=" + cognitoUser.username,
+
                 success: function(data){
-                    var tempInfoDEAL = JSON.parse(data); //save please
-                    var userInfoDEAL = tempInfoDEAL[0];
-                    console.log("got return statement - " + data);
-                    console.log("got return statement - " + userInfoDEAL);
-                    console.log("got return username - " + userInfoDEAL.username);
-                    console.log("got return phone_number - " + userInfoDEAL.phone_number);
-                    console.log("got return family_name - " + userInfoDEAL.family_name);
-                    console.log("got return given_name - " + userInfoDEAL.given_name);
-                    console.log("got return address - " + userInfoDEAL.address);
-                    console.log("got return email - " + userInfoDEAL.email);
-
-
-
-                    document.getElementById("usernameDEAL").innerHTML = userInfoDEAL.username;
-                    document.getElementById("phone_numberDEAL").innerHTML = userInfoDEAL.phone_number;
-                    document.getElementById("family_nameDEAL").innerHTML = userInfoDEAL.family_name;
-                    document.getElementById("given_nameDEAL").innerHTML = userInfoDEAL.given_name;
-                    document.getElementById("addressDEAL").innerHTML = userInfoDEAL.address;
-                    document.getElementById("companyDEAL").innerHTML = userInfoDEAL.company;
-                    document.getElementById("emailDEAL").innerHTML = userInfoDEAL.email;
+                    var tempInfo = JSON.parse(data); //save please
+                    var userInfo = tempInfo[0];
+                    document.getElementById("usernameDEAL").innerHTML = userInfo.username;
+                    document.getElementById("companyDEAL").innerHTML = userInfo.company;
                 },
                 data: cognitoUser.username
             }).done(function( o ) {
