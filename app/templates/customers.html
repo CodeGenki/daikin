@@ -139,7 +139,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
       <script>
         // var map, infoWindow, locationsg, locationsy, locationsr, count, marker;
         var map, infoWindow,count,marker,data,count;
-        var locations = [], username_address = [];
+        var locations = [], username_address = [], addresses=[];
         function get_customers(){
           var poolDataDEAL = {
             UserPoolId : 'us-east-1_QFcNXf7g8', // Your user pool id here
@@ -186,7 +186,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                         var l = item['locations'].split(', ');
                         locations.push([item['given_name'] + " " + item['family_name'],parseFloat(l[0]),parseFloat(l[1]),item['unithealth']]);
                         username_address.push([item['username'], item['address']]);
-                        
+                        addresses.push([item['given_name'] + " " + item['family_name'],item['address'],item['unithealth']]);                 
                       }
                     }
                   }
@@ -206,27 +206,60 @@ body {font-family: Arial, Helvetica, sans-serif;}
           console.log(locations);
           console.log(username_address);
 
-          var icon;
-          for (count=0; count<locations.length; count++) {
-            if (locations[count][3] == "GREEN"){
+          // var icon;
+          // for (count=0; count<locations.length; count++) {
+          //   if (locations[count][3] == "GREEN"){
+          //     icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+          //   }
+          //   else if (locations[count][3] == "RED"){
+          //     icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+          //   }
+          //   else {
+          //     icon = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
+          //   }
+          //  marker= new google.maps.Marker({
+          //   position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
+          //   map:map,
+          //   icon: icon,
+          //   title: locations[count][0]
+          //   });
+          
+          // }
+
+
+          var icon, geocoder;
+          geocoder = new google.maps.Geocoder();
+          for (count=0; count<addresses.length; count++) {
+            var address = addresses[count];
+
+            if (address[2] == "GREEN"){
               icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
             }
-            else if (locations[count][3] == "RED"){
+            else if (address[2] == "RED"){
               icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
             }
             else {
               icon = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
             }
-           marker= new google.maps.Marker({
-            position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
-            map:map,
-            icon: icon,
-            title: locations[count][0]
-            });
-          
-          }
 
+            geocoder.geocode( { 'address': address[1]}, function(results, status) {
+              if (status == 'OK') {
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: map,
+                    icon: icon,
+                    position: results[0].geometry.location,
+                    title: address[0]
+                });
+              } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+              }
+            });
+
+        
         }
+
+      }
           //green customers
       //     locationsg = [		
       //     				['1',29.970276, -95.435214],
