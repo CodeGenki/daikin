@@ -1,61 +1,57 @@
 {% extends "loginbase.html" %}
 {% block content %}
 
-
 <body>
-<div class="bgimg2 w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
-    <div class="w3-display-middle w3-container w3-white w3-text-black " style="width:450px; height: 100%; border: 5px black;">
-    <br><br><br><br>
-    <label style="font-size:20px;"><b>Register Here:</b></label>
-    <br><br>
+  <div class="w3-display-middle w3-container w3-white w3-text-black " style="width:30%; height:100%; border: 3px solid black; overflow-y:scroll;">
+    <br><br><br>
+    <div style="text-align: center;">
+      <label style="font-size:20px;"><b>Register Here:</b></label>
+    </div>
     <form onsubmit="return false;">
       <div class="form-group">
         <div style="text-align: left;">Username</div>
-        <label><input id="registration_username" type="text" class="w3-input w3-padding-10 w3-border form-control" placeholder="Enter Username:"></label>
+        <label><input id="registration_username" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Username:"></label>
         <p id="usernameError" style="color:red"></p>
-    </div>
-    <br>
-    <div class="form-group">
+      </div>
+      <div class="form-group">
         <div style="text-align: left;">Given Name</div>
-        <label><input id="registration_given_name" type="text" class="w3-input w3-padding-10 w3-border form-control" placeholder="Enter Given Name:"></label>
+        <label><input id="registration_given_name" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Given Name:"></label>
         <p id="givennameError" style="color:red"></p>
-    </div> 
-    <br>
-    <div class="form-group">
+      </div> 
+      <div class="form-group">
         <div style="text-align: left;">Family Name</div>
-        <label><input id="registration_family_name" type="text" class="w3-input w3-padding-10 w3-border form-control" placeholder="Enter Family Name:"></label>
+        <label><input id="registration_family_name" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Family Name:"></label>
         <p id="familynameError" style="color:red"></p>
-    </div>
-    <br>
-    <div class="form-group">
+      </div>
+      <div class="form-group">
         <div style="text-align: left;">Phone Number</div>
-        <label><input id="registration_phone_number" type="text" class="w3-input w3-padding-10 w3-border form-control" placeholder="Enter Phone Number:"></label>
+        <label><input id="registration_phone_number" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Phone Number: +11234567890"></label>
         <p id="phonenumberError" style="color:red"></p>
-    </div> 
-    <br>
-    <div class="form-group">
+      </div> 
+      <div class="form-group">
         <div style="text-align: left;">Email Address</div>
-        <label><input id="registration_email" type="text" class="w3-input w3-padding-10 w3-border form-control" placeholder="Enter Email Address:"></label>
+        <label><input id="registration_email" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Email Address:"></label>
         <p id="emailError" style="color:red"></p>
-    </div>
-    <br> 
-    <div class="form-group">
+      </div>
+      <div class="form-group">
         <div style="text-align: left;">Address</div>
-        <label><input id="registration_address" type="text" class="w3-input w3-padding-10 w3-border form-control" placeholder="Enter Address:"></label>
+        <label><input id="registration_address" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Address:"></label>
         <p id="addressError" style="color:red"></p>
-    </div>  
-    <br>
-    <div class="form-group">
+      </div>  
+      <div class="form-group">
         <div style="text-align: left;">Company</div>
-        <label><input id="registration_company" type="password" class="w3-input w3-padding-10 w3-border form-control" placeholder="Enter Company:"></label>
-        <div id="companyError" style="color:red"></div>
-    </div> 
-    <br>
-    <div class="form-group">
+        <select id="registration_company" class="w3-input w3-padding-9 w3-border form-control">
+          <option value="McCann Services Inc.">McCann Services Inc.</option>
+          <option value="Company 2">Company 2</option>
+          <option value="Company 2">Company 2</option>
+        </select>
+        <p id="companyError" style="color:red"></p>
+      </div> 
+      <div class="form-group">
         <div style="text-align: left;">Password</div>
-        <label><input id="registration_password" type="password" class="w3-input w3-padding-10 w3-border form-control" placeholder="Enter Password:"></label>
-        <div id="passwordError" style="color:red"></div>
-    <script type="text/javascript">
+        <label><input id="registration_password" type="password" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Password:"></label>
+        <p id="passwordError" style="color:red"></p>
+        <script type="text/javascript">
         var pass = document.getElementById("registration_password");
 
         pass.onkeyup = function(){
@@ -64,27 +60,22 @@
             else
                 document.getElementById("passwordError").innerHTML = "Password must have 6 or more letters";
         }
-    </script>
-    </div> 
-    <br><br>
-    <button type="submit" class="btn btn-primary btn-block" onclick="registerDEAL()" > Register </button>
-    <div style="color:red;" id="registerError"></div>
+        </script>
+      </div> 
+      <br>
+      <div style="text-align: center;">
+        <button type="submit" class="button" onclick="registerDEAL()" > Register </button>
+        <div style="color:red;" id="registerError"></div>
+      </div>
+      <br>
     </form> 
     </div>
-  </div>
+</body>
 
 <script src="{{ url_for('static', filename='appdeal.js') }}"></script>
 
-</div>
-</div>
+
 <script>
-      // This example displays an address form, using the autocomplete feature
-      // of the Google Places API to help users fill in the information.
-
-      // This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
       var placeSearch, autocomplete;
       var componentForm = {
         street_number: 'short_name',
@@ -144,15 +135,14 @@
           });
         }
       }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&libraries=places&callback=initAutocomplete"
-        async defer></script>
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&libraries=places&callback=initAutocomplete"              async defer></script>
 
 {% for js_url in config.JS_INCLUDES %}
     <script src="{{ js_url }}"></script>
 {% endfor %}
+
 <script src="{{ url_for('static', filename='appdeal.js') }}"></script>
-</body>
-</html>
+
 
 {% endblock %} 

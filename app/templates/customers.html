@@ -30,7 +30,7 @@ function queryData() {
 		} else {
 			document.getElementById('textarea').innerHTML += "Querying for McCann:"+"\n" +JSON.stringify(data,undefined,2);
 		}
-	});
+	});}
 
 
 </script>
@@ -42,12 +42,12 @@ function queryData() {
 }
 
 #customersT td, #customersT th {
-    border: 1px solid #ddd;
+    border: 1px solid black;
     padding: 10px;
 }
 
 
-#customersT tr:hover {background-color: #ddd;}
+#customersT tr:hover {background-color: grey;}
 
 #customersT th {
     padding-top: 12px;
@@ -60,7 +60,7 @@ function queryData() {
 
 .bgimgc {
 
-    background-image: url('https://www.daikin.com.au/sites/default/files/Resized_Lifestyle_01_Wall_Mounted_FTXS-K_0.png');
+    background-image: url('https://www.mcstain.com/wp-content/uploads/2017/01/living-room-background-final.jpg');
     min-height: 100%;
     background-position: center;
     background-size: 100% 100% ;
@@ -73,27 +73,21 @@ function queryData() {
 <body>
 
 <div class="bgimgc w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
-<div class="w3-main" style="margin-left:300px;">
-<!-- 	<input id="queryData" type="button" value="query" onclick="queryData();" />
-	<br><br>
-	<textarea readonly id="textarea" style="width:50px; height: 50px"></textarea> -->
-
-
+  <div class="w3-main" style="margin-left:300px;">
     <header class="w3-container" style="padding-top:86px">
-      <h5 style="color:steelblue;text-align: center;"><b>Customers</b></h5>
+      <h5 style="color:black;text-align: center;"><b>Customers</b></h5>
     </header>
+	  <hr>
 
-	<hr>
+	  <div class="w3-half w3-container" style="padding-top:10px; text-align: right;">
 
-	<div class="w3-half w3-container" style="padding-top:10px; text-align: center">
-
-<div id="map" style="width:90%; height:40%; color: black"></div>
+      <div id="map" style="width:90%; height:45%; color: black; border: 1px solid black; text-align: center"></div>
       <script>
         var map, infoWindow, locationsg, locationsy, locationsr, count, marker;
         function initMap() {
           map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 35.397, lng: -95.644},
-            zoom: 15
+          center: {lat: 35.397, lng: -95.644},
+          zoom: 15
           });
           infoWindow = new google.maps.InfoWindow;
 
@@ -117,7 +111,7 @@ function queryData() {
            				['17',29.717611, -95.380881],
            				['18',30.021806, -95.513613],
            			];
-           locationsy=[
+          locationsy=[
            				['19',30.139947, -95.750629],
            				['21',29.502676, -95.911116],
            				['22',29.360796, -95.641705],
@@ -126,61 +120,57 @@ function queryData() {
            				['25',29.657371, -95.062926],
            			];
 
-           	locationsr=[
-						['16',29.755637, -95.336662],
-						['20',29.881143, -95.959049],
+          locationsr=[
+  					      ['16',29.755637, -95.336662],
+  					      ['20',29.881143, -95.959049],
 
            			];
 
 
-        //green customers
-      	for (count=0; count<locationsg.length; count++) {
-      		marker= new google.maps.Marker({
-      			position: new google.maps.LatLng(locationsg[count][1], locationsg[count][2]), 
-      			map:map,
-      			icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-      			title: locationsg[count][0]
-      		});
-      	
-        }
-        //yellow customers
-      	for (count=0; count<locationsy.length; count++) {
-      		marker= new google.maps.Marker({
-      			position: new google.maps.LatLng(locationsy[count][1], locationsy[count][2]), 
-      			map:map,
-      			icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
-      			title: locationsy[count][0]
-      		});
-      	
-        }
+          //green customers
+        	for (count=0; count<locationsg.length; count++) {
+        		marker= new google.maps.Marker({
+        			position: new google.maps.LatLng(locationsg[count][1], locationsg[count][2]), 
+        			map:map,
+        			icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+        			title: locationsg[count][0]
+        		});       	
+            }
+          //yellow customers
+        	for (count=0; count<locationsy.length; count++) {
+        		marker= new google.maps.Marker({
+        			position: new google.maps.LatLng(locationsy[count][1], locationsy[count][2]), 
+        			map:map,
+        			icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+        			title: locationsy[count][0]
+        		});          	
+            }
 
-      	for (count=0; count<locationsr.length; count++) {
-      		marker= new google.maps.Marker({
-      			position: new google.maps.LatLng(locationsr[count][1], locationsr[count][2]), 
-      			map:map,
-      			icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-      			title: locationsr[count][0]
-      		});
-      	
-        }    
-
-
-  	    }
+        	for (count=0; count<locationsr.length; count++) {
+        		marker= new google.maps.Marker({
+        			position: new google.maps.LatLng(locationsr[count][1], locationsr[count][2]), 
+        			map:map,
+        			icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+        			title: locationsr[count][0]
+        		});         	
+            }    
+          }
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
-              var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
               };
 
-              infoWindow.setPosition(pos);
-              infoWindow.setContent('Location found.');
-              infoWindow.open(map);
-              map.setCenter(pos);
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(pos);
             }, function() {
               handleLocationError(true, infoWindow, map.getCenter());
             });
-          } else {
+            } 
+          else {
             handleLocationError(false, infoWindow, map.getCenter());
           }
 
@@ -190,51 +180,49 @@ function queryData() {
                                 'Error: The Geolocation service failed.' :
                                 'Error: Your browser doesn\'t support geolocation.');
           infoWindow.open(map);
-        }
-    
+          }
+      </script>
+      <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&callback=initMap">
+      </script>
+    </div>
 
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&callback=initMap">
-    </script>
+	  <div class="w3-half w3-container" style="padding-top:10px; text-align: center">
+
+  		<table id="customersT">
+  		  <tr style="background-color: lightsteelblue">
+  		    <th>Name</th>
+  		    <th>Email</th>
+  		    <th>Phone Number</th>
+          <th>Unit Health</th>
+  		  </tr>
+  		  <tr style="background-color: white">
+  		    <td>Post Malone</td>
+  		    <td>xxxxxxx</td>
+  		    <td>xxxxxxx</td>
+          <td>xxxxxxx</td>
+  		  </tr>
+  		  <tr style="background-color: white">
+  		    <td>Jay Z</td>
+  		    <td>xxxxxxx</td>
+  		    <td>xxxxxxx</td>
+          <td>xxxxxxx</td>
+  		  </tr>
+  		  <tr style="background-color: white">
+  		    <td>Kendrick Lamar</td>
+  		    <td>xxxxxxx</td>
+  		    <td>xxxxxxx</td>
+          <td>xxxxxxx</td>
+  		  </tr>
+  		</table>
+    </div>
   </div>
-
-
-	<div class="w3-half w3-container" style="padding-top:10px; text-align: center">
-
-		<table id="customersT">
-		  <tr style="background-color: lightsteelblue">
-		    <th>Number</th>
-		    <th>Name</th>
-		    <th>Email</th>
-		    <th>Phone Number</th>
-		  </tr>
-		  <tr style="background-color: white">
-		    <td>1</td>
-		    <td>Post Malone</td>
-		    <td>xxxxxxx</td>
-		    <td>xxxxxxx</td>
-		  </tr>
-		  <tr style="background-color: white">
-		    <td>2</td>
-		    <td>Jay Z</td>
-		    <td>xxxxxxx</td>
-		    <td>xxxxxxx</td>
-		  </tr>
-		  <tr style="background-color: white">
-		    <td>3</td>
-		    <td>Kendrick Lamar</td>
-		    <td>xxxxxxx</td>
-		    <td>xxxxxxx</td>
-		  </tr>
-		</table>
-
-</div>
 </div>
 </body>
 </html>
 
-
-
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
 
 {% endblock %}

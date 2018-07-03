@@ -26,13 +26,42 @@
 
 .bgimgs {
 
-    background-image: url('http://www.neo-decor.com/wp-content/uploads/2015/01/living-room-grey-fabric-sofa-on-green-rug-connected-by-white-wall-theme-fashionable-look-of-design-interior-living-room-minimalist-as-your-inspiration.jpg');
+    background-image: url('https://www.mcstain.com/wp-content/uploads/2017/01/living-room-background-final.jpg');
     min-height: 100%;
     background-position: center;
     background-size: 100% 100% ;
     color: black;   
     
+} 
 
+
+input[type=text] {
+    width: 150px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: medium;
+    background-color:
+     white;
+    padding: 6px 6px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    text-align: left;
+}
+
+input[type=text]:focus {
+    width: 60%;
+}
+
+.button {
+  display: inline-block;
+  padding: 6px 18px;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+  background-color: lightsteelblue;
+  border: 1px solid black;
+  border-radius: 15px;
 }
 
 
@@ -42,60 +71,60 @@
 <div class="bgimgs w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
 <div class="w3-main" style="margin-left:300px;">
 
-    <header class="w3-container" style="padding-top:86px">
-      <h5 style="color:steelblue;text-align: center;"><b>Suppliers</b></h5>
-    </header>
+  <header class="w3-container" style="padding-top:86px">
+    <h5 style="color:steelblue;text-align: center;"><b>Suppliers</b></h5>
+  </header>
 
 	<hr>
 
-	<div class="w3-half w3-container" style="padding-top:13px; text-align: center">
+	<div class="w3-half w3-container" style="padding-top:13px; align-content: right;">
+    <div id="map" style="width:90%; height:40%; color: black; "></div>
+    <script>
+      var map, infoWindow;
+      // , locations, count, marker;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 35.397, lng: -95.644},
+          zoom: 15
+        });
+        infoWindow = new google.maps.InfoWindow;
+        // locations = [ ];
+    	// for (count=0; count<locations.length; count++) {
+    	// 	marker= new google.maps.Marker({
+    	// 		position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
+    	// 		map:map,
+    	// 		title: locations[count][0]
+    	// 	});
+    	
+     //  }
+	    // }
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+            };
 
-<div id="map" style="width:90%; height:40%; color: black;"></div>
-      <script>
-        var map, infoWindow;
-        // , locations, count, marker;
-        function initMap() {
-          map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 35.397, lng: -95.644},
-            zoom: 15
+          infoWindow.setPosition(pos);
+          infoWindow.setContent('Location found.');
+          infoWindow.open(map);
+          map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
           });
-          infoWindow = new google.maps.InfoWindow;
-          // locations = [ ];
-      	// for (count=0; count<locations.length; count++) {
-      	// 	marker= new google.maps.Marker({
-      	// 		position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
-      	// 		map:map,
-      	// 		title: locations[count][0]
-      	// 	});
-      	
-       //  }
-  	    // }
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-              var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-              };
-
-              infoWindow.setPosition(pos);
-              infoWindow.setContent('Location found.');
-              infoWindow.open(map);
-              map.setCenter(pos);
-            }, function() {
-              handleLocationError(true, infoWindow, map.getCenter());
-            });
-          } else {
-            handleLocationError(false, infoWindow, map.getCenter());
+          } 
+        else {
+          handleLocationError(false, infoWindow, map.getCenter());
           }
 
-        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-          infoWindow.setPosition(pos);
-          infoWindow.setContent(browserHasGeolocation ?
-                                'Error: The Geolocation service failed.' :
-                                'Error: Your browser doesn\'t support geolocation.');
-          infoWindow.open(map);
-        }
-    }
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+      }
 
     </script>
     <script async defer
@@ -104,18 +133,23 @@
   </div>
 
 
-	<div class="w3-half w3-container" style="padding-top:13px; text-align: center">
-
+	<div class="w3-half w3-container" style="padding-top:13px; align-content: left;">
+		<form>
+		  <input type="text" name="search" style="color:black;">
+		  <input type="button" value="Search" class="button" style="color:black;">
+		</form>
 		<table id="suppliers">
 		  <tr style="background-color: lightsteelblue">
 		    <th>Number</th>
 		    <th>Name</th>
 		    <th>Email</th>
 		    <th>Phone Number</th>
+		    <th>x</th>
 		  </tr>
 		  <tr style="background-color: white">
 		    <td>1</td>
 		    <td>Post Malone</td>
+		    <td>xxxxxxx</td>
 		    <td>xxxxxxx</td>
 		    <td>xxxxxxx</td>
 		  </tr>
@@ -124,18 +158,23 @@
 		    <td>Jay Z</td>
 		    <td>xxxxxxx</td>
 		    <td>xxxxxxx</td>
+		    <td>xxxxxxx</td>
 		  </tr>
 		  <tr style="background-color: white">
 		    <td>3</td>
 		    <td>Kendrick Lamar</td>
 		    <td>xxxxxxx</td>
 		    <td>xxxxxxx</td>
+		    <td>xxxxxxx</td>
 		  </tr>
 		</table>
 	</div>
-
 </div>
 </div>
 </body>
+
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
 
 {% endblock %}

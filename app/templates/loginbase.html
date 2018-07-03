@@ -17,25 +17,37 @@ body, html {height: 100%}
 .bgimg2 {
     background-image: url('http://www.daikin.com/images/mainvisual/pic_keyv_1_pc.jpg');
     min-height: 100%;
-    background-position: center;
-    background-size: 100% 100% ;
+    background-position: absolute;
+    background-size:cover;
     color: black;    
+    top:0;
+    left: 0;
+    background-repeat: no-repeat;
+    background-attachment: local;
+  }
+.button {
+  display: inline-block;
+  padding: 12px 20px;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+  background-color: #4682b4;
+  border: 1px solid black;
+  border-radius: 15px;
 }
+
+.button:hover {background-color: #a2b5cd}
+
+
 </style>
 
 
-<body>
-
-{% for js_url in config.JS_INCLUDES %}
-        <script src="{{ js_url }}"></script>
-{% endfor %}
-
-
+<body class= "bgimg2">
 
 
 <!-- Navbar -->
 <div class="w3-top">
-  <div class="w3-bar w3-black w3-card">
+  <div class="w3-bar w3-black w3-card" style="z-index: 5">
     <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     <a href="#" class="w3-bar-item w3-button w3-padding-large">DAIKIN HOME</a>
     <a href= "{{ url_for('logincustomer') }}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">CUSTOMER LOGIN</a>
@@ -52,6 +64,11 @@ body, html {height: 100%}
   <!--<a href="#" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">MERCH</a>--> 
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
 
 
 {% block content %}{% endblock %}

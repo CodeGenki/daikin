@@ -2,7 +2,7 @@
 import os
 
 #YOUR USERNAME HERE
-username = "jenny"
+username = "kristen"
 
 # Title of the site
 SITE_TITLE = 'Daikin Summer 2018 Intern Project'
