@@ -68,6 +68,45 @@
     color: black;    
 }
 
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 </style>
@@ -87,12 +126,20 @@
 	<hr>
 
 	<div class="w3-half w3-container" style="padding-top:10px; text-align: center">
+  
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Some text in the Modal..</p>
+    </div>
+  </div>
 
-<div id="map" style="width:90%; height:40%; color: black"></div>
+  <div id="map" style="width:90%; height:40%; color: black"></div>
       <script>
         // var map, infoWindow, locationsg, locationsy, locationsr, count, marker;
         var map, infoWindow,count,marker,data,count;
-        var locations = [];
+        var locations = [], username_address = [];
         function get_customers(){
           var poolDataDEAL = {
             UserPoolId : 'us-east-1_QFcNXf7g8', // Your user pool id here
@@ -126,7 +173,7 @@
 
                     for (var j = 0, size = customers.length; j < size ; j++) {
                       var cus = customers[j];
-                      console.log(cus)
+                      console.log(cus);
                       var request = new XMLHttpRequest();
                       request.open('GET', url_name + "/testdeal?ci=" + cus, false);  // `false` makes the request synchronous
                       request.send(null);
@@ -135,11 +182,11 @@
                         console.log(request.response);
                         var data = request.response;
                         var tempInfo = JSON.parse(data); //save please
-                        for(var i = 0, size = tempInfo.length; i < size ; i++){
-                          var item = tempInfo[i];
-                          var l = item['locations'].split(', ');
-                          locations.push([item['given_name'] + " " + item['family_name'],parseFloat(l[0]),parseFloat(l[1]),item['unithealth']]);
-                        }
+                        var item = tempInfo[0];
+                        var l = item['locations'].split(', ');
+                        locations.push([item['given_name'] + " " + item['family_name'],parseFloat(l[0]),parseFloat(l[1]),item['unithealth']]);
+                        username_address.push([item['username'], item['address']]);
+                        
                       }
                     }
                   }
@@ -157,6 +204,7 @@
           get_customers();
           console.log('hi');
           console.log(locations);
+          console.log(username_address);
 
           var icon;
           for (count=0; count<locations.length; count++) {
@@ -177,6 +225,7 @@
             });
           
           }
+
         }
           //green customers
       //     locationsg = [		
@@ -269,8 +318,7 @@
                                 'Error: The Geolocation service failed.' :
                                 'Error: Your browser doesn\'t support geolocation.');
           infoWindow.open(map);
-        }
-    
+        }   
 
     </script>
     <script async defer
@@ -305,10 +353,24 @@
 		    <td>3</td>
 		    <td>Kendrick Lamar</td>
 		    <td>xxxxxxx</td>
-		    <td>xxxxxxx</td>
-		  </tr> -->
-		</table>
+		    <td>xxxxxxx</td>-->
+		  </tr>
+    </table>
+<!-- The Modal -->
+<div id="myModal" class="modal">
 
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..</p>
+  </div>
+
+</div>
+
+<script>
+
+</script>    
+</div>
 </div>
 </div>
 <script src="{{ url_for('static', filename='appdeal.js') }}"></script>
