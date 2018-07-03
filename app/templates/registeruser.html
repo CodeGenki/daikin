@@ -44,7 +44,7 @@
       <div class="form-group">
       <div style="text-align: left;">Password</div>
         <label><input id="registration_password" type="password" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Password:"></label>
-        <div id="passwordError" style="color:red"></div>
+        <p id="passwordError" style="color:red"></p>
         <script type="text/javascript">
         var pass = document.getElementById("registration_password");
 
@@ -55,7 +55,22 @@
                 document.getElementById("passwordError").innerHTML = "Password must have 6 or more letters";
         }
         </script>
-      </div> 
+      </div>
+      <div class="form-group">
+      <div style="text-align: left;">Confirm Password</div>
+        <label><input id="registrationC_password" type="password" class="w3-input w3-padding-9 w3-border form-control" placeholder="Confirm Password:"></label>
+        <p id="passwordCError" style="color:red"></p>
+        <script type="text/javascript">
+        var passC = document.getElementById("registrationC_password");
+
+        passC.onkeyup = function(){
+            if(passC.value == pass.value)
+                document.getElementById("passwordCError").innerHTML = "";
+            else
+                document.getElementById("passwordCError").innerHTML = "Password mismatched";
+        }
+        </script>
+      </div>
       <br>
       <div style="text-align: center;">
         <button type="submit" class="button" onclick="register()" > Register </button>
