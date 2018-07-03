@@ -405,9 +405,9 @@ function createTableCus() {
                 console.log(request.response);
                 var data = request.response;
                 var tempInfo = JSON.parse(data)[0]; //save please
-                var customers = tempInfo.customers,split(" ");                    
+                var customers = tempInfo.customers.split(" ");                    
                 
-                for (var j = 0, size = customers.length; j < size ; i++) {
+                for (var j = 0, size = customers.length; j < size ; j++) {
                     var cus = customers[j];
                     var request = new XMLHttpRequest();
                     request.open('GET', url_name + "/testdeal?ci=" + cus, false);  // `false` makes the request synchronous
@@ -418,14 +418,17 @@ function createTableCus() {
                         var data = request.response;
                         var tableInfo = JSON.parse(data); //save please
 
-                        var d = ["unithealth","username","address","email","phone_number"];
+                        var d = ["unithealth","given_name","address","email","phone_number"];
                         var rn = tableInfo.length;
-                        var cn = document.getElementById("customers").rows[0].cells.length;
+                        var cn = document.getElementById("customersT").rows[0].cells.length;
                         for(var r=1;r<=rn;r++) {
-                        var x=document.getElementById('customers').insertRow(r);
+                        var x=document.getElementById('customersT').insertRow(r);
                             for(var c=0;c<cn;c++) {
-                               var y=  x.insertCell(c);
-                                y.innerHTML=tableInfo[r-1][d[c]];
+                                var y=  x.insertCell(c);
+                                if (d[c] == 'given_name') 
+                                    y.innerHTML=tableInfo[r-1][d[c]] + " " + tableInfo[r-1]['family_name'];     
+                                else 
+                                    y.innerHTML=tableInfo[r-1][d[c]];
                             }
                         }
                     }

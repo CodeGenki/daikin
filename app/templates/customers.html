@@ -31,8 +31,9 @@
 // 			document.getElementById('textarea').innerHTML += "Querying for McCann:"+"\n" +JSON.stringify(data,undefined,2);
 // 		}
 // 	});
-
 // }
+
+
 </script>
 
 <style>
@@ -89,7 +90,63 @@
 
 <div id="map" style="width:90%; height:40%; color: black"></div>
       <script>
-        var map, infoWindow, locationsg, locationsy, locationsr, count, marker;
+        // var map, infoWindow, locationsg, locationsy, locationsr, count, marker;
+        var map, infoWindow,count,marker,data,count;
+        var locations = [];
+        function get_customers(){
+          var poolDataDEAL = {
+            UserPoolId : 'us-east-1_QFcNXf7g8', // Your user pool id here
+            ClientId : '4ut1fjlf1v35jbj2v9cks6981l' // Your client id here
+          };
+          // var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael";
+          // var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen";
+          var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
+          var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
+          var cognitoUser = userPool.getCurrentUser();
+
+          if(cognitoUser !== null){
+              cognitoUser.getSession(function(err, session) {
+                  if(err){
+                      alert(err);
+                      return;
+                  }
+
+                  console.log('session validity: ' + session.isValid());
+                  console.log(cognitoUser.username);
+
+                  var request = new XMLHttpRequest();
+                  request.open('GET', url_name + "/testdeal?vi=" + cognitoUser.username, false);  // `false` makes the request synchronous
+                  request.send(null);
+
+                  if (request.status === 200) {
+                    console.log(request.response);
+                    var data = request.response;
+                    var tempInfo = JSON.parse(data)[0]; //save please
+                    var customers = tempInfo.customers.split(" ");        
+
+                    for (var j = 0, size = customers.length; j < size ; j++) {
+                      var cus = customers[j];
+                      console.log(cus)
+                      var request = new XMLHttpRequest();
+                      request.open('GET', url_name + "/testdeal?ci=" + cus, false);  // `false` makes the request synchronous
+                      request.send(null);
+
+                      if (request.status === 200) {
+                        console.log(request.response);
+                        var data = request.response;
+                        var tempInfo = JSON.parse(data); //save please
+                        for(var i = 0, size = tempInfo.length; i < size ; i++){
+                          var item = tempInfo[i];
+                          var l = item['locations'].split(', ');
+                          locations.push([item['given_name'] + " " + item['family_name'],parseFloat(l[0]),parseFloat(l[1]),item['unithealth']]);
+                        }
+                      }
+                    }
+                  }
+            });
+          }
+        }
+
         function initMap() {
           map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 35.397, lng: -95.644},
@@ -97,7 +154,31 @@
           });
           infoWindow = new google.maps.InfoWindow;
 
-      //     //green customers
+          get_customers();
+          console.log('hi');
+          console.log(locations);
+
+          var icon;
+          for (count=0; count<locations.length; count++) {
+            if (locations[count][3] == "GREEN"){
+              icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+            }
+            else if (locations[count][3] == "RED"){
+              icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+            }
+            else {
+              icon = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
+            }
+           marker= new google.maps.Marker({
+            position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
+            map:map,
+            icon: icon,
+            title: locations[count][0]
+            });
+          
+          }
+        }
+          //green customers
       //     locationsg = [		
       //     				['1',29.970276, -95.435214],
       //     				['2',29.864250, -95.544214],
@@ -162,10 +243,8 @@
       // 			title: locationsr[count][0]
       // 		});
       	
-      //   }    
-
-
-  	    }
+      //   }  
+      //}  	    
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
               var pos = {
@@ -204,11 +283,12 @@
 
 		<table id="customersT">
 		  <tr style="background-color: lightsteelblue">
-		    <th>Number</th>
+		    <th>Unit Status</th>
 		    <th>Name</th>
+        <th>Address</th>
 		    <th>Email</th>
 		    <th>Phone Number</th>
-		  </tr>
+<!-- 		  </tr>
 		  <tr style="background-color: white">
 		    <td>1</td>
 		    <td>Post Malone</td>
@@ -226,11 +306,15 @@
 		    <td>Kendrick Lamar</td>
 		    <td>xxxxxxx</td>
 		    <td>xxxxxxx</td>
-		  </tr>
+		  </tr> -->
 		</table>
 
 </div>
 </div>
+<script src="{{ url_for('static', filename='appdeal.js') }}"></script>
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
 </body>
 </html>
 

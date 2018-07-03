@@ -238,7 +238,7 @@ def testdeal():
     c = str(request.args.get('c',''))
     ec = str(request.args.get('ec',''))
     e = str(request.args.get('e',''))
-    s = str(request.args.getget('e',''))
+    s = str(request.args.get('s',''))
     ci = str(request.args.get('ci',''))
 
     if  vi != "":
