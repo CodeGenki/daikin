@@ -53,7 +53,7 @@
 <div id="map" style="width:90%; height:40%; color: black;"></div>
       <script>
         var map, infoWindow,count,marker,data;
-        var locations = [];
+        var locations = [], username_address = [], addresses=[];
         function get_suppliers(){
           var poolDataDEAL = {
             UserPoolId : 'us-east-1_QFcNXf7g8', // Your user pool id here
@@ -97,6 +97,8 @@
                         var item = tempInfo[i];
                         var l = item['location'].split(', ');
                         locations.push([item['companyname'],parseFloat(l[0]),parseFloat(l[1])]);
+                        username_address.push([item['companyname'], item['address']]);
+                        addresses.push([item['companyname'],item['address']]);            
                       }
                     }
                   }
@@ -122,15 +124,40 @@
           get_suppliers();
           console.log('hi');
           console.log(locations);
+          console.log(username_address);
 
-          for (count=0; count<locations.length; count++) {
-            marker= new google.maps.Marker({
-              position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
-              map:map,
-              title: locations[count][0]
-            });
+          // for (count=0; count<locations.length; count++) {
+          //   marker= new google.maps.Marker({
+          //     position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
+          //     map:map,
+          //     title: locations[count][0]
+          //   });
           
-          }
+          // }
+
+          var geocoder;
+          geocoder = new google.maps.Geocoder();
+          for (count=0; count<addresses.length; count++) {
+            var address = addresses[count];
+            geocoder.geocode( { 'address': address[1]}, function(results, status) {
+              if (status == 'OK') {
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+                    title: address[0]
+                });
+              } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+              }
+            });
+
+        
+        }
+
+
+
+
         
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -171,6 +198,7 @@
 		<table id="suppliers">
 		  <tr style="background-color: lightsteelblue">
 		    <th>Name</th>
+        <th>Address></th>
 		    <th>Phone Number</th>
         <th>Components</th>
 		  </tr>
