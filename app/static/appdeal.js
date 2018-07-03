@@ -287,7 +287,7 @@ function get_userDEAL(){
     }
 }
 
-function createTable() {
+function createTableEmp() {
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
     var cognitoUser = userPool.getCurrentUser();
 
@@ -367,7 +367,7 @@ function createTableSup() {
                     var data = request.response;
                     var tableInfo = JSON.parse(data); //save please
 
-                    var d = ["companyname","number","components"];
+                    var d = ["companyname","address","number","components"];
                     var rn = tableInfo.length;
                     var cn = document.getElementById("suppliers").rows[0].cells.length;
                     for(var r=1;r<=rn;r++) {
