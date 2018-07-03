@@ -239,36 +239,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
       }
 
-          //green customers
-        	for (count=0; count<locationsg.length; count++) {
-        		marker= new google.maps.Marker({
-        			position: new google.maps.LatLng(locationsg[count][1], locationsg[count][2]), 
-        			map:map,
-        			icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-        			title: locationsg[count][0]
-        		});       	
-            }
-          //yellow customers
-        	for (count=0; count<locationsy.length; count++) {
-        		marker= new google.maps.Marker({
-        			position: new google.maps.LatLng(locationsy[count][1], locationsy[count][2]), 
-        			map:map,
-        			icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
-        			title: locationsy[count][0]
-        		});          	
-            }
-
-        	for (count=0; count<locationsr.length; count++) {
-        		marker= new google.maps.Marker({
-        			position: new google.maps.LatLng(locationsr[count][1], locationsr[count][2]), 
-        			map:map,
-        			icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-        			title: locationsr[count][0]
-        		});         	
-            }    
-
-
-          if (navigator.geolocation) {
+        if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
               lat: position.coords.latitude,
