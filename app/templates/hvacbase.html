@@ -1,7 +1,11 @@
 <head id="content">
 <!DOCTYPE html>
 <html>
+<!-- <<<<<<< HEAD -->
 <title>Customer</title>
+
+<title>My Dashboard</title>
+<!-- >>>>>>> 5cda7b661b4ccf0bc5951b587eb911669830082e -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -50,7 +54,7 @@ body, html {height: 100%}
 <nav class="w3-sidebar w3-collapse w3-animate-left" style="z-index:3;width:300px;background-color: lightgrey;" id="mySidebar"><br>
 
   <div class="w3-bar-block" style="padding-top: 100px;" >
-    <h5 style="color:steelblue; text-align: center;"><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
+    <h5 style="color:black; text-align: center;"><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
     <a href= "{{ url_for('vendor') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-home fa-fw"></i>  Home</a>
     <a href="{{ url_for('employees') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-users fa-fw"></i> Employees</a>
     <a href="{{ url_for('customers') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-address-book fa-fw"></i>  Customers</a>
@@ -72,7 +76,12 @@ body, html {height: 100%}
 
 {% block content %}{% endblock %}
 
+<!-- <<<<<<< HEAD -->
 <script src="{{ url_for('static', filename='appdeal.js') }}"></script>
+<!-- ======= -->
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.259.1.min.js"></script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+<!-- >>>>>>> 5cda7b661b4ccf0bc5951b587eb911669830082e -->
 {% for js_url in config.JS_INCLUDES %}
     <script src="{{ js_url }}"></script>
 {% endfor %}

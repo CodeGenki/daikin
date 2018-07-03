@@ -1,5 +1,6 @@
+// var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen";
 
-var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen";
+var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
 
 var poolData = {
     UserPoolId : 'us-east-1_2o7S9Pswl', // Your user pool id here
@@ -370,6 +371,8 @@ function get_unit(){
             
             var request = new XMLHttpRequest();
             request.open('GET', url_name + "/test?c=" + cognitoUser.username, false);  // `false` makes the request synchronous
+            // request.open('GET', url_name + "/test?c=" + cognitoUser.username, false);  // `false` makes the request synchronous
+            request.open('GET', url_name + "/test?ci=" + cognitoUser.username, false);  // `false` makes the request synchronous
             request.send(null);
 
             if (request.status === 200) {
@@ -379,7 +382,8 @@ function get_unit(){
                 // document.getElementById("username").innerHTML = userInfo.username;
                 document.getElementById("refrigerant").innerHTML = userInfo.refrigerantleak;
                 document.getElementById("unitstatus").innerHTML = userInfo.unithealth;
-                document.getElementById("t").innerHTML = userInfo.Time;
+                // document.getElementById("t").innerHTML = userInfo.Time;
+                document.getElementById("t").innerHTML = userInfo.curr_time;
                 
                 var errorArray = userInfo.ErrorCode.split(" ");
 

@@ -231,13 +231,16 @@ def testdeal():
     #if request.method == "POST":
     global key
     
-    tablenames = ["Vendor_information", "customer", "ErrorCode","employees"]
-    keynames = ["username","username","E","company"]
-    
+    tablenames = ["Vendor_information", "customer", "ErrorCode","employees", "Suppliers","Customer_information"]
+    keynames = ["username","username","E","company","Affiliate","username"]
+   
     vi = str(request.args.get('vi', ''))
     c = str(request.args.get('c',''))
     ec = str(request.args.get('ec',''))
     e = str(request.args.get('e',''))
+
+    s = str(request.args.get('s',''))
+    ci = str(request.args.get('ci',''))
 
     if  vi != "":
         key = str(vi)
@@ -258,6 +261,16 @@ def testdeal():
         key = str(e)
         tablename = tablenames[3]
         keyname = keynames[3]
+
+    elif s != "":
+        key = str(s)
+        tablename = tablenames[4]
+        keyname = keynames[4]
+ 
+    elif ci != "":
+        key = str(ci)
+        tablename = tablenames[5]
+        keyname = keynames[5]
 
     print("key is:@" + key + "@")
     # username = request.args.get('param', '')

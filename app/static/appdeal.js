@@ -1,6 +1,8 @@
-// var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael"
+
 // var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen"
-var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen"
+
+var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
+
 
 var poolDataDEAL = {
 	UserPoolId : 'us-east-1_QFcNXf7g8', // Your user pool id here
@@ -260,6 +262,7 @@ function get_userDEAL(){
     var cognitoUser = userPool.getCurrentUser();
 
     if(cognitoUser !== null){
+
         cognitoUser.getSession(function(err, session) {
             if(err){
                 alert(err);
@@ -278,7 +281,6 @@ function get_userDEAL(){
                     var userInfo = tempInfo[0];
                     document.getElementById("usernameDEAL").innerHTML = userInfo.username;
                     document.getElementById("companyDEAL").innerHTML = userInfo.company;
-                    var empDEAL=
                 },
                 data: cognitoUser.username
             }).done(function( o ) {
@@ -289,7 +291,9 @@ function get_userDEAL(){
 }
 
 
-function get_employeesDEAL(){
+
+
+function createTable() {
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
     var cognitoUser = userPool.getCurrentUser();
 
@@ -299,67 +303,144 @@ function get_employeesDEAL(){
                 alert(err);
                 return;
             }
-
             console.log('session validity: ' + session.isValid());
             console.log(cognitoUser.username);
-            $.ajax({
-                type: "GET",
 
-                url: url_name + "/testdeal?vi=" + cognitoUser.username,
+            var request = new XMLHttpRequest();
+            request.open('GET', url_name + "/testdeal?vi=" + cognitoUser.username, false);  // `false` makes the request synchronous
+            request.send(null);
 
-                success: function(data){
-                    var tempInfo = JSON.parse(data); //save please
-                    var userInfo = tempInfo[0];
-                    document.getElementById("usernameDEAL").innerHTML = userInfo.username;
-                    document.getElementById("companyDEAL").innerHTML = userInfo.company;
-                    var empDEAL=
-                },
-                data: cognitoUser.username
-            }).done(function( o ) {
-                console.log("Sent request to python file");
-            });
+            if (request.status === 200) {
+                console.log(request.response);
+                var data = request.response;
+                var tempInfo = JSON.parse(data)[0]; //save please
+                var comp = tempInfo.company;                    
+                
+                var request = new XMLHttpRequest();
+                request.open('GET', url_name + "/testdeal?e=" + comp, false);  // `false` makes the request synchronous
+                request.send(null);
+
+                if (request.status === 200) {
+                    console.log(request.response);
+                    var data = request.response;
+                    var tableInfo = JSON.parse(data); //save please
+
+                    var d = ["available","employeename","email","number"];
+                    var rn = tableInfo.length;
+                    var cn = document.getElementById("employees").rows[0].cells.length;
+                    for(var r=1;r<=rn;r++) {
+                    var x=document.getElementById('employees').insertRow(r);
+                        for(var c=0;c<cn;c++) {
+                           var y=  x.insertCell(c);
+                            y.innerHTML=tableInfo[r-1][d[c]];
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
+
+function createTableSup() {
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
+    var cognitoUser = userPool.getCurrentUser();
+
+    if(cognitoUser !== null){
+        cognitoUser.getSession(function(err, session) {
+            if(err){
+                alert(err);
+                return;
+            }
+            console.log('session validity: ' + session.isValid());
+            console.log(cognitoUser.username);
+
+            var request = new XMLHttpRequest();
+            request.open('GET', url_name + "/testdeal?vi=" + cognitoUser.username, false);  // `false` makes the request synchronous
+            request.send(null);
+
+            if (request.status === 200) {
+                console.log(request.response);
+                var data = request.response;
+                var tempInfo = JSON.parse(data)[0]; //save please
+                var comp = tempInfo.company;                    
+                
+                var request = new XMLHttpRequest();
+                request.open('GET', url_name + "/testdeal?s=" + comp, false);  // `false` makes the request synchronous
+                request.send(null);
+
+                if (request.status === 200) {
+                    console.log(request.response);
+                    var data = request.response;
+                    var tableInfo = JSON.parse(data); //save please
+
+                    var d = ["companyname","number","components"];
+                    var rn = tableInfo.length;
+                    var cn = document.getElementById("suppliers").rows[0].cells.length;
+                    for(var r=1;r<=rn;r++) {
+                    var x=document.getElementById('suppliers').insertRow(r);
+                        for(var c=0;c<cn;c++) {
+                           var y=  x.insertCell(c);
+                            y.innerHTML=tableInfo[r-1][d[c]];
+                        }
+                    }
+                }
+            }
         });
     }
 }
 
 
+function createTableCus() {
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
+    var cognitoUser = userPool.getCurrentUser();
 
+    if(cognitoUser !== null){
+        cognitoUser.getSession(function(err, session) {
+            if(err){
+                alert(err);
+                return;
+            }
+            console.log('session validity: ' + session.isValid());
+            console.log(cognitoUser.username);
 
-// function get_empDEAL(){
-//     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
-//     var cognitoUser = userPool.getCurrentUser();
-//     // var comp = companyDEAL
+            var request = new XMLHttpRequest();
+            request.open('GET', url_name + "/testdeal?vi=" + cognitoUser.username, false);  // `false` makes the request synchronous
+            request.send(null);
 
-//     if(cognitoUser !== null){
-//         cognitoUser.getSession(function(err, session) {
-//             if(err){
-//                 alert(err);
-//                 return;
-//             }
+            if (request.status === 200) {
+                console.log(request.response);
+                var data = request.response;
+                var tempInfo = JSON.parse(data)[0]; //save please
+                var customers = tempInfo.customers.split(" ");                    
+                
+                for (var j = 0, size = customers.length; j < size ; j++) {
+                    var cus = customers[j];
+                    var request = new XMLHttpRequest();
+                    request.open('GET', url_name + "/testdeal?ci=" + cus, false);  // `false` makes the request synchronous
+                    request.send(null);
 
-//             console.log('session validity: ' + session.isValid());
-//             console.log(cognitoUser.username);
-//             var request = new XMLHttpRequest();
-//             request.open('GET', url_name + "/test?e=" + ccompanyDEAL, false);  // `false` makes the request synchronous
-//             request.send(null);
+                    if (request.status === 200) {
+                        console.log(request.response);
+                        var data = request.response;
+                        var tableInfo = JSON.parse(data); //save please
 
-//             if (request.status === 200) {
-//                 var data = request.response;
-//                 var userInfo = JSON.parse(data)[0]; //save please
-//                 // console.log(userInfo);
-//                 // document.getElementById("empname").innerHTML = userInfo.employeename;
-               
-//             }
-              
-//         });
-//     }
-// }
-
-
-
-
-
-
-
-
+                        var d = ["unithealth","given_name","address","email","phone_number"];
+                        var rn = tableInfo.length;
+                        var cn = document.getElementById("customersT").rows[0].cells.length;
+                        for(var r=1;r<=rn;r++) {
+                        var x=document.getElementById('customersT').insertRow(r);
+                            for(var c=0;c<cn;c++) {
+                                var y=  x.insertCell(c);
+                                if (d[c] == 'given_name') 
+                                    y.innerHTML=tableInfo[r-1][d[c]] + " " + tableInfo[r-1]['family_name'];     
+                                else 
+                                    y.innerHTML=tableInfo[r-1][d[c]];
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
 

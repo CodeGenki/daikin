@@ -71,11 +71,15 @@ body, html {height: 100%}
 </body>
 
 {% block content %}{% endblock %}
+<!-- <<<<<<< HEAD -->
 
 {% for js_url in config.JS_INCLUDES %}
     <script src="{{ js_url }}"></script>
 {% endfor %}
 
+<!-- ======= -->
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.259.1.min.js"></script>
+<!-- >>>>>>> 5cda7b661b4ccf0bc5951b587eb911669830082e -->
 <script src="{{ url_for('static', filename='app.js') }}"></script>
 
 </html>
