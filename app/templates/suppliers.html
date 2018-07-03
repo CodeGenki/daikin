@@ -155,26 +155,38 @@ input[type=text]:focus {
           //   });
           
           // }
+          var newcoords;
+              function getLatLng(address){
+    
+              var parsedAddress = address.split(" ").join("+"); //parse address to fit into the url request
+              var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + parsedAddress + '&key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU';
+              var request = new XMLHttpRequest();
+              request.open('GET', url, false);  // `false` makes the request synchronous
+              request.send(null);
 
-          var geocoder;
-          geocoder = new google.maps.Geocoder();
-          for (count=0; count<addresses.length; count++) {
-            var address = addresses[count];
-            geocoder.geocode( { 'address': address[1]}, function(results, status) {
-              if (status == 'OK') {
-                map.setCenter(results[0].geometry.location);
+              if(request.status == 200){
+                var newlat1 = JSON.parse(request.response).results[0].geometry.location.lat;//parses JSON file for coords
+                    var newlng1 = JSON.parse(request.response).results[0].geometry.location.lng;
+                    newcoords = { lat : newlat1, lng : newlng1};//finds new lat and lng
+              }
+            }
+
+              var icon;
+              for (count=0; count<addresses.length; count++) {
+                var address = addresses[count];
+                getLatLng(address[1]);
+
                 var marker = new google.maps.Marker({
                     map: map,
-                    position: results[0].geometry.location,
+                    position: newcoords,
                     title: address[0]
+                    
                 });
-              } else {
-                alert('Geocode was not successful for the following reason: ' + status);
-              }
-            });
 
-        
-        }
+            
+            }
+
+          
 
 
 
@@ -224,9 +236,8 @@ input[type=text]:focus {
 		<table id="suppliers">
 		  <tr style="background-color: lightsteelblue">
 		    <th>Name</th>
-        <th>Address></th>
+        <th>Address</th>
 		    <th>Phone Number</th>
-		    <th>x</th>
         <th>Components</th>
 		  </tr>
 		</table>

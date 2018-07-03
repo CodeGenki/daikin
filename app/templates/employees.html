@@ -26,7 +26,7 @@
 
 .bgimge {
 
-    background-image: url('http://pentium.club/wp-content/uploads/2017/08/empty-bedroom-background-empty-living-room-wall-decorating-clear-bedroom-sets-full.jpg');
+    background-image: url('https://pentium.club/wp-content/uploads/2017/08/empty-bedroom-background-empty-living-room-wall-decorating-clear-bedroom-sets-full.jpg');
     min-height: 100%;
     background-position: center;
     background-size: 100% 100% ;
@@ -134,34 +134,46 @@
           //   });
           
           // }
-          var icon, geocoder;
-          geocoder = new google.maps.Geocoder();
-          for (count=0; count<addresses.length; count++) {
-            var address = addresses[count];
+          var newcoords;
+              function getLatLng(address){
+    
+              var parsedAddress = address.split(" ").join("+"); //parse address to fit into the url request
+              var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + parsedAddress + '&key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU';
+              var request = new XMLHttpRequest();
+              request.open('GET', url, false);  // `false` makes the request synchronous
+              request.send(null);
 
-            if (address[2] == "yes"){
-              icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+              if(request.status == 200){
+                var newlat1 = JSON.parse(request.response).results[0].geometry.location.lat;//parses JSON file for coords
+                    var newlng1 = JSON.parse(request.response).results[0].geometry.location.lng;
+                    newcoords = { lat : newlat1, lng : newlng1};//finds new lat and lng
+              }
             }
-            else {
-              icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
-            }
-           
-            geocoder.geocode( { 'address': address[1]}, function(results, status) {
-              if (status == 'OK') {
-                map.setCenter(results[0].geometry.location);
+
+              var icon;
+              for (count=0; count<addresses.length; count++) {
+                var address = addresses[count];
+
+                if (address[2] == "yes"){
+                  icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+                }
+                else {
+                  icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+                }
+                
+
+                getLatLng(address[1]);
+
                 var marker = new google.maps.Marker({
                     map: map,
                     icon: icon,
-                    position: results[0].geometry.location,
+                    position: newcoords,
                     title: address[0]
+                    
                 });
-              } else {
-                alert('Geocode was not successful for the following reason: ' + status);
-              }
-            });
 
-        
-        }
+            
+            }
 
         }
           if (navigator.geolocation) {
