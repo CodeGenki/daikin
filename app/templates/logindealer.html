@@ -3,32 +3,31 @@
 
 
 <body>
-<div class="bgimg2 w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
+    <div class="w3-display-middle w3-container w3-white w3-text-black " style="width:450px; height: 480px; border: 3px solid black;">
+        <br><br>
+        <div style="text-align: center;">
+            <label style="font-size:20px"><b>Login Here:</b></label>
+        </div>
+        <br><br>
+        <form onsubmit="return false;">
+            <div class="form-group">
+                <div>Username</div>
+                <p><input id="sign_in_username" type="text" class="w3-input w3-padding-16 w3-border form-control" placeholder="Enter username"></p>
+                <p id="noUsername" style="color:red"></p>
+            </div>
+            <div class="form-group">
+                <div>Password</div>
+                <p><input id="sign_in_password" type="password" class="w3-input w3-padding-16 w3-border form-control" placeholder="Enter password"></p>
+            </div>  
+            <br>
+            <div style="text-align: center;">
+                <button type="submit" class="button" onclick="signInDEAL();" > Sign In </button>
+                <p id="invalidCredentials" style="color:red"></p>
+                <a href="{{ url_for('registerdealer') }}">New User? Register Here.</a>
+            </div>
+        </form>      
+    </div>
 
-    <div class="w3-display-middle w3-container w3-white w3-text-black " style="width:450px; height: 500px; border: 5px black;">
-    <div class="w3-padding-64 w3-padding-large">
-  <label style="font-size:20px"><b>Dealer Login Here:</b></label>
-    <br><br>
-    <form onsubmit="return false;">
-      <div class="form-group">
-        <div>Username</div>
-        <p><input id="sign_in_username" type="text" class="w3-input w3-padding-16 w3-border form-control" placeholder="Enter username"></p>
-        <p id="noUsername" style="color:red"></p>
-    </div>
-    <div class="form-group">
-        <div>Password</div>
-        <p><input id="sign_in_password" type="password" class="w3-input w3-padding-16 w3-border form-control" placeholder="Enter password"></p>
-        </div>  
-        <br>
-    <button type="submit" class="btn btn-primary btn-block" onclick="signInDEAL();" > Sign In </button>
-    <p id="invalidCredentials" style="color:red"></p>
-    <a href="{{ url_for('registerdealer') }}">New User? Register Here.</a>
-    </form> 
-    </div>
-  </div>
-</div>
-<!--<script src="/michael/static/amazon-cognito-identity.min.js"></script>
-<script src="/michael/static/aws-cognito-sdk.min.js"></script>-->
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.259.1.min.js"></script>
 <script src="{{ url_for('static', filename='appdeal.js') }}"></script>
 

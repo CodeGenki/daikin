@@ -1,5 +1,5 @@
-// var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael";
 // var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen";
+
 var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
 
 var poolData = {
@@ -33,7 +33,7 @@ function signIn(){
         
         onSuccess: function (result) {
 
-        	console.log('access token + ' + result.getAccessToken().getJwtToken());
+            console.log('access token + ' + result.getAccessToken().getJwtToken());
             window.location.href = url_name + "/customer";
             //test
         }, 
@@ -135,8 +135,8 @@ function register(){
     }
 
     if (!e){
-    	var cognitoUser;
-    	userPool.signUp(username, password, attributeList, null, function(err, result){
+        var cognitoUser;
+        userPool.signUp(username, password, attributeList, null, function(err, result){
             
             
             if (err) {
@@ -173,7 +173,7 @@ function register(){
                     }
                 }
 
-            	console.log(err);
+                console.log(err);
                 // alert(err.message);
                 // document.getElementById("registerError").innerHTML = err.message;
             }
@@ -370,6 +370,7 @@ function get_unit(){
             console.log(cognitoUser.username);
             
             var request = new XMLHttpRequest();
+            request.open('GET', url_name + "/test?c=" + cognitoUser.username, false);  // `false` makes the request synchronous
             // request.open('GET', url_name + "/test?c=" + cognitoUser.username, false);  // `false` makes the request synchronous
             request.open('GET', url_name + "/test?ci=" + cognitoUser.username, false);  // `false` makes the request synchronous
             request.send(null);
@@ -411,4 +412,3 @@ function get_unit(){
         });
     }
 }
-

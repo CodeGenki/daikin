@@ -1,57 +1,69 @@
 {% extends "hvacbase.html" %}
 {% block content %}
 
+<style>
+  
+.bgimgc {
+
+    background-image: url('http://pentium.club/wp-content/uploads/2017/08/empty-bedroom-background-empty-living-room-wall-decorating-clear-bedroom-sets-full.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: 100% 100% ;
+    color: black;    
+}
+
+</style>
+
 <body>
 
-<div class="bgimg2 w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
+<div class="bgimgc w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
 <div class="w3-main" style="margin-left:300px;">
 
   <header class="w3-container" style="padding-top:43px;">
-      <h5 style="color:steelblue;text-align:center;"><b>Contact Us</b></h5>
+      <h5 style="color: black; text-align:center;"><b>Contact Us</b></h5>
   </header>
 
 <hr>
 <div class="w3-half w3-container" style="padding-top:13px;">
-      <p style="color: steelblue; text-align: center;"><b>Send a Message</b></p>
+      <p style="color: black; text-align: center;"><b>Send a Message</b></p>
       <br>
-      <form class="w3-container w3-card w3-padding-32" style= "background-color: lightgrey; border: 3px solid black; margin-left: 50px " action="/action_page.php" target="_blank">
+      <form class="w3-container w3-card w3-padding-32" style= "margin-left: 50px " action="/action_page.php" target="_blank">
         <div class="w3-section">
           <label style= "color:black;">Name</label>
-          <input class="w3-input" style="width:100%; color:black;" type="text" required name="Name">
+          <input class="w3-input" style="width:100%; color:black; border: 1px solid black" type="text" required name="Name">
         </div>
         <div class="w3-section">
           <label style= "color:black;">Email</label>
-          <input class="w3-input" style="width:100%; color:black;" type="text" required name="Email">
+          <input class="w3-input" style="width:100%; color:black; border: 1px solid black" type="text" required name="Email">
         </div>
         <div class="w3-section">
           <label style= "color:black;">Message</label>
-          <input class="w3-input" style="width:100%; color:black;" type="text" required name="Message">
+          <input class="w3-input" style="width:100%; color:black; border: 1px solid black" type="text" required name="Message">
         </div>
-        <button type="submit" class="w3-button  w3-right" style="background-color: steelblue; color:black">Send</button>
+        <button type="submit" class="w3-button  w3-right" style="background-color: lightsteelblue; color:black; border: 1px solid black;">Send</button>
       </form>
   </div>
 
   <div class="w3-half w3-container" style="padding-top:13px; text-align: center;">
-    <p style="color:steelblue;"><b>Corporate USA Headquarters</b></p>
+    <p style="color: black;"><b>Corporate USA Headquarters</b></p>
     <br>
     <img src="http://www.csscdoors.com/images/Daikin%20(1).jpg" alt="DTTP" style="float: center;">
     <br><br>
     <p style="color: black; text-align: center">19001 Kermier Rd <br>Waller, TX 77484 <br> +1 (770)-861-2500</p>
     <br>
+    <p style="color: black;"">Or, Find Your Answers Here: <button class="w3-button" href="https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen/faqs" style="background-color: lightsteelblue; border: 1px solid black;">FAQs</button></p>
+
     <p style="color: black;"">Or, Find Your Answers Here: <button class="w3-button" href= {{ config.url_name }}+"/faQ" style="background-color: steelblue;">FAQs</button></p>
 </div>
 
 
 </div>
+
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
+
 </body>
-
-
-
-
-
-
-
-
 
 
 {% endblock %}

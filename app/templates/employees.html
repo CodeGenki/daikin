@@ -8,7 +8,7 @@
 }
 
 #employees td, #employees th {
-    border: 1px solid #ddd;
+    border: 1px solid black;
     padding: 10px;
 }
 
@@ -26,7 +26,7 @@
 
 .bgimge {
 
-    background-image: url('https://static1.squarespace.com/static/59b8998a197aea4b21ae7c5f/t/59f78cf82774d142a1e3a345/1509395757873/Cora+%281%29.jpg?format=750w');
+    background-image: url('http://pentium.club/wp-content/uploads/2017/08/empty-bedroom-background-empty-living-room-wall-decorating-clear-bedroom-sets-full.jpg');
     min-height: 100%;
     background-position: center;
     background-size: 100% 100% ;
@@ -34,22 +34,23 @@
 
 }
 
-
 </style>
 
 <body onload="createTableEmp();">
+
 <div class="bgimge w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
 <div class="w3-main" style="margin-left:300px;">
 
     <header class="w3-container" style="padding-top:86px">
-      <h5 style="color:steelblue;text-align: center;"><b>Employees</b></h5>
+      <h5 style="color:black;text-align: center; "><b>Employees</b></h5>
     </header>
 
-	<hr>
+  <hr>
 
-	<div class="w3-half w3-container" style="padding-top:13px; text-align: center">
+  <div class="w3-half w3-container" style="padding-top:13px; text-align: center">
+    <div class="container" style="width:80%; height:50%;">
 
-<div id="map" style="width:90%; height:40%; color: black;"></div>
+    <div id="map" style="width:100%; height:100%;border: 1px solid black; color:black;"></div>
       <script>
         var map, infoWindow,count,marker,data;
         var locations = [], username_address = [], addresses=[];
@@ -195,38 +196,38 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&callback=initMap">
     </script>
   </div>
+</div>
 
-
-	<div class="w3-half w3-container" style="padding-top:13px; text-align: center">
-
-		<table id="employees">
-		  <tr style="background-color: lightsteelblue">
-		    <th>Available</th>
-		    <th>Name</th>
-		    <th>Email</th>
-		    <th>Phone Number</th>
-		  </tr>
-<!-- 		  <tr style="background-color: white">
-		    <td>1</td>
-		    <td>Post Malone</td>
-		    <td>xxxxxxx</td>
-		    <td>xxxxxxx</td>
-		  </tr>
-		  <tr style="background-color: white">
-		    <td>2</td>
-		    <td>Jay Z</td>
-		    <td>xxxxxxx</td>
-		    <td>xxxxxxx</td>
-		  </tr>
-		  <tr style="background-color: white">
-		    <td>3</td>
-		    <td>Kendrick Lamar</td>
-		    <td>xxxxxxx</td>
-		    <td>xxxxxxx</td>
-		  </tr> -->
-		</table>
-	</div>
-
+  <div class="w3-half w3-container" style="padding-top:13px; text-align: center">
+    <div class="container" style="width:80%; height:50%;">
+    <table id="employees">
+      <tr style="background-color: lightsteelblue">
+        <th>Available</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+      </tr>
+<!--      <tr style="background-color: white">
+        <td>1</td>
+        <td>Post Malone</td>
+        <td>xxxxxxx</td>
+        <td>xxxxxxx</td>
+      </tr>
+      <tr style="background-color: white">
+        <td>2</td>
+        <td>Jay Z</td>
+        <td>xxxxxxx</td>
+        <td>xxxxxxx</td>
+      </tr>
+      <tr style="background-color: white">
+        <td>3</td>
+        <td>Kendrick Lamar</td>
+        <td>xxxxxxx</td>
+        <td>xxxxxxx</td>
+      </tr> -->
+    </table>
+  </div>
+</div>
 </div>
 </div>
 <script src="{{ url_for('static', filename='appdeal.js') }}"></script>

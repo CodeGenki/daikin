@@ -53,13 +53,14 @@ body, html {height: 100%}
     <h5 style="color:steelblue; text-align: center;"><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
     <a href= "{{ url_for('customer') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-users fa-fw"></i>  Overview</a>
     <a href="{{ url_for('unithealth') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-heart fa-fw"></i>  Your Unit's Health</a>
-    <a href="{{ url_for('finddealer') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-address-book fa-fw"></i>  Find A Contractor</a>
+    <a href="{{ url_for('finddealer') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-address-book fa-fw"></i>  Find A Dealer</a>
     <a href="{{ url_for('contactus') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-paper-plane fa-fw"></i>  Contact Us</a>
     <a href="{{ url_for('aboutunitx') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-thermometer-half fa-fw"></i>  About "name of inverter" </a>
     <a href="{{ url_for('faqs') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-question-circle fa-fw"></i>  Frequently Asked Questions</a>
     <a href="{{ url_for('faqs') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-credit-card-alt fa-fw"></i>  Payment Portal</a>
     <a href="{{ url_for('faqs') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-cog fa-fw"></i>  Account Settings</a>
-    <a href="http://www.daikin.com" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-circle fa-fw"></i>  Daikin Home Page</a><br><br>
+    <a href="http://www.daikin.com" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-circle fa-fw"></i>  Daikin Home Page</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-external-link-square fa-fw"></i> Sign Out </a><br><br>
   </div>
 </nav>
 
@@ -70,7 +71,15 @@ body, html {height: 100%}
 </body>
 
 {% block content %}{% endblock %}
+<!-- <<<<<<< HEAD -->
+
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
+
+<!-- ======= -->
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.259.1.min.js"></script>
+<!-- >>>>>>> 5cda7b661b4ccf0bc5951b587eb911669830082e -->
 <script src="{{ url_for('static', filename='app.js') }}"></script>
 
 </html>

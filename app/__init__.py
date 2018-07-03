@@ -104,7 +104,7 @@ def aboutunitx():
 def faqs():
 
     return render_template("faqs.html")
-	
+    
     #return render_template("login.html")
 
 @app.route("/code_validation")
@@ -233,11 +233,12 @@ def testdeal():
     
     tablenames = ["Vendor_information", "customer", "ErrorCode","employees", "Suppliers","Customer_information"]
     keynames = ["username","username","E","company","Affiliate","username"]
-    
+   
     vi = str(request.args.get('vi', ''))
     c = str(request.args.get('c',''))
     ec = str(request.args.get('ec',''))
     e = str(request.args.get('e',''))
+
     s = str(request.args.get('s',''))
     ci = str(request.args.get('ci',''))
 
@@ -289,4 +290,9 @@ def registeruser():
 def registerdealer():
 
     return render_template("registerdealer.html")
+
+@app.route("/customerinfo")
+def customerinfo():
+    
+    return render_template("customerinfo.html")
 

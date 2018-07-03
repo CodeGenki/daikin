@@ -1,6 +1,8 @@
-// var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael";
-// var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen";
+
+// var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen"
+
 var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
+
 
 var poolDataDEAL = {
 	UserPoolId : 'us-east-1_QFcNXf7g8', // Your user pool id here
@@ -260,6 +262,7 @@ function get_userDEAL(){
     var cognitoUser = userPool.getCurrentUser();
 
     if(cognitoUser !== null){
+
         cognitoUser.getSession(function(err, session) {
             if(err){
                 alert(err);
@@ -286,6 +289,7 @@ function get_userDEAL(){
         });
     }
 }
+
 
 function createTableEmp() {
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
@@ -476,3 +480,4 @@ function createTableCus() {
         });
     }
 }
+
