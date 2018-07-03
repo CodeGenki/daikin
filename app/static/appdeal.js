@@ -424,7 +424,7 @@ function createTableCus() {
                         for(var r=1;r<=rn;r++) {
                         var x=document.getElementById('customersT').insertRow(r);
                             for(var c=0;c<cn;c++) {
-                                var y=  x.insertCell(c);
+                                var y =  x.insertCell(c);
                                 if (d[c] == 'given_name') 
                                     y.innerHTML=tableInfo[r-1][d[c]] + " " + tableInfo[r-1]['family_name'];     
                                 else 
