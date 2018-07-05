@@ -42,7 +42,7 @@
       </div>  
       <div class="form-group">
         <div style="text-align: left;">Company</div>
-        <select id="registration_company" class="w3-input w3-padding-9 w3-border form-control">
+        <select id="registration_company" onchange="updateInput();" class="w3-input w3-padding-9 w3-border form-control">
           <!-- <option value="McCann Services Inc.">McCann Services Inc.</option>
           <option value="Daikin">Daikin</option>
           <option value="Company 2">Company 2</option> -->
@@ -154,6 +154,17 @@
           });
         }
       }
+
+      function updateInput(){
+        var e = document.getElementById("registration_company");
+        if (e.options[e.selectedIndex].value == "New Company"){
+          console.log("new company")
+          var input = document.createElement("input");
+          input.setAttribute('type', 'text');
+          e.appendChild(input);
+        }
+      }
+      
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&libraries=places&callback=initAutocomplete"              async defer></script>
 
