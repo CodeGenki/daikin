@@ -5,12 +5,15 @@
 
 #findD td {
     border: 1px solid black;
-    padding: 5px;
     font-size: medium;
     color: black;
     font-family: "Verdana"  
-    width: 100%;
-    height: 100%; 
+    width: 25%;
+}
+
+
+#findD tr {
+  height: 7.7%
 }
 
 .dropbtn {
@@ -42,32 +45,46 @@
 
 .show {display: block;}
 
-.bgimgc {
 
+.bgimgc {
     background-image: url('http://pentium.club/wp-content/uploads/2017/08/empty-bedroom-background-empty-living-room-wall-decorating-clear-bedroom-sets-full.jpg');
     min-height: 100%;
-    background-position: center;
-    background-size: 100% 100% ;
+    background-position: absolute;
+    background-size:cover;
     color: black;    
-}
+    top:0;
+    left: 0;
+    background-repeat: no-repeat;
+    background-attachment: local;
+  }
+
+
 
 </style>
 
-<body>
-<div class="bgimgc w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
+<body class= "bgimgc">
+<!-- <div class="bgimgc w3-display-container w3-animate-opacity" style="width:100%; height:100%;"> -->
   <div class="w3-main" style="margin-left:300px;">  
     <header class="w3-container" style="padding-top:43px">
         <h5 style="color: black; text-align: center;"><b> Find a Dealer</b></h5>
     </header>     
-    <br><br><br><br>
-
+    <br><br>
+    <div class="form-group" style="text-align: center;">
+      <div style="color:black; ">What Company?</div>
+      <select id="registration_company" class="w3-input w3-border form-control" style="width:30%; text-align: center; display: inline-block;">
+        <option value="McCann Services Inc.">McCann Services Inc.</option>
+        <option value="Company 2">Company 2</option>
+        <option value="Company 2">Company 2</option>
+      </select>
+    </div> 
+    <br>
 	  <div class="w3-half w3-container" style="padding: 10px; text-align: center">
       <p style= "color: black; text-align: center;"><b>Near You</b></p>
       <br>
       <div class="container" style="width:80%; height:50%;">
       <div id="map" style="width:100%; height:100%; border: 1px solid black; color:black;"></div>
       <script>
-        var locations = [];
+        var locations = [], username_address = [], addresses=[];
         var map, infoWindow, count, marker, data;
         
         function get_employees(){
@@ -114,6 +131,8 @@
                         var item = tempInfo[i];
                         var l = item['location'].split(', ');
                         locations.push([item['employeename'],parseFloat(l[0]),parseFloat(l[1]),item['available']]);
+                        username_address.push([item['username'], item['address']]);
+                        addresses.push([item['employeename'] ,item['address'],item['available']]);
                       }
                     }
                   }
@@ -149,26 +168,67 @@
           //    ];
             console.log('hi');
             console.log(locations);
+            console.log(addresses);
 
-        var icon;
-        for (count=0; count<locations.length; count++) {
-          if (locations[count][3] == "yes"){
-            icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
-          }
-          else {
-            icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
-          }
-          marker= new google.maps.Marker({
-            position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
-            map:map,
-            icon: icon,
-            title: locations[count][0]
-          });
+        // var icon;
+        // for (count=0; count<locations.length; count++) {
+        //   if (locations[count][3] == "yes"){
+        //     icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+        //   }
+        //   else {
+        //     icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+        //   }
+        //   marker= new google.maps.Marker({
+        //     position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
+        //     map:map,
+        //     icon: icon,
+        //     title: locations[count][0]
+        //   });
         
-        }
+        // }
+        var newcoords;
+        function getLatLng(address){
 
+        var parsedAddress = address.split(" ").join("+"); //parse address to fit into the url request
+        var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + parsedAddress + '&key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU';
+        var request = new XMLHttpRequest();
+        request.open('GET', url, false);  // `false` makes the request synchronous
+        request.send(null);
 
+        if(request.status == 200){
+          var newlat1 = JSON.parse(request.response).results[0].geometry.location.lat;//parses JSON file for coords
+              var newlng1 = JSON.parse(request.response).results[0].geometry.location.lng;
+              newcoords = { lat : newlat1, lng : newlng1};//finds new lat and lng
         }
+      }
+
+      var icon;
+      console.log(addresses)
+      for (count=0; count<addresses.length; count++) {
+        var address = addresses[count];
+
+        if (address[2] == "yes"){
+          icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+        }
+        else {
+          icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+        }
+        
+
+        getLatLng(address[1]);
+
+        var marker = new google.maps.Marker({
+            map: map,
+            icon: icon,
+            position: newcoords,
+            title: address[0]
+            
+        });
+
+    
+      }
+
+    }
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
               var pos = {
@@ -202,35 +262,35 @@
   </div>
 
     <div class="w3-half w3-container" style="padding-top:10px; text-align:center;"> 
-      <div class="container" style="width:80%; height: 50%">
-        <p style= "color: black; text-align: center;"><b>All Dealers</b></p>
+      <p style= "color: black; text-align: center;"><b>All Dealers</b></p>
+      <div class="container" style="width:80%; height: 50%;">
         <br>
         <table id="findD" style="width: 100%; height: 100%;">
-          <tr style="background-color: lightgrey">
-            <td>Alabama</td>
-            <td>Indiana</td>
-            <td>Nebraska</td>
-            <td>Rhode Island</td>
+          <tr style="background-color: lightgrey;">
+            <td style="width: 25%">Alabama</td>
+            <td style="width: 25%">Indiana</td>
+            <td style="width: 25%">Nebraska</td>
+            <td style="width: 25%">Rhode Island</td>
           </tr>
-          <tr style="background-color: lightsteelblue">
+          <tr style="background-color: lightsteelblue; ">
             <td >Alaska</td>
             <td > Iowa</td>
             <td >Nevada</td>
             <td>South Carolina</td>
           </tr>
-          <tr  style="background-color: lightgrey">
+          <tr  style="background-color: lightgrey;">
             <td> Arizona</td>
             <td>Kansas</td>
             <td>New Hampshire</td>
             <td>South Dakota</td>
           </tr>
-          <tr style="background-color: lightsteelblue">
+          <tr style="background-color: lightsteelblue; ">
             <td>Arkansas</td>
             <td>Kentucky</td>
             <td>New Jersey</td>
             <td>Tennessee</td>
           </tr>
-          <tr  style="background-color: lightgrey">
+          <tr  style="background-color: lightgrey; ">
             <td>California</td>
             <td>Louisiana</td>
             <td>New Mexico</td>
@@ -255,49 +315,49 @@
                 </div>
             </td>
           </tr>
-          <tr style="background-color: lightsteelblue">
+          <tr style="background-color: lightsteelblue; ">
             <td>Colorado</td>
             <td>Maine</td>
             <td>New York</td>
             <td>Utah</td>
           </tr>
-          <tr style="background-color: lightgrey">
+          <tr style="background-color: lightgrey;">
             <td>Connecticut</td>
             <td>Maryland</td>
             <td>North Carolina</td>
             <td>Vermont</td>
           </tr>
-          <tr style="background-color: lightsteelblue">
+          <tr style="background-color: lightsteelblue;">
             <td>Delaware</td>
             <td>Massachusetts</td>
             <td>North Dakota</td>
             <td>Virginia</td>
           </tr>
-          <tr  style="background-color: lightgrey">
+          <tr  style="background-color: lightgrey; ">
             <td>Florida</td>
             <td>Michigan</td>
             <td>Ohio</td>
             <td>Washington</td>
           </tr>
-          <tr style="background-color: lightsteelblue">
+          <tr style="background-color: lightsteelblue;">
             <td>Georgia</td>
             <td>Minnesota</td>
             <td>Oklahoma</td>
             <td>West Virginia</td>
           </tr>
-          <tr  style="background-color: lightgrey">
+          <tr  style="background-color: lightgrey; ">
             <td>Hawaii</td>
             <td>Mississippi</td>
             <td>Oregon</td>
             <td>Wisconsin</td>
           </tr>
-          <tr style="background-color: lightsteelblue">
+          <tr style="background-color: lightsteelblue; ">
             <td>Idaho</td>
             <td>Missouri</td>
             <td>Pennsylvania</td>
             <td>Wyoming</td>
           </tr>
-          <tr  style="background-color: lightgrey">
+          <tr  style="background-color: lightgrey;">
             <td>Illinois</td>
             <td>Montana</td>
             <td> </td>
@@ -323,7 +383,7 @@
       </div>
     </div>
   </div>
-</div>
+<!-- </div> -->
 </body>
 
 {% for js_url in config.JS_INCLUDES %}

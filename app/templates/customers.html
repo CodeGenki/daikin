@@ -120,7 +120,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
         <div id="map" style="width:100%; height:100%;border: 1px solid black; color:black; text-align: center;"></div>
             <script>
               var map, infoWindow,count,marker,data,count;
-              var locations = [], username_address = [], addresses=[];
+              var locations = [], username_address = [], addresses=[], emp_addresses =[], sup_addresses = [];
               function get_customers(){
                 var poolDataDEAL = {
                   UserPoolId : 'us-east-1_QFcNXf7g8', // Your user pool id here
@@ -150,6 +150,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                           var data = request.response;
                           var tempInfo = JSON.parse(data)[0]; //save please
                           var customers = tempInfo.customers.split(" ");        
+                          var comp = tempInfo.company;
 
                           for (var j = 0, size = customers.length; j < size ; j++) {
                             var cus = customers[j];
@@ -169,6 +170,35 @@ body {font-family: Arial, Helvetica, sans-serif;}
                               addresses.push([item['given_name'] + " " + item['family_name'],item['address'],item['unithealth']]);                 
                             }
                           }
+
+                          var request = new XMLHttpRequest();
+                          request.open('GET', url_name + "/testdeal?e=" + comp, false);  // `false` makes the request synchronous
+                          request.send(null);
+
+                          if (request.status === 200) {
+                            console.log(request.response);
+                            var data = request.response;
+                            var tempInfo = JSON.parse(data); //save please
+                            for(var i = 0, size = tempInfo.length; i < size ; i++){
+                              var item = tempInfo[i];
+                              var l = item['location'].split(', ');
+                                emp_addresses.push([item['employeename'] ,item['address']]);    
+                            }
+                          }
+
+                            var request = new XMLHttpRequest();
+                            request.open('GET', url_name + "/testdeal?s=" + comp, false);  // `false` makes the request synchronous
+                            request.send(null);
+
+                            if (request.status === 200) {
+                              console.log(request.response);
+                              data = request.response;
+                              var tempInfo = JSON.parse(data); //save please
+                              for(var i = 0, size = tempInfo.length; i < size ; i++){
+                                var item = tempInfo[i];
+                                sup_addresses.push([item['companyname'], item['address']]);            
+                              }
+                            }
                         }
                   });
                 }
@@ -185,6 +215,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
               console.log('hi');
               console.log(locations);
               console.log(username_address);
+              console.log(emp_addresses);
+              console.log(sup_addresses);
 
               // var icon;
               // for (count=0; count<locations.length; count++) {
