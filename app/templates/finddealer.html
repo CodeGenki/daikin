@@ -73,9 +73,10 @@
       <div style="color:black; ">What Company?</div>
       <select id="registration_company" class="w3-input w3-border form-control" style="width:30%; text-align: center; display: inline-block;">
         <option value="McCann Services Inc.">McCann Services Inc.</option>
-        <option value="Company 2">Company 2</option>
+        <option value="Daikin">Daikin</option>
         <option value="Company 2">Company 2</option>
       </select>
+      <input onclick = "pickDealer();location.reload();" type="submit" value="submit" class="button" style="color:black;" >
     </div> 
     <br>
 	  <div class="w3-half w3-container" style="padding: 10px; text-align: center">
@@ -86,15 +87,15 @@
       <script>
         var locations = [], username_address = [], addresses=[];
         var map, infoWindow, count, marker, data;
-        
-        function get_employees(){
-          var poolData = {
+        var poolData = {
               UserPoolId : 'us-east-1_2o7S9Pswl', // Your user pool id here
               ClientId : 'kqrsickoaotsll8j4fhfahgpt' // Your client id here
           };
           var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael";
           // var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen";
           //var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
+        function get_employees(){
+          
           var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
           var cognitoUser = userPool.getCurrentUser();
 
@@ -254,6 +255,41 @@
                                 'Error: Your browser doesn\'t support geolocation.');
           infoWindow.open(map);
         }
+
+
+        function pickDealer(){
+        var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+        var cognitoUser = userPool.getCurrentUser();
+
+        if(cognitoUser !== null){
+            cognitoUser.getSession(function(err, session) {
+                if(err){
+                    alert(err);
+                    return;
+                }
+
+                console.log('session validity: ' + session.isValid());
+                console.log(cognitoUser.username);
+                var e = document.getElementById("registration_company")
+                console.log(e.options[e.selectedIndex].value);
+                var request = new XMLHttpRequest();
+                request.open('GET', url_name + "/writeDealer?ci=" + cognitoUser.username + "&comp=" + e.options[e.selectedIndex].value, false);  // `false` makes the request synchronous
+                request.send(null);
+
+                if (request.status === 200) {
+                  var data = request.response;
+                  var userInfo = JSON.parse(data);
+                  console.log(userInfo);
+                    console.log("success addin company to table");
+                }
+            });
+        }
+      }
+    
+
+
+
+
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&callback=initMap">
