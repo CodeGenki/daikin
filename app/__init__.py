@@ -291,8 +291,8 @@ def registerdealer():
 
     return render_template("registerdealer.html")
 
-@app.route("/customerinfo")
-def customerinfo():
+@app.route("/management")
+def management():
     
-    return render_template("customerinfo.html")
+    return render_template("management.html")
 

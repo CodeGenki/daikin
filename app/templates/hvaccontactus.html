@@ -24,10 +24,12 @@
   </header>
 
 <hr>
-<div class="w3-half w3-container" style="padding-top:13px;">
+  <div class="w3-half w3-container" style="padding-top:13px;">
+    <div class="container w3-card" style="width:80%; height:50%; overflow-y:scroll;">
+      <br>
       <p style="color: black; text-align: center;"><b>Send a Message</b></p>
       <br>
-      <form class="w3-container w3-card w3-padding-32" style= "margin-left: 50px " action="/action_page.php" target="_blank">
+      <form>
         <div class="w3-section">
           <label style= "color:black;">Name</label>
           <input class="w3-input" style="width:100%; color:black; border: 1px solid black" type="text" required name="Name">
@@ -40,23 +42,23 @@
           <label style= "color:black;">Message</label>
           <input class="w3-input" style="width:100%; color:black; border: 1px solid black" type="text" required name="Message">
         </div>
-        <button type="submit" class="w3-button  w3-right" style="background-color: lightsteelblue; color:black; border: 1px solid black;">Send</button>
+        <button type="submit" class="w3-button  w3-right" style="background-color: lightsteelblue; color:black; border: 1px solid black; align-self: center;">Send</button>
       </form>
   </div>
-
-  <div class="w3-half w3-container" style="padding-top:13px; text-align: center;">
-    <p style="color: black;"><b>Corporate USA Headquarters</b></p>
-    <br>
-    <img src="http://www.csscdoors.com/images/Daikin%20(1).jpg" alt="DTTP" style="float: center;">
-    <br><br>
-    <p style="color: black; text-align: center">19001 Kermier Rd <br>Waller, TX 77484 <br> +1 (770)-861-2500</p>
-    <br>
-    <p style="color: black;"">Or, Find Your Answers Here: <button class="w3-button" href="https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen/faqs" style="background-color: lightsteelblue; border: 1px solid black;">FAQs</button></p>
-
-    <p style="color: black;"">Or, Find Your Answers Here: <button class="w3-button" href= {{ config.url_name }}+"/faQ" style="background-color: steelblue;">FAQs</button></p>
 </div>
 
-
+  <div class="w3-half w3-container" style="padding-top:13px; text-align: center;">
+    <div class="container w3-card" style="width:80%; height:50%; overflow-y:scroll;">
+      <br>
+      <p style="color: black;"><b>Corporate USA Headquarters</b></p>
+      <br>
+      <img src="http://www.csscdoors.com/images/Daikin%20(1).jpg" alt="DTTP" style="float: center; width: 65%;">
+      <br><br>
+      <p style="color: black; text-align: center">19001 Kermier Rd <br>Waller, TX 77484 <br> +1 (770)-861-2500</p>
+      <br>
+      <p style="color: black;">Or, Find Your Answers Here: <button class="w3-button" href="https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen/faqs" style="background-color: lightsteelblue; border: 1px solid black;">FAQs</button></p>
+    </div>
+  </div>
 </div>
 
 {% for js_url in config.JS_INCLUDES %}

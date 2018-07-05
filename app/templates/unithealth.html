@@ -19,21 +19,39 @@
     padding: 8px;
 }
 
+
+.bgimgc {
+
+    background-image: url('https://www.mcstain.com/wp-content/uploads/2017/01/living-room-background-final.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: 100% 100% ;
+    color: black;    
+
+}
+
+
 </style>
 
-<div class="bgimg w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
+
+
+<body>
+
+
+<div class="bgimgc w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
+
 <div class="w3-main" style="margin-left:300px;">
 
   <header class="w3-container" style="padding-top:43px; text-align: center;">
-      <h5 style="text-align: center;"><b>Your Unit Status:</b></h5>
+      <h5 style="text-align: center; color:black;"><b>Your Unit Status:</b></h5>
       <span> <strong id="unitstatus"></strong> </span>
   </header>
   <hr style="background-color: lightsteelblue">
 
   <div class="w3-half w3-container" style=" padding-top:10px; text-align: center">
-    <div class="container" style="width:500px; height: 400px; background-color:lightgrey; border: 3px solid black;">
+    <div class="container w3-card" style="width:80%; height: 50%; overflow-y:scroll">
       <br>
-      <p style="color: steelblue; text-align: center;"><b>Status</b></p>
+      <p style="color: black; text-align: center;"><b>Status</b></p>
       <br>
       <p style="color: black">Refrigerant Level</p>
       <div class="w3-grey">
@@ -49,9 +67,9 @@
   </div>
 
   <div class="w3-half w3-container" style=" padding-top:10px; text-align: center">
-    <div class="container" style="width:500px; height: 400px; background-color:lightgrey; border: 3px solid black;">
+    <div class="container w3-card" style="width:80%; height: 50%; overflow-y:scroll;">
     <br>
-    <p style="color: steelblue; text-align: center"><b>Updates</b></p>
+    <p style="color: black; text-align: center"><b>Updates</b></p>
     <br>
         <table id="updateT">
           <tr>
@@ -75,7 +93,9 @@
       </div>
     </div>
 </div>
+</div>
 <script src="{{ url_for('static', filename='app.js') }}"></script>
+
 {% for js_url in config.JS_INCLUDES %}
     <script src="{{ js_url }}"></script>
 {% endfor %}
