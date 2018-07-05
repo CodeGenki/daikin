@@ -5,12 +5,15 @@
 
 #findD td {
     border: 1px solid black;
-    padding: 5px;
     font-size: medium;
     color: black;
     font-family: "Verdana"  
-    width: 100%;
-    height: 100%; 
+    width: 25%;
+}
+
+
+#findD tr {
+  height: 7.7%
 }
 
 .dropbtn {
@@ -42,25 +45,39 @@
 
 .show {display: block;}
 
-.bgimgc {
 
+.bgimgc {
     background-image: url('http://pentium.club/wp-content/uploads/2017/08/empty-bedroom-background-empty-living-room-wall-decorating-clear-bedroom-sets-full.jpg');
     min-height: 100%;
-    background-position: center;
-    background-size: 100% 100% ;
+    background-position: absolute;
+    background-size:cover;
     color: black;    
-}
+    top:0;
+    left: 0;
+    background-repeat: no-repeat;
+    background-attachment: local;
+  }
+
+
 
 </style>
 
-<body>
-<div class="bgimgc w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
+<body class= "bgimgc">
+<!-- <div class="bgimgc w3-display-container w3-animate-opacity" style="width:100%; height:100%;"> -->
   <div class="w3-main" style="margin-left:300px;">  
     <header class="w3-container" style="padding-top:43px">
         <h5 style="color: black; text-align: center;"><b> Find a Dealer</b></h5>
     </header>     
-    <br><br><br><br>
-
+    <br><br>
+    <div class="form-group" style="text-align: center;">
+      <div style="color:black; ">What Company?</div>
+      <select id="registration_company" class="w3-input w3-border form-control" style="width:30%; text-align: center; display: inline-block;">
+        <option value="McCann Services Inc.">McCann Services Inc.</option>
+        <option value="Company 2">Company 2</option>
+        <option value="Company 2">Company 2</option>
+      </select>
+    </div> 
+    <br><br>
 	  <div class="w3-half w3-container" style="padding: 10px; text-align: center">
       <p style= "color: black; text-align: center;"><b>Near You</b></p>
       <br>
@@ -202,35 +219,35 @@
   </div>
 
     <div class="w3-half w3-container" style="padding-top:10px; text-align:center;"> 
-      <div class="container" style="width:80%; height: 50%">
-        <p style= "color: black; text-align: center;"><b>All Dealers</b></p>
+      <p style= "color: black; text-align: center;"><b>All Dealers</b></p>
+      <div class="container" style="width:80%; height: 50%;">
         <br>
         <table id="findD" style="width: 100%; height: 100%;">
-          <tr style="background-color: lightgrey">
-            <td>Alabama</td>
-            <td>Indiana</td>
-            <td>Nebraska</td>
-            <td>Rhode Island</td>
+          <tr style="background-color: lightgrey;">
+            <td style="width: 25%">Alabama</td>
+            <td style="width: 25%">Indiana</td>
+            <td style="width: 25%">Nebraska</td>
+            <td style="width: 25%">Rhode Island</td>
           </tr>
-          <tr style="background-color: lightsteelblue">
+          <tr style="background-color: lightsteelblue; ">
             <td >Alaska</td>
             <td > Iowa</td>
             <td >Nevada</td>
             <td>South Carolina</td>
           </tr>
-          <tr  style="background-color: lightgrey">
+          <tr  style="background-color: lightgrey;">
             <td> Arizona</td>
             <td>Kansas</td>
             <td>New Hampshire</td>
             <td>South Dakota</td>
           </tr>
-          <tr style="background-color: lightsteelblue">
+          <tr style="background-color: lightsteelblue; ">
             <td>Arkansas</td>
             <td>Kentucky</td>
             <td>New Jersey</td>
             <td>Tennessee</td>
           </tr>
-          <tr  style="background-color: lightgrey">
+          <tr  style="background-color: lightgrey; ">
             <td>California</td>
             <td>Louisiana</td>
             <td>New Mexico</td>
@@ -255,49 +272,49 @@
                 </div>
             </td>
           </tr>
-          <tr style="background-color: lightsteelblue">
+          <tr style="background-color: lightsteelblue; ">
             <td>Colorado</td>
             <td>Maine</td>
             <td>New York</td>
             <td>Utah</td>
           </tr>
-          <tr style="background-color: lightgrey">
+          <tr style="background-color: lightgrey;">
             <td>Connecticut</td>
             <td>Maryland</td>
             <td>North Carolina</td>
             <td>Vermont</td>
           </tr>
-          <tr style="background-color: lightsteelblue">
+          <tr style="background-color: lightsteelblue;">
             <td>Delaware</td>
             <td>Massachusetts</td>
             <td>North Dakota</td>
             <td>Virginia</td>
           </tr>
-          <tr  style="background-color: lightgrey">
+          <tr  style="background-color: lightgrey; ">
             <td>Florida</td>
             <td>Michigan</td>
             <td>Ohio</td>
             <td>Washington</td>
           </tr>
-          <tr style="background-color: lightsteelblue">
+          <tr style="background-color: lightsteelblue;">
             <td>Georgia</td>
             <td>Minnesota</td>
             <td>Oklahoma</td>
             <td>West Virginia</td>
           </tr>
-          <tr  style="background-color: lightgrey">
+          <tr  style="background-color: lightgrey; ">
             <td>Hawaii</td>
             <td>Mississippi</td>
             <td>Oregon</td>
             <td>Wisconsin</td>
           </tr>
-          <tr style="background-color: lightsteelblue">
+          <tr style="background-color: lightsteelblue; ">
             <td>Idaho</td>
             <td>Missouri</td>
             <td>Pennsylvania</td>
             <td>Wyoming</td>
           </tr>
-          <tr  style="background-color: lightgrey">
+          <tr  style="background-color: lightgrey;">
             <td>Illinois</td>
             <td>Montana</td>
             <td> </td>
@@ -323,7 +340,7 @@
       </div>
     </div>
   </div>
-</div>
+<!-- </div> -->
 </body>
 
 {% for js_url in config.JS_INCLUDES %}
