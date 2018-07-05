@@ -114,25 +114,25 @@ input[type=text]:focus {
                       return;
                   }
 
-                  console.log('session validity: ' + session.isValid());
-                  console.log(cognitoUser.username);
+                  //console.log('session validity: ' + session.isValid());
+                  //console.log(cognitoUser.username);
 
                   var request = new XMLHttpRequest();
                   request.open('GET', url_name + "/testdeal?vi=" + cognitoUser.username, false);  // `false` makes the request synchronous
                   request.send(null);
 
                   if (request.status === 200) {
-                    console.log(request.response);
+                    //console.log(request.response);
                     data = request.response;
                     var tempInfo = JSON.parse(data)[0]; //save please
                     var comp = tempInfo.company;                    
-                    console.log(comp)
+                    //console.log(comp)
                     var request = new XMLHttpRequest();
                     request.open('GET', url_name + "/testdeal?s=" + comp, false);  // `false` makes the request synchronous
                     request.send(null);
 
                     if (request.status === 200) {
-                      console.log(request.response);
+                      //console.log(request.response);
                       data = request.response;
                       var tempInfo = JSON.parse(data); //save please
                       for(var i = 0, size = tempInfo.length; i < size ; i++){
@@ -158,9 +158,9 @@ input[type=text]:focus {
           infoWindow = new google.maps.InfoWindow;
 
           get_suppliers();
-          console.log('hi');
-          console.log(locations);
-          console.log(username_address);
+          //console.log('hi');
+          //console.log(locations);
+          //console.log(username_address);
 
           // for (count=0; count<locations.length; count++) {
           //   marker= new google.maps.Marker({

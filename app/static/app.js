@@ -26,19 +26,19 @@ function signIn(){
 
     var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
     
-    console.log(cognitoUser);
+    //console.log(cognitoUser);
     document.getElementById("noUsername").innerHTML = "";
     document.getElementById("invalidCredentials").innerHTML = "";
     cognitoUser.authenticateUser(authenticationDetails, {
         
         onSuccess: function (result) {
 
-            console.log('access token + ' + result.getAccessToken().getJwtToken());
+            //console.log('access token + ' + result.getAccessToken().getJwtToken());
             window.location.href = url_name + "/customer";
             //test
         }, 
         onFailure: function(err){
-            console.log(err);
+            //console.log(err);
             //alert(err);
             if(err.code == "InvalidParameterException"){
                 document.getElementById("noUsername").innerHTML = "Please enter a valid username.";
@@ -173,7 +173,7 @@ function register(){
                     }
                 }
 
-                console.log(err);
+                //console.log(err);
                 // alert(err.message);
                 // document.getElementById("registerError").innerHTML = err.message;
             }
@@ -182,8 +182,8 @@ function register(){
                 return;
             
             cognitoUser = result.user;
-            console.log(result);
-            console.log('user name is ' + cognitoUser.getUsername());
+            //console.log(result);
+            //console.log('user name is ' + cognitoUser.getUsername());
 
             window.location.href  = url_name + "/code_validation";
 
@@ -205,13 +205,13 @@ function validate () {
     document.getElementById("codeError").innerHTML = "";
     cognitoUser.confirmRegistration(code, true, function(err, result) {
         if (err) {
-            console.log(err);
+            //console.log(err);
             document.getElementById("codeError").innerHTML = "Invalid username or code";
 
             // alert(err);
             return;
         }
-    console.log('call result: ' + result);
+    //console.log('call result: ' + result);
 
     window.location.href = url_name + "/customer";
 
@@ -239,7 +239,7 @@ function setWelcome () {
                 alert(err);
                 return;
             }
-            console.log(cognitoUser);
+            //console.log(cognitoUser);
             $('#username').html(cognitoUser.username);
         });
     }
@@ -252,7 +252,7 @@ function setWelcome () {
 
 function update_database(){
 
-    console.log("hello from app js");
+    //console.log("hello from app js");
 }
 
 function get_user(){
@@ -266,8 +266,8 @@ function get_user(){
                 return;
             }
 
-            console.log('session validity: ' + session.isValid());
-            console.log(cognitoUser.username);
+            //console.log('session validity: ' + session.isValid());
+            //console.log(cognitoUser.username);
             $.ajax({
                 type: "GET",
 
@@ -285,7 +285,7 @@ function get_user(){
                 },
                 data: cognitoUser.username
             }).done(function( o ) {
-                console.log("Sent request to python file");
+                //console.log("Sent request to python file");
             });
         });
     }
@@ -302,7 +302,7 @@ function parseError(){
     request.send(null);
 
     if (request.status === 200) {
-        // console.log(request.response);
+        // //console.log(request.response);
         var data = request.response;
         var tempInfo = JSON.parse(data); //save please
 
@@ -348,7 +348,7 @@ function parseError(){
                 }
             }
         
-        console.log("index: " + j[i]);
+        //console.log("index: " + j[i]);
         document.getElementById(d[i]).innerHTML = tempInfo[j[i]]['Descriptions'];
         }
     }
@@ -366,8 +366,8 @@ function get_unit(){
                 return;
             }
 
-            console.log('session validity: ' + session.isValid());
-            console.log(cognitoUser.username);
+            //console.log('session validity: ' + session.isValid());
+            //console.log(cognitoUser.username);
             
             var request = new XMLHttpRequest();
             request.open('GET', url_name + "/test?c=" + cognitoUser.username, false);  // `false` makes the request synchronous

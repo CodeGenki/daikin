@@ -28,7 +28,7 @@ function signInDEAL(){
 
     var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
     
-    console.log(cognitoUser);
+    //console.log(cognitoUser);
     document.getElementById("noUsername").innerHTML = "";
     document.getElementById("invalidCredentials").innerHTML = "";
     cognitoUser.authenticateUser(authenticationDetails, {
@@ -36,13 +36,13 @@ function signInDEAL(){
         onSuccess: function (result) {
 
         	
-            console.log('access token + ' + result.getAccessToken().getJwtToken());
+            //console.log('access token + ' + result.getAccessToken().getJwtToken());
             window.location.href = url_name + "/vendor";
 
             //test
 		}, 
 		onFailure: function(err){
-            console.log(err);
+            //console.log(err);
             //alert(err);
             if(err.code == "InvalidParameterException"){
                 document.getElementById("noUsername").innerHTML = "Please enter a valid username.";
@@ -188,7 +188,7 @@ function registerDEAL(){
                     }
                 }
 
-                console.log(err);	
+                //console.log(err);	
             }
 
 
@@ -196,7 +196,7 @@ function registerDEAL(){
                 return;
 
         	cognitoUser = result.user;
-            console.log('user name is ' + cognitoUser.getUsername());
+            //console.log('user name is ' + cognitoUser.getUsername());
             window.location.href  = url_name + "/code_validation_dealer";
 
         });
@@ -217,13 +217,13 @@ function validateDEAL() {
     document.getElementById("codeError").innerHTML = "";
     cognitoUser.confirmRegistration(code, true, function(err, result) {
         if (err) {
-            console.log(err);
+            //console.log(err);
             document.getElementById("codeError").innerHTML = "Invalid username or code";
 
             // alert(err);
             return;
         }
-    console.log('call result: ' + result);
+    //console.log('call result: ' + result);
 
 
     window.location.href = url_name + "/vendor";
@@ -254,7 +254,7 @@ function setWelcomeDEAL() {
                 alert(err);
                 return;
             }
-            console.log(cognitoUser);
+            //console.log(cognitoUser);
             $('#username').html(cognitoUser.username);
         });
     }
@@ -277,8 +277,8 @@ function get_userDEAL(){
                 return;
             }
 
-            console.log('session validity: ' + session.isValid());
-            console.log(cognitoUser.username);
+            //console.log('session validity: ' + session.isValid());
+            //console.log(cognitoUser.username);
             $.ajax({
                 type: "GET",
 
@@ -293,7 +293,7 @@ function get_userDEAL(){
                 },
                 data: cognitoUser.username
             }).done(function( o ) {
-                console.log("Sent request to python file");
+                //console.log("Sent request to python file");
             });
         });
     }
@@ -310,15 +310,15 @@ function createTableEmp() {
                 alert(err);
                 return;
             }
-            console.log('session validity: ' + session.isValid());
-            console.log(cognitoUser.username);
+            //console.log('session validity: ' + session.isValid());
+            //console.log(cognitoUser.username);
 
             var request = new XMLHttpRequest();
             request.open('GET', url_name + "/testdeal?vi=" + cognitoUser.username, false);  // `false` makes the request synchronous
             request.send(null);
 
             if (request.status === 200) {
-                console.log(request.response);
+                //console.log(request.response);
                 var data = request.response;
                 var tempInfo = JSON.parse(data)[0]; //save please
                 var comp = tempInfo.company;                    
@@ -328,7 +328,7 @@ function createTableEmp() {
                 request.send(null);
 
                 if (request.status === 200) {
-                    console.log(request.response);
+                    //console.log(request.response);
                     var data = request.response;
                     var tableInfo = JSON.parse(data); //save please
 
@@ -358,15 +358,15 @@ function createTableSup() {
                 alert(err);
                 return;
             }
-            console.log('session validity: ' + session.isValid());
-            console.log(cognitoUser.username);
+            //console.log('session validity: ' + session.isValid());
+            //console.log(cognitoUser.username);
 
             var request = new XMLHttpRequest();
             request.open('GET', url_name + "/testdeal?vi=" + cognitoUser.username, false);  // `false` makes the request synchronous
             request.send(null);
 
             if (request.status === 200) {
-                console.log(request.response);
+                //console.log(request.response);
                 var data = request.response;
                 var tempInfo = JSON.parse(data)[0]; //save please
                 var comp = tempInfo.company;                    
@@ -376,7 +376,7 @@ function createTableSup() {
                 request.send(null);
 
                 if (request.status === 200) {
-                    console.log(request.response);
+                    //console.log(request.response);
                     var data = request.response;
                     var tableInfo = JSON.parse(data); //save please
 
@@ -408,15 +408,15 @@ function createTableCus() {
                 alert(err);
                 return;
             }
-            console.log('session validity: ' + session.isValid());
-            console.log(cognitoUser.username);
+            //console.log('session validity: ' + session.isValid());
+            //console.log(cognitoUser.username);
 
             var request = new XMLHttpRequest();
             request.open('GET', url_name + "/testdeal?vi=" + cognitoUser.username, false);  // `false` makes the request synchronous
             request.send(null);
 
             if (request.status === 200) {
-                console.log(request.response);
+                //console.log(request.response);
                 var data = request.response;
                 var tempInfo = JSON.parse(data)[0]; //save please
                 var customers = tempInfo.customers.split(" ");                    
@@ -428,7 +428,7 @@ function createTableCus() {
                     request.send(null);
 
                     if (request.status === 200) {
-                        console.log(request.response);
+                        //console.log(request.response);
                         var data = request.response;
                         var tableInfo = JSON.parse(data); //save please
 
@@ -452,12 +452,12 @@ function createTableCus() {
                     var modal = document.getElementById('myModal');
 
                   var rows =  customers.length;
-                  console.log(rows)
+                  //console.log(rows)
                   for(var r=1;r<=rows;r++) {
-                    console.log(r)
+                    //console.log(r)
                     var y = document.getElementById('customersT').rows[r].cells[0]
                     y.setAttribute("id","button"+r);
-                    console.log(y.id);
+                    //console.log(y.id);
                     // y.innerHTML = "hi";
 
                     // var btn = document.getElementById("button" + count);

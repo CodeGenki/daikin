@@ -109,9 +109,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
           <div class="modal-content">
             <span class="close">&times;</span>
             <p>Some text in the Modal..
-
-            	<h1> TEST </h1>
-
             </p>
           </div>
         </div>
@@ -138,15 +135,15 @@ body {font-family: Arial, Helvetica, sans-serif;}
                             return;
                         }
 
-                        console.log('session validity: ' + session.isValid());
-                        console.log(cognitoUser.username);
+                        //console.log('session validity: ' + session.isValid());
+                        //console.log(cognitoUser.username);
 
                         var request = new XMLHttpRequest();
                         request.open('GET', url_name + "/testdeal?vi=" + cognitoUser.username, false);  // `false` makes the request synchronous
                         request.send(null);
 
                         if (request.status === 200) {
-                          console.log(request.response);
+                          //console.log(request.response);
                           var data = request.response;
                           var tempInfo = JSON.parse(data)[0]; //save please
                           var customers = tempInfo.customers.split(" ");        
@@ -154,13 +151,13 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
                           for (var j = 0, size = customers.length; j < size ; j++) {
                             var cus = customers[j];
-                            console.log(cus);
+                            //console.log(cus);
                             var request = new XMLHttpRequest();
                             request.open('GET', url_name + "/testdeal?ci=" + cus, false);  // `false` makes the request synchronous
                             request.send(null);
 
                             if (request.status === 200) {
-                              console.log(request.response);
+                              //console.log(request.response);
                               var data = request.response;
                               var tempInfo = JSON.parse(data); //save please
                               var item = tempInfo[0];
@@ -176,7 +173,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                           request.send(null);
 
                           if (request.status === 200) {
-                            console.log(request.response);
+                            //console.log(request.response);
                             var data = request.response;
                             var tempInfo = JSON.parse(data); //save please
                             for(var i = 0, size = tempInfo.length; i < size ; i++){
@@ -191,7 +188,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                             request.send(null);
 
                             if (request.status === 200) {
-                              console.log(request.response);
+                              //console.log(request.response);
                               data = request.response;
                               var tempInfo = JSON.parse(data); //save please
                               for(var i = 0, size = tempInfo.length; i < size ; i++){
@@ -207,36 +204,36 @@ body {font-family: Arial, Helvetica, sans-serif;}
             function initMap() {
               map = new google.maps.Map(document.getElementById('map'), {
               center: {lat: 35.397, lng: -95.644},
-              zoom: 15
+              zoom: 7
               });
               infoWindow = new google.maps.InfoWindow;
 
               get_customers();
-              console.log('hi');
-              console.log(locations);
-              console.log(username_address);
-              console.log(emp_addresses);
-              console.log(sup_addresses);
+              //console.log('hi');
+              //console.log(locations);
+              //console.log(username_address);
+              //console.log(emp_addresses);
+              //console.log(sup_addresses);
 
-              // var icon;
-              // for (count=0; count<locations.length; count++) {
-              //   if (locations[count][3] == "GREEN"){
-              //     icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
-              //   }
-              //   else if (locations[count][3] == "RED"){
-              //     icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
-              //   }
-              //   else {
-              //     icon = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
-              //   }
-              //  marker= new google.maps.Marker({
-              //   position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
-              //   map:map,
-              //   icon: icon,
-              //   title: locations[count][0]
-              //   });
+               var icon;
+               for (count=0; count<locations.length; count++) {
+                 if (locations[count][3] == "GREEN"){
+                   icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+                 }
+                 else if (locations[count][3] == "RED"){
+                   icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+                 }
+                 else {
+                   icon = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
+                 }
+                marker= new google.maps.Marker({
+                 position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
+                 map:map,
+                 icon: icon,
+                 title: locations[count][0]
+                 });
               
-              // }
+               }
               var newcoords;
               function getLatLng(address){
     

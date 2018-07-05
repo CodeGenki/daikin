@@ -105,8 +105,8 @@
                       return;
                   }
 
-                  console.log('session validity: ' + session.isValid());
-                  console.log(cognitoUser.username);
+                  //console.log('session validity: ' + session.isValid());
+                  //console.log(cognitoUser.username);
 
                   var request = new XMLHttpRequest();
                   // request.open('GET', url_name + "/test?c=" + cognitoUser.username, false);  // `false` makes the request synchronous
@@ -114,7 +114,7 @@
                   request.send(null);
 
                   if (request.status === 200) {
-                    console.log(request.response);
+                    //console.log(request.response);
                     data = request.response
                     var tempInfo = JSON.parse(data)[0]; //save please
                     var comp = tempInfo.company;                    
@@ -124,7 +124,7 @@
                     request.send(null);
 
                     if (request.status === 200) {
-                      console.log(request.response);
+                      //console.log(request.response);
                       data = request.response
                       var tempInfo = JSON.parse(data); //save please
                       for(var i = 0, size = tempInfo.length; i < size ; i++){
@@ -148,7 +148,7 @@
           infoWindow = new google.maps.InfoWindow;
 
           get_employees();
-          // console.log(locations);
+          // //console.log(locations);
           // locations = [
           //         ['a', 29.698255, -95.491095, 0],
           //   ['a', 29.938908, -95.399725, 1],
@@ -166,9 +166,9 @@
           //   ['a', 29.663747, -95.355650, 13],
           //   ['a', 29.562106, -95.348955, 14],
           //    ];
-            console.log('hi');
-            console.log(locations);
-            console.log(addresses);
+            //console.log('hi');
+            //console.log(locations);
+            //console.log(addresses);
 
         // var icon;
         // for (count=0; count<locations.length; count++) {
@@ -203,7 +203,7 @@
       }
 
       var icon;
-      console.log(addresses)
+      //console.log(addresses)
       for (count=0; count<addresses.length; count++) {
         var address = addresses[count];
 
