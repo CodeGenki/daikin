@@ -296,3 +296,52 @@ def management():
     
     return render_template("management.html")
 
+@app.route("/writeDealer", methods=["GET", "POST"])
+def writeDealer():
+    #if request.method == "POST":
+    global key
+    
+    tablenames = ["Customer_information"]
+    keynames = ["username"]
+    fieldnames = ["company"]
+
+    ci = str(request.args.get('ci', ''))
+    comp = str(request.args.get('comp',''))
+   
+    print(ci)
+    print(comp)
+    # print("@" +str(request.args.get('c', '')) + "@")
+
+    if  ci != "":
+        key = str(ci)
+        tablename = tablenames[0]
+        keyname = keynames[0]
+
+        if comp != "":
+            field = str(comp)
+            fieldname = fieldnames[0]
+ 
+
+    # print("username is:@" + key + "@")
+    # username = request.args.get('param', '')
+    # tablename = request.args.get('table','')
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+    table = dynamodb.Table(tablename)
+    # response = table.query(KeyConditionExpression=Key(keyname).eq(key))
+    # # print("posted: " + response['Items'])
+    # return response['Items']
+    # print(json.dumps(response['Items']))
+    # return json.dumps(response['Items'])
+    
+    table.update_item(
+        Key={
+            keyname: key
+        },
+        UpdateExpression='SET ' + fieldname + ' = :val1',
+        ExpressionAttributeValues={
+            ':val1': field
+        }
+    )
+
+    print(json.dumps(response['Items']))
+    return json.dumps(response['Items'])
