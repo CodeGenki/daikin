@@ -5,8 +5,8 @@ import os
 
 # username = "kristen"
 
-username = "jenny"
-url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny"
+username = "michael"
+url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael"
 
 
 # Title of the site
