@@ -28,7 +28,7 @@ function signInDEAL(){
     cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
         	console.log('access token + ' + result.getAccessToken().getJwtToken());
-            window.location.href = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/vendor";
+            window.location.href = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen/vendor";
             //test
 		}, 
 		onFailure: function(err){
@@ -102,7 +102,7 @@ function registerDEAL(){
         }
     	cognitoUser = result.user;
         console.log('user name is ' + cognitoUser.getUsername());
-        window.location.href  = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/code_validation_dealer";
+        window.location.href  = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen/code_validation_dealer";
 
 });
 }
@@ -127,7 +127,7 @@ function validateDEAL() {
             return;
         }
     console.log('call result: ' + result);
-    window.location.href = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/vendor";
+    window.location.href = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen/vendor";
 
 });
 }
@@ -139,7 +139,7 @@ function signOutDEAL(){
     if (cognitoUser != null){
     	cognitoUser.signOut();
     }
-    window.location.href  = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/";
+    window.location.href  = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen/";
 }
 
 function setWelcomeDEAL() {
@@ -178,7 +178,7 @@ function get_userDEAL(){
             console.log(cognitoUser.username);
             $.ajax({
                 type: "GET",
-                url: "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael/testdeal?param=" + cognitoUser.username,
+                url: "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen/testdeal?param=" + cognitoUser.username,
                 success: function(data){
                     var tempInfoDEAL = JSON.parse(data); //save please
                     var userInfoDEAL = tempInfoDEAL[0];
