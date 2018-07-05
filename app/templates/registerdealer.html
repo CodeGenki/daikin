@@ -1,7 +1,7 @@
 {% extends "loginbase.html" %}
 {% block content %}
 
-<body onload = "loadCompanies();">
+<body onload = "loadCompanies(); updateInput();">
 <!-- <<<<<<< HEAD -->
   <div class="w3-display-middle w3-container w3-white w3-text-black " style="width:30%; height:100%; border: 3px solid black; overflow-y:scroll;">
     <br><br><br>
@@ -48,6 +48,8 @@
           <option value="Company 2">Company 2</option> -->
         </select>
         <p id="companyError" style="color:red"></p>
+        <label><input id="new_company" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter New Company Name:"></label>
+        <p id="newCompanyNameError" style="color:red"></p>
       </div> 
       <div class="form-group">
         <div style="text-align: left;">Password</div>
@@ -158,10 +160,10 @@
       function updateInput(){
         var e = document.getElementById("registration_company");
         if (e.options[e.selectedIndex].value == "New Company"){
-          console.log("new company")
-          var input = document.createElement("input");
-          input.setAttribute('type', 'text');
-          e.appendChild(input);
+          console.log("new company");
+          document.getElementById("new_company").style.display = "inline";
+        } else {
+          document.getElementById("new_company").style.display = "none";
         }
       }
       

@@ -515,7 +515,7 @@ function loadCompanies(){
             select.appendChild(el);
         }
         var el = document.createElement("option");
-        el.textContent = "New Company";
+        el.textContent = "--- New Company --- ";
         el.value = "New Company";
         select.appendChild(el);
 
