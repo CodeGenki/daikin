@@ -1,7 +1,7 @@
 
 // var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen"
 
-var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
+var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen";
 
 
 var poolDataDEAL = {
