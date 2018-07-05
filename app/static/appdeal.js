@@ -498,16 +498,27 @@ function loadCompanies(){
 
     if (request.status === 200) {
         console.log(request.response);
-        var companies = request.response;
+        var data = request.response;
+        var tempInfo = JSON.parse(data);
+        var comp = [];
+        for(var i = 0, size = tempInfo.length; i < size ; i++){
+          comp.push(tempInfo[i]['company']);          
+        }
+        comp = new Set(comp);
+
+
         var select = document.getElementById("registration_company"); 
-        for (var j = 0, size = companies.length; j < size ; j++) {
-            var opt = companies[i];
+        for (let opt of comp) {
             var el = document.createElement("option");
             el.textContent = opt;
             el.value = opt;
             select.appendChild(el);
         }
-    }
-        
+        var el = document.createElement("option");
+        el.textContent = "New Company";
+        el.value = "New Company";
+        select.appendChild(el);
 
-}
+    }
+
+  }
