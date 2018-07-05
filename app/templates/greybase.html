@@ -1,0 +1,85 @@
+<head id="content">
+<!DOCTYPE html>
+<html>
+<title>Customer Base</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body, html {height: 100%}
+.bgimg {
+    background-image: url('https://i.pinimg.com/originals/86/37/35/863735d7645286ccaf4a36ae20092ad1.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: 100% 100% ;
+    color: black;    
+}
+.td {
+  color: black;
+    }   
+
+.body {
+    color: black;
+    height: 100%;
+}
+
+.p {
+    color:black;
+}
+
+</style>
+
+<body>
+<head>
+
+    <style>
+        html,body,h1,h2,h3,h4,h5 {font-family: "Verdana"}
+    </style> 
+    <link rel="icon" href={{config.FAV_ICON}}>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!--<title> {{ config.SITE_TITLE }} </title>--> 
+    <!-- Include several stylesheets to improve the look and feel of our web page -->
+    {% for css_url in config.CSS_INCLUDES %}
+        <link rel="stylesheet" href="{{ css_url }}">
+    {% endfor %}
+    {% for js_url in config.JS_INCLUDES %}
+        <script src="{{ js_url }}"></script>
+    {% endfor %}
+</head>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-animate-left" style="z-index:3;width:300px;background-color: lightgrey;" id="mySidebar"><br>
+
+  <div class="w3-bar-block" style="padding-top: 100px;" >
+    <h5 style="color:steelblue; text-align: center;"><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
+    <a href= "{{ url_for('customer') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-users fa-fw"></i>  Overview</a>
+    <a href="{{ url_for('unithealth') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-heart fa-fw"></i>  Your Unit's Health</a>
+    <a href="{{ url_for('finddealer') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-address-book fa-fw"></i>  Find A Dealer</a>
+    <a href="{{ url_for('contactus') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-paper-plane fa-fw"></i>  Contact Us</a>
+    <a href="{{ url_for('aboutunitx') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-thermometer-half fa-fw"></i>  About "name of inverter" </a>
+    <a href="{{ url_for('faqs') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-question-circle fa-fw"></i>  Frequently Asked Questions</a>
+    <a href="{{ url_for('faqs') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-credit-card-alt fa-fw"></i>  Payment Portal</a>
+    <a href="{{ url_for('faqs') }}" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-cog fa-fw"></i>  Account Settings</a>
+    <a href="http://www.daikin.com" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-circle fa-fw"></i>  Daikin Home Page</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding" style="color: black;"><i class="fa fa-external-link-square fa-fw"></i> Sign Out </a><br><br>
+  </div>
+</nav>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+
+</body>
+
+{% block content %}{% endblock %}
+<!-- <<<<<<< HEAD -->
+
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
+
+<!-- ======= -->
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.259.1.min.js"></script>
+<!-- >>>>>>> 5cda7b661b4ccf0bc5951b587eb911669830082e -->
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+
+</html>

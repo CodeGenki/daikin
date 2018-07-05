@@ -1,0 +1,21 @@
+{% extends "hvacbase.html" %}
+{% block content %}
+
+
+
+
+
+
+
+
+
+
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
+
+
+{% endblock %}
+
+
+

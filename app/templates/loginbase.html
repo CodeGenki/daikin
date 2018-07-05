@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<title>Daikin Login</title>
+<meta charset="UTF-8">
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+
+<style>
+body {font-family: "Verdana", sans-serif}
+body, html {height: 100%}
+.bgimg2 {
+    background-image: url('http://www.daikin.com/images/mainvisual/pic_keyv_1_pc.jpg');
+    min-height: 100%;
+    background-position: absolute;
+    background-size:cover;
+    color: black;    
+    top:0;
+    left: 0;
+    background-repeat: no-repeat;
+    background-attachment: local;
+  }
+.button {
+  display: inline-block;
+  padding: 12px 20px;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+  background-color: #4682b4;
+  border: 1px solid black;
+  border-radius: 15px;
+}
+
+.button:hover {background-color: #a2b5cd}
+
+
+</style>
+
+
+<body class= "bgimg2">
+
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-black w3-card" style="z-index: 5">
+    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="http://www.daikin.com" class="w3-bar-item w3-button w3-padding-large">DAIKIN HOME</a>
+    <a href= "{{ url_for('logincustomer') }}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">CUSTOMER LOGIN</a>
+    <a href="{{ url_for('logindealer') }}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">DEALER LOGIN</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hide-small">CONTACT US</a>
+  </div>
+</div>
+
+<!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
+<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+  <a href="#band" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">CUSTOMER</a>
+  <a href="#tour" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">DEALER</a>
+  <a href="#contact" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">CONTACT</a>
+  <!--<a href="#" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">MERCH</a>--> 
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
+
+
+{% block content %}{% endblock %}
+
+

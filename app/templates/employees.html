@@ -1,11 +1,6 @@
 {% extends "hvacbase.html" %}
 {% block content %}
 
-
-<!DOCTYPE html>
-<html>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <style></style> -->
 <style>
 #employees {
     border-collapse: collapse;
@@ -13,11 +8,11 @@
 }
 
 #employees td, #employees th {
-    border: 1px solid #ddd;
+    border: 1px solid black;
     padding: 10px;
 }
 
-#employees tr:nth-child(even){background-color: #f2f2f2;}
+#employees tr:{background-color: #ddd}
 
 #employees tr:hover {background-color: #ddd;}
 
@@ -28,40 +23,115 @@
     background-color: lightsteelblue;
     color: black;
 }
+
+.bgimge {
+
+    background-image: url('http://pentium.club/wp-content/uploads/2017/08/empty-bedroom-background-empty-living-room-wall-decorating-clear-bedroom-sets-full.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: 100% 100% ;
+    color: black;    
+
+}
+
 </style>
 
-<body>
+<body onload="createTable();">
 
+<div class="bgimge w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
 <div class="w3-main" style="margin-left:300px;">
 
     <header class="w3-container" style="padding-top:86px">
-      <h5 style="color:black;text-align: center;"><b>Employees</b></h5>
+      <h5 style="color:black;text-align: center; "><b>Employees</b></h5>
     </header>
 
-	<hr>
+  <hr>
 
-	<div class="w3-half w3-container" style="padding-top:10px; text-align: center">
+  <div class="w3-half w3-container" style="padding-top:13px; text-align: center">
+    <div class="container" style="width:80%; height:50%;">
 
-<div id="map" style="width:90%; height:40%;"></div>
+    <div id="map" style="width:100%; height:100%;border: 1px solid black; color:black;"></div>
       <script>
-        var map, infoWindow;
-        // , locations, count, marker;
+        var map, infoWindow,count,marker,data;
+        var locations = [];
+        function get_employees(){
+          var poolDataDEAL = {
+            UserPoolId : 'us-east-1_QFcNXf7g8', // Your user pool id here
+            ClientId : '4ut1fjlf1v35jbj2v9cks6981l' // Your client id here
+          };
+          // var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael";
+          // var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen";
+          var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
+          var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
+          var cognitoUser = userPool.getCurrentUser();
+
+          if(cognitoUser !== null){
+              cognitoUser.getSession(function(err, session) {
+                  if(err){
+                      alert(err);
+                      return;
+                  }
+
+                  console.log('session validity: ' + session.isValid());
+                  console.log(cognitoUser.username);
+
+                  var request = new XMLHttpRequest();
+                  request.open('GET', url_name + "/testdeal?vi=" + cognitoUser.username, false);  // `false` makes the request synchronous
+                  request.send(null);
+
+                  if (request.status === 200) {
+                    console.log(request.response);
+                    data = request.response;
+                    var tempInfo = JSON.parse(data)[0]; //save please
+                    var comp = tempInfo.company;                    
+                    
+                    var request = new XMLHttpRequest();
+                    request.open('GET', url_name + "/testdeal?e=" + comp, false);  // `false` makes the request synchronous
+                    request.send(null);
+
+                    if (request.status === 200) {
+                      console.log(request.response);
+                      data = request.response;
+                      var tempInfo = JSON.parse(data); //save please
+                      for(var i = 0, size = tempInfo.length; i < size ; i++){
+                        var item = tempInfo[i];
+                        var l = item['location'].split(', ');
+                        locations.push([item['employeename'],parseFloat(l[0]),parseFloat(l[1]),item['available']]);
+                      }
+                    }
+                  }
+            });
+          }
+        }
+
         function initMap() {
           map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 35.397, lng: -95.644},
             zoom: 15
           });
           infoWindow = new google.maps.InfoWindow;
-          // locations = [ ];
-      	// for (count=0; count<locations.length; count++) {
-      	// 	marker= new google.maps.Marker({
-      	// 		position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
-      	// 		map:map,
-      	// 		title: locations[count][0]
-      	// 	});
-      	
-       //  }
-  	    // }
+
+          get_employees();
+          console.log('hi');
+          console.log(locations);
+
+          var icon;
+          for (count=0; count<locations.length; count++) {
+            if (locations[count][3] == "yes"){
+              icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+            }
+            else {
+              icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+            }
+            marker= new google.maps.Marker({
+              position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
+              map:map,
+              icon: icon,
+              title: locations[count][0]
+            });
+          
+          }
+        }
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
               var pos = {
@@ -87,47 +157,51 @@
                                 'Error: Your browser doesn\'t support geolocation.');
           infoWindow.open(map);
         }
-    }
+    
 
     </script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDffQOjP_RhBsNrSYUyqaQ5_xow6DnZHpc&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&callback=initMap">
     </script>
   </div>
-
-
-	<div class="w3-half w3-container" style="padding-top:10px; text-align: center">
-
-		<table id="employees">
-		  <tr>
-		    <th>Number</th>
-		    <th>Name</th>
-		    <th>Email</th>
-		    <th>Phone Number</th>
-		  </tr>
-		  <tr>
-		    <td>1</td>
-		    <td>Post Malone</td>
-		    <td>xxxxxxx</td>
-		    <td>xxxxxxx</td>
-		  </tr>
-		  <tr>
-		    <td>2</td>
-		    <td>Jay Z</td>
-		    <td>xxxxxxx</td>
-		    <td>xxxxxxx</td>
-		  </tr>
-		  <tr>
-		    <td>3</td>
-		    <td>Kendrick Lamar</td>
-		    <td>xxxxxxx</td>
-		    <td>xxxxxxx</td>
-		  </tr>
-		</table>
-	</div>
-
 </div>
+
+  <div class="w3-half w3-container" style="padding-top:13px; text-align: center">
+    <div class="container" style="width:80%; height:50%;">
+    <table id="employees">
+      <tr style="background-color: lightsteelblue">
+        <th>Available</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+      </tr>
+<!--      <tr style="background-color: white">
+        <td>1</td>
+        <td>Post Malone</td>
+        <td>xxxxxxx</td>
+        <td>xxxxxxx</td>
+      </tr>
+      <tr style="background-color: white">
+        <td>2</td>
+        <td>Jay Z</td>
+        <td>xxxxxxx</td>
+        <td>xxxxxxx</td>
+      </tr>
+      <tr style="background-color: white">
+        <td>3</td>
+        <td>Kendrick Lamar</td>
+        <td>xxxxxxx</td>
+        <td>xxxxxxx</td>
+      </tr> -->
+    </table>
+  </div>
+</div>
+</div>
+</div>
+<script src="{{ url_for('static', filename='appdeal.js') }}"></script>
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
 </body>
-</html>
 
 {% endblock %}

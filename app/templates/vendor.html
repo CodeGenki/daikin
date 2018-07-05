@@ -1,40 +1,55 @@
-<{% extends "hvacbase.html" %}
-{% block content %}
-
-<body style="padding-top: 10px;">
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:300px;">
-
-
-  <header class="w3-container" style="padding-top:86px">
-    <h5 style="color:black; text-align: center;"><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
+<!DOCTYPE html>
+<html>
+<title>Vendor Homepage</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  {% for css_url in config.CSS_INCLUDES %}
+    <link rel="stylesheet" href="{{ css_url }}">
+  {% endfor %}
+  <!-- Include several javascript scripts to improve the dynamic feel of our web page -->
+  {% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+  {% endfor %}
+<style>
+body, html {height: 100%}
+.bgimg {
+    background-image: url(http://hotcopperaustralia.com/wp-content/uploads/2013/04/Daikin_-multi_split_home_solution.jpg);
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+    color: black;
+}
+</style>
+<body onload="get_userDEAL();">
+<div class="bgimg w3-display-container">
+ <header class="w3-container" style="padding-top:80px; margin-left: 60px; margin-right: 60px;">
+    <h3 style="color:black; text-align: center;"><b>Welcome, <strong id="usernameDEAL"> </strong> from <strong id="companyDEAL"> </strong>!</b></h3>
   </header>
-<hr>
 
-  <div class="w3-row-padding w3-margin-bottom">
+  <div class="w3-row-padding w3-margin-bottom" style="padding-top:80px;">
     <div class="w3-quarter">
-      <div class="w3-container w3-padding-16" style="background-color: lightsteelblue;">
+      <div class="w3-container w3-padding-16" style="background-color: lightsteelblue; outline: 1px solid black;">
         <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
         <div class="w3-clear"></div>
         <h4 style="color:black;"><a href="{{ url_for('employees') }}">Employees</a></h4>
       </div>
     </div>
     <div class="w3-quarter">
-      <div class="w3-container w3-padding-16" style="background-color: lightgrey;">
+      <div class="w3-container w3-padding-16" style="background-color: lightgrey; outline: 1px solid black;">
         <div class="w3-left"><i class="fa fa-address-book w3-xxxlarge"></i></div>
         <div class="w3-clear"></div>
         <h4 style="color:black;"><a href="{{ url_for('customers') }}">Customers</a></h4>
       </div>
     </div>
     <div class="w3-quarter">
-      <div class="w3-container w3-padding-16" style="background-color: lightsteelblue;">
+      <div class="w3-container w3-padding-16" style="background-color: lightsteelblue; outline: 1px solid black;">
         <div class="w3-left"><i class="fa fa-handshake-o w3-xxxlarge"></i></div>
         <div class="w3-clear"></div>
         <h4 style="color:black;"><a href="{{ url_for('suppliers') }}">Suppliers</a></h4>
       </div>
     </div>
     <div class="w3-quarter">
-      <div class="w3-container w3-padding-16" style="background-color: lightgrey;">
+      <div class="w3-container w3-padding-16" style="background-color: lightgrey; outline: 1px solid black;">
         <div class="w3-left"><i class="fa fa-thermometer-half w3-xxxlarge"></i></div>
         <div class="w3-right">
         </div>
@@ -47,69 +62,47 @@
 <!--  <div class="w3-panel"> -->
   <div class="w3-row-padding">
     <div class="w3-quarter">
-      <div class="w3-container w3-padding-16" style="background-color: lightgrey;">
+      <div class="w3-container w3-padding-16" style="background-color: lightgrey; outline: 1px solid black;">
         <div class="w3-left"><i class="fa fa-question-circle w3-xxxlarge"></i></div>
         <div class="w3-clear"></div>
         <h4 style="color:black;"><a href="{{ url_for('hvacfaqs') }}">FAQs</a></h4>
       </div>
     </div>
     <div class="w3-quarter">
-      <div class="w3-container w3-padding-16" style="background-color: lightsteelblue;">
+      <div class="w3-container w3-padding-16" style="background-color: lightsteelblue; outline: 1px solid black;">
         <div class="w3-left"><i class="fa fa-paper-plane w3-xxxlarge"></i></div>
         <div class="w3-clear"></div>
         <h4 style="color:black;"><a href="{{ url_for('hvaccontactus') }}">Contact Us</a></h4>
       </div>
     </div>
     <div class="w3-quarter">
-      <div class="w3-container w3-padding-16" style="background-color: lightgrey;">
+      <div class="w3-container w3-padding-16" style="background-color: lightgrey; outline: 1px solid black;">
         <div class="w3-left"><i class="fa fa-cog w3-xxxlarge"></i></div>
         <div class="w3-clear"></div>
         <h4 style="color:black;"><a href="{{ url_for('hvacaccount') }}">Account Settings</a></h4>
       </div>
     </div>
     <div class="w3-quarter">
-      <div class="w3-container w3-padding-16" style="background-color: lightsteelblue;">
+      <div class="w3-container w3-padding-16" style="background-color: lightsteelblue; outline: 1px solid black;">
         <div class="w3-left"><i class="fa fa-circle w3-xxxlarge"></i></div>
         <div class="w3-right">
         </div>
         <div class="w3-clear"></div>
-        <h4 style="color:black;"><a href="http://www.daikin.com">Daikin Home</a></h4>
+        <h4 style="color:black;"><a ref="https://www.daikin.com">Daikin Home</a></h4>
       </div>
     </div>
   </div>
- 
+</div>
+<script src="{{ url_for('static', filename='appdeal.js') }}"></script>
+
+
 </body>
 
-</div>
 
-<script>
-// Get the Sidebar
-var mySidebar = document.getElementById("mySidebar");
-
-// Get the DIV with overlay effect
-var overlayBg = document.getElementById("myOverlay");
-
-// Toggle between showing and hiding the sidebar, and add overlay effect
-function w3_open() {
-    if (mySidebar.style.display === 'block') {
-        mySidebar.style.display = 'none';
-        overlayBg.style.display = "none";
-    } else {
-        mySidebar.style.display = 'block';
-        overlayBg.style.display = "block";
-    }
-}
-
-// Close the sidebar with the close button
-function w3_close() {
-    mySidebar.style.display = "none";
-    overlayBg.style.display = "none";
-}
 </script>
 
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %} 
 </body>
 </html>
-
-
-
-{% endblock %}

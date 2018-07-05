@@ -1,35 +1,41 @@
-{% extends "base2.html" %}
+{% extends "greybase.html" %}
 {% block content %}
 
+<style>
+  
+.bgimgc {
+
+    background-image: url('https://www.daikin.eu/content/internet-denv/en_US/product-group/air-to-air-heat-pumps/emura/_jcr_content/header.image.dkimg');
+    min-height: 100%;
+    background-position: center;
+    background-size: 100% 100% ;
+    color: black;    
+}
+  
+</style>
+
+
 <body>
+<div class="bgimgc w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
 
-<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+	<div class="w3-main" style="margin-left:300px;">
+		<br><br><br><br><br><br>
+		<div class="w3-half w3-container" style="padding-top:43px">
+			<h5 style="color:black;text-align: center; color: black"><b>About "Name of the Inverter"</b></h5>
+			<br><br><br>
+			<div class="w3-container w3-card w3-padding-32">
+				<p style="color: black;">Put info about unit here</p>
+			</div>
 
-  <header class="w3-container" style="padding-top:43px">
-      <h5 style="color:black;text-align: center;"><b>About "Name of the Inverter"</b></h5>
-  </header>
-
-<hr>
-<div class="w3-half w3-container" style="padding-top:10px">
-<img src="https://www.simplythebestac.com/wp-content/uploads/2014/06/residential-category-ac-heatpump.png" alt="AC Unit Pic" style="float: center;">
+		</div>
+	</div>
 </div>
 
+</body>
 
-<div class="w3-half w3-container" style="padding-top:10px; text-align: center">
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
 
 {% endblock %}
 
