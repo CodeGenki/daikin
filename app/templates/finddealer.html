@@ -62,7 +62,7 @@
 
 </style>
 
-<body class= "bgimgc">
+<body class= "bgimgc" onload = "loadCompanies();">
 <!-- <div class="bgimgc w3-display-container w3-animate-opacity" style="width:100%; height:100%;"> -->
   <div class="w3-main" style="margin-left:300px;">  
     <header class="w3-container" style="padding-top:43px">
@@ -72,9 +72,9 @@
     <div class="form-group" style="text-align: center;">
       <div style="color:black; ">What Company?</div>
       <select id="registration_company" class="w3-input w3-border form-control" style="width:30%; text-align: center; display: inline-block;">
-        <option value="McCann Services Inc.">McCann Services Inc.</option>
+        <!-- <option value="McCann Services Inc.">McCann Services Inc.</option>
         <option value="Daikin">Daikin</option>
-        <option value="Company 2">Company 2</option>
+        <option value="Company 2">Company 2</option> -->
       </select>
       <input onclick = "pickDealer();location.reload();" type="submit" value="submit" class="button" style="color:black;" >
     </div> 
@@ -286,6 +286,33 @@
             });
         }
       }
+
+    function loadCompanies(){
+    var request = new XMLHttpRequest();
+    request.open('GET', url_name + "/getCompanies?dummy=" + "dummy", false);  // `false` makes the request synchronous
+    request.send(null);
+
+    if (request.status === 200) {
+        console.log(request.response);
+        var data = request.response;
+        var tempInfo = JSON.parse(data);
+        var comp = [];
+        for(var i = 0, size = tempInfo.length; i < size ; i++){
+          comp.push(tempInfo[i]['company']);          
+        }
+        comp = new Set(comp);
+
+
+        var select = document.getElementById("registration_company"); 
+        for (let opt of comp) {
+            var el = document.createElement("option");
+            el.textContent = opt;
+            el.value = opt;
+            select.appendChild(el);
+        }
+    }
+
+  }
     
 
 

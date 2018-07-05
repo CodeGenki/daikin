@@ -491,3 +491,23 @@ function createTableCus() {
     }
 }
 
+function loadCompanies(){
+    var request = new XMLHttpRequest();
+    request.open('GET', url_name + "/getCompanies?dummy=" + "dummy", false);  // `false` makes the request synchronous
+    request.send(null);
+
+    if (request.status === 200) {
+        console.log(request.response);
+        var companies = request.response;
+        var select = document.getElementById("registration_company"); 
+        for (var j = 0, size = companies.length; j < size ; j++) {
+            var opt = companies[i];
+            var el = document.createElement("option");
+            el.textContent = opt;
+            el.value = opt;
+            select.appendChild(el);
+        }
+    }
+        
+
+}

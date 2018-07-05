@@ -345,3 +345,18 @@ def writeDealer():
 
     print(json.dumps(response['Items']))
     return json.dumps(response['Items'])
+
+
+@app.route("/getCompanies", methods=["GET", "POST"])
+def getCompanies():
+    dummy = str(request.args.get('dummy', ''))
+    print(dummy)
+
+    from boto3.dynamodb.conditions import Key, Attr
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+    table = dynamodb.Table("Vendor_information")
+
+    response = table.scan();
+   
+    print(json.dumps(response['Items']))
+    return json.dumps(response['Items'])
