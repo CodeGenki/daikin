@@ -34,9 +34,11 @@ function signInDEAL(){
     cognitoUser.authenticateUser(authenticationDetails, {
         
         onSuccess: function (result) {
+
         	
             console.log('access token + ' + result.getAccessToken().getJwtToken());
             window.location.href = url_name + "/vendor";
+
             //test
 		}, 
 		onFailure: function(err){
@@ -149,6 +151,7 @@ function registerDEAL(){
         e = true;
     }
 
+
     if (!e){
     	var cognitoUser;
     	userPool.signUp(username, password, attributeList, null, function(err, result){
@@ -188,6 +191,7 @@ function registerDEAL(){
                 console.log(err);	
             }
 
+
             if(e)
                 return;
 
@@ -221,7 +225,9 @@ function validateDEAL() {
         }
     console.log('call result: ' + result);
 
+
     window.location.href = url_name + "/vendor";
+
 
 });
 }
@@ -233,7 +239,9 @@ function signOutDEAL(){
     if (cognitoUser !== null){
     	cognitoUser.signOut();
     }
+
     window.location.href  = url_name + "/";
+
 }
 
 function setWelcomeDEAL() {
@@ -273,6 +281,7 @@ function get_userDEAL(){
             console.log(cognitoUser.username);
             $.ajax({
                 type: "GET",
+
 
                 url: url_name + "/testdeal?vi=" + cognitoUser.username,
 
