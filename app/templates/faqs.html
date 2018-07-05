@@ -28,21 +28,26 @@
     margin-right: auto;
 }
 
-.bgimgc {
 
+p {color: black;}
+
+.bgimgc {
     background-image: url('https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/4413027/440/293/m2/fpc/wm0/m56sgiu4wjhibtx9zxdghhl93xv5oqtonds0jrzv6otnxw984q6pv0lvjkzkwrps-.jpg?1525641104&s=4ef5895596b3b205524a48c431bbbb06');
     min-height: 100%;
-    background-position: center;
-    background-size: 100% 100% ;
+    background-position: absolute;
+    background-size:cover;
     color: black;    
-}
-p {color: black;}
+    top:0;
+    left: 0;
+    background-repeat: no-repeat;
+    background-attachment: local;
+  }
+
 
 </style>
 
-
-<body>
-<div class="bgimgc w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
+<body class="bgimgc">
+<!-- <div class="bgimgc w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;"> -->
   <div class="w3-main" style="margin-left:300px;">
     <header class="w3-container" style="padding-top:43px;">
         <h5 style="color:black;text-align:center;"><b>Frequently Asked Questions</b></h5>
@@ -92,7 +97,7 @@ p {color: black;}
       <p style="color: white"> Disclaimer: These are examples from Daikin's website.</p>
     </div>
   </div>
-</div>
+<!-- </div> -->
 </body>
 
 <script>
