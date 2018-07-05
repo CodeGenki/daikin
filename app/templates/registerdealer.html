@@ -48,7 +48,7 @@
           <option value="Company 2">Company 2</option> -->
         </select>
         <p id="companyError" style="color:red"></p>
-        <label><input id="new_company" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter New Company Name:"></label>
+        <label><input id="new_company" onkeyup="checkCompany();" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter New Company Name:"></label>
         <p id="newCompanyNameError" style="color:red"></p>
       </div> 
       <div class="form-group">
@@ -157,6 +157,38 @@
         }
       }
 
+    var comp = [];
+    function loadCompanies(){
+    var request = new XMLHttpRequest();
+    request.open('GET', url_name + "/getCompanies?dummy=" + "dummy", false);  // `false` makes the request synchronous
+    request.send(null);
+
+    if (request.status === 200) {
+        console.log(request.response);
+        var data = request.response;
+        var tempInfo = JSON.parse(data);
+        for(var i = 0, size = tempInfo.length; i < size ; i++){
+          comp.push(tempInfo[i]['company']);          
+        }
+        comp = new Set(comp);
+
+
+        var select = document.getElementById("registration_company"); 
+        for (let opt of comp) {
+            var el = document.createElement("option");
+            el.textContent = opt;
+            el.value = opt;
+            select.appendChild(el);
+        }
+        var el = document.createElement("option");
+        el.textContent = "--- New Company --- ";
+        el.value = "New Company";
+        select.appendChild(el);
+
+    }
+
+  }
+
       function updateInput(){
         var e = document.getElementById("registration_company");
         if (e.options[e.selectedIndex].value == "New Company"){
@@ -165,6 +197,20 @@
         } else {
           document.getElementById("new_company").style.display = "none";
         }
+      }
+
+      function checkCompany(){
+        var pass = document.getElementById("new_company");
+        var compList = Array.from(comp);
+        for (count=0; count<compList.length; count++){
+          if (compList[count].toLowerCase() == pass.value.trim().toLowerCase()){
+            document.getElementById("newCompanyNameError").innerHTML = "Company alredy exists.";           
+          }
+          else {
+            document.getElementById("newCompanyNameError").innerHTML = "";
+          }
+        }
+
       }
       
 </script>

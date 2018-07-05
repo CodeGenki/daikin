@@ -61,6 +61,9 @@ function registerDEAL(){
 	var family_name = $('#registration_family_name').val();
 	var email = $('#registration_email').val();
     var company = $('#registration_company').val();
+        if (company == 'New Company'){
+            company = $('#new_company').val();
+        }
 	var phone_number = $('#registration_phone_number').val();
 	var address = $('#registration_address').val();	
 	var password = $('#registration_password').val();
@@ -491,34 +494,34 @@ function createTableCus() {
     }
 }
 
-function loadCompanies(){
-    var request = new XMLHttpRequest();
-    request.open('GET', url_name + "/getCompanies?dummy=" + "dummy", false);  // `false` makes the request synchronous
-    request.send(null);
+// function loadCompanies(){
+//     var request = new XMLHttpRequest();
+//     request.open('GET', url_name + "/getCompanies?dummy=" + "dummy", false);  // `false` makes the request synchronous
+//     request.send(null);
 
-    if (request.status === 200) {
-        console.log(request.response);
-        var data = request.response;
-        var tempInfo = JSON.parse(data);
-        var comp = [];
-        for(var i = 0, size = tempInfo.length; i < size ; i++){
-          comp.push(tempInfo[i]['company']);          
-        }
-        comp = new Set(comp);
+//     if (request.status === 200) {
+//         console.log(request.response);
+//         var data = request.response;
+//         var tempInfo = JSON.parse(data);
+//         var comp = [];
+//         for(var i = 0, size = tempInfo.length; i < size ; i++){
+//           comp.push(tempInfo[i]['company']);          
+//         }
+//         comp = new Set(comp);
 
 
-        var select = document.getElementById("registration_company"); 
-        for (let opt of comp) {
-            var el = document.createElement("option");
-            el.textContent = opt;
-            el.value = opt;
-            select.appendChild(el);
-        }
-        var el = document.createElement("option");
-        el.textContent = "--- New Company --- ";
-        el.value = "New Company";
-        select.appendChild(el);
+//         var select = document.getElementById("registration_company"); 
+//         for (let opt of comp) {
+//             var el = document.createElement("option");
+//             el.textContent = opt;
+//             el.value = opt;
+//             select.appendChild(el);
+//         }
+//         var el = document.createElement("option");
+//         el.textContent = "--- New Company --- ";
+//         el.value = "New Company";
+//         select.appendChild(el);
 
-    }
+//     }
 
-  }
+//   }
