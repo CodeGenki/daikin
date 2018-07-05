@@ -87,7 +87,7 @@ input[type=text]:focus {
 
   <div class="w3-half w3-container" style="padding-top:13px; align-content: left;">
     <div class="container" style="width:80%; height:50%;">
-    <form>
+    <form onsubmit="return false;">
       <input type="text" name="search" style="color:black;" placeholder="Enter Component Name" id="comp_input" onkeyup="findSup(0,0);">
       <!-- <input type="submit" value="Search" class="button" style="color:black;"> -->
       <p id="match_suppliers" style="color:black"></p>
@@ -238,12 +238,20 @@ input[type=text]:focus {
       else {
         var pass = document.getElementById("comp_input");
         for (count=0; count<k.length; count++){
+          var i = k[count][1].toLowerCase().indexOf(pass.value.trim().toLowerCase());
           if(pass.value == ""){
             document.getElementById("match_suppliers").innerHTML = "";
 
           }
-          else if(k[count][1].toLowerCase().indexOf(pass.value.toLowerCase()) > -1 ){
-              document.getElementById("match_suppliers").innerHTML = document.getElementById("match_suppliers").innerHTML + "<br>" + k[count][0] + "(" + "matching word" + ")";
+          else if(i > -1){
+            var indexStart = k[count][1].toLowerCase().lastIndexOf(',', i);
+            var indexEnd = k[count][1].toLowerCase().indexOf(',', i);
+            
+            if (indexEnd == -1)
+              indexEnd = k[count][1].length + 1;
+
+            var word = k[count][1].substring(indexStart+1, indexEnd)
+            document.getElementById("match_suppliers").innerHTML = document.getElementById("match_suppliers").innerHTML + "<br>" + k[count][0] + " (" + word + ")";
           }
         }
       }
