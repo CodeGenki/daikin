@@ -37,14 +37,14 @@
       </div>
       <div class="form-group">
         <div style="text-align: left;">Address</div>
-        <label><input id="registration_address" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Address:"></label>
+        <label><input id="registration_address" onfocus="geolocate()" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Address:"></label>
         <p id="addressError" style="color:red"></p>
       </div>  
       <div class="form-group">
         <div style="text-align: left;">Company</div>
         <select id="registration_company" class="w3-input w3-padding-9 w3-border form-control">
           <option value="McCann Services Inc.">McCann Services Inc.</option>
-          <option value="Company 2">Company 2</option>
+          <option value="Daikin">Daikin</option>
           <option value="Company 2">Company 2</option>
         </select>
         <p id="companyError" style="color:red"></p>
@@ -64,6 +64,21 @@
         }
         </script>
       </div> 
+      <div class="form-group">
+        <div style="text-align: left;">Confirm Password</div>
+        <label><input id="registrationC_password" type="password" class="w3-input w3-padding-9 w3-border form-control" placeholder="Confirm Password:"></label>
+        <p id="passwordCError" style="color:red"></p>
+        <script type="text/javascript">
+        var passC = document.getElementById("registrationC_password");
+
+        passC.onkeyup = function(){
+            if(passC.value == pass.value)
+                document.getElementById("passwordCError").innerHTML = "";
+            else
+                document.getElementById("passwordCError").innerHTML = "Password mismatch";
+        }
+        </script>
+      </div> 
       <br>
       <div style="text-align: center;">
         <button type="submit" class="button" onclick="registerDEAL()" > Register </button>
@@ -74,15 +89,10 @@
     </div>
 </body>
 
-<<<<<<< HEAD
 <script src="{{ url_for('static', filename='appdeal.js') }}"></script>
 
-=======
 </div>
 </div>
-<script>
-
-// >>>>>>> 5cda7b661b4ccf0bc5951b587eb911669830082e
 
 <script>
       var placeSearch, autocomplete;

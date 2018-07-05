@@ -81,9 +81,21 @@ input[type=text]:focus {
 	<div class="w3-half w3-container" style="padding-top:13px; align-content: right;">
     <div class="container" style="width:80%; height:50%;">
     <div id="map" style="width:100%; height:100%;border: 1px solid black; color:black;"></div>
-    <script>
+
+  </div>
+</div>
+
+  <div class="w3-half w3-container" style="padding-top:13px; align-content: left;">
+    <div class="container" style="width:80%; height:50%;">
+    <form onsubmit="return false;">
+      <input type="text" name="search" style="color:black;" placeholder="Enter Component Name" id="comp_input" onkeyup="findSup(0,0);">
+      <!-- <input type="submit" value="Search" class="button" style="color:black;"> -->
+      <p id="match_suppliers" style="color:black"></p>
+        
+    </form>
+<script>
         var map, infoWindow,count,marker,data;
-        var locations = [];
+        var locations = [], username_address = [], addresses=[], sups = [];
         function get_suppliers(){
           var poolDataDEAL = {
             UserPoolId : 'us-east-1_QFcNXf7g8', // Your user pool id here
@@ -127,12 +139,17 @@ input[type=text]:focus {
                         var item = tempInfo[i];
                         var l = item['location'].split(', ');
                         locations.push([item['companyname'],parseFloat(l[0]),parseFloat(l[1])]);
+                        username_address.push([item['companyname'], item['address']]);
+                        addresses.push([item['companyname'],item['address']]);
+                        sups.push([item['companyname'], item['components']]);            
                       }
+                      findSup(sups,1);
                     }
                   }
             });
           }
         }
+
         function initMap() {
           map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 35.397, lng: -95.644},
@@ -143,16 +160,47 @@ input[type=text]:focus {
           get_suppliers();
           console.log('hi');
           console.log(locations);
+          console.log(username_address);
 
-          for (count=0; count<locations.length; count++) {
-            marker= new google.maps.Marker({
-              position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
-              map:map,
-              title: locations[count][0]
-            });
+          // for (count=0; count<locations.length; count++) {
+          //   marker= new google.maps.Marker({
+          //     position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
+          //     map:map,
+          //     title: locations[count][0]
+          //   });
           
-          }
-        
+          // }
+          var newcoords;
+              function getLatLng(address){
+    
+              var parsedAddress = address.split(" ").join("+"); //parse address to fit into the url request
+              var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + parsedAddress + '&key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU';
+              var request = new XMLHttpRequest();
+              request.open('GET', url, false);  // `false` makes the request synchronous
+              request.send(null);
+
+              if(request.status == 200){
+                var newlat1 = JSON.parse(request.response).results[0].geometry.location.lat;//parses JSON file for coords
+                    var newlng1 = JSON.parse(request.response).results[0].geometry.location.lng;
+                    newcoords = { lat : newlat1, lng : newlng1};//finds new lat and lng
+              }
+            }
+
+              var icon;
+              for (count=0; count<addresses.length; count++) {
+                var address = addresses[count];
+                getLatLng(address[1]);
+
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: newcoords,
+                    title: address[0]
+                    
+                });
+
+            
+            }
+
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
               var pos = {
@@ -180,30 +228,50 @@ input[type=text]:focus {
       }
       }
 
+    var k;
+    function findSup(info, first){
+      document.getElementById("match_suppliers").innerHTML = "";
+      if(first == 1){
+        k = info;
+        document.getElementById("match_suppliers").innerHTML = "first run";
+      }
+      else {
+        var pass = document.getElementById("comp_input");
+        for (count=0; count<k.length; count++){
+          var i = k[count][1].toLowerCase().indexOf(pass.value.trim().toLowerCase());
+          if(pass.value == ""){
+            document.getElementById("match_suppliers").innerHTML = "";
+
+          }
+          else if(i > -1){
+            var indexStart = k[count][1].toLowerCase().lastIndexOf(',', i);
+            var indexEnd = k[count][1].toLowerCase().indexOf(',', i);
+            
+            if (indexEnd == -1)
+              indexEnd = k[count][1].length + 1;
+
+            var word = k[count][1].substring(indexStart+1, indexEnd)
+            document.getElementById("match_suppliers").innerHTML = document.getElementById("match_suppliers").innerHTML + "<br>" + k[count][0] + " (" + word + ")";
+          }
+        }
+      }
+    }
+
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&callback=initMap">
     </script>
+    <table id="suppliers">
+      <tr style="background-color: lightsteelblue">
+        <th>Name</th>
+        <th>Address</th>
+        <th>Phone Number</th>
+        <th>Components</th>
+      </tr>
+    </table>
   </div>
 </div>
 
-
-	<div class="w3-half w3-container" style="padding-top:13px; align-content: left;">
-    <div class="container" style="width:80%; height:50%;">
-		<form>
-		  <input type="text" name="search" style="color:black;">
-		  <input type="button" value="Search" class="button" style="color:black;">
-		</form>
-		<table id="suppliers">
-		  <tr style="background-color: lightsteelblue">
-		    <th>Name</th>
-		    <th>Phone Number</th>
-		    <th>x</th>
-        <th>Components</th>
-		  </tr>
-		</table>
-	</div>
-</div>
 </div>
 </div>
 <script src="{{ url_for('static', filename='appdeal.js') }}"></script>
