@@ -201,14 +201,15 @@
 
       function checkCompany(){
         var pass = document.getElementById("new_company");
+        var copy = pass.value;
         var compList = Array.from(comp);
         for (count=0; count<compList.length; count++){
           if (compList[count].toLowerCase() == pass.value.trim().toLowerCase()){
-              // document.getElementById("newCompanyNameError").innerHTML = "Company already exists.";
             document.getElementById("new_company").value = compList[count];
+
           }
           else {
-            document.getElementById("newCompanyNameError").innerHTML = "";
+            document.getElementById("new_company").value = copy;
           }
         }
 
