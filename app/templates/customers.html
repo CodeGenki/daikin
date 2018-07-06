@@ -21,6 +21,12 @@
 
 #customersT tr:hover {background-color: grey;}
 
+
+#customersT tr {
+  background-color: white;
+}
+
+
 #customersT th {
     padding-top: 12px;
     padding-bottom: 12px;
@@ -124,7 +130,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
                   ClientId : '4ut1fjlf1v35jbj2v9cks6981l' // Your client id here
                 };
                 // var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen";
+
                 var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael";
+
                 var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
                 var cognitoUser = userPool.getCurrentUser();
 
@@ -209,6 +217,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
               infoWindow = new google.maps.InfoWindow;
 
               get_customers();
+
               //console.log('hi');
               //console.log(locations);
               //console.log(username_address);
@@ -234,6 +243,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                  });
               
                }
+
               var newcoords;
               function getLatLng(address){
     
@@ -313,7 +323,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
     </div>
   </div>
 	<div class="w3-half w3-container" style="padding-top:10px; text-align: center">
-    <div class="container" style="width:80%; height:50%;">
+    <div class="container" style="width:80%; height:50%; overflow-y: scroll;">
 		<table id="customersT">
 		  <tr style="background-color: lightsteelblue">
 		    <th>Unit Status</th>
