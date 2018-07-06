@@ -343,6 +343,23 @@ def writeDealer():
         }
     )
 
+    table = dynamodb.Table("Vendor_information")
+    response = table.scan()['Items']
+    for i in response:
+        if i.get(fieldname) == field:
+            cus = i.get("customers")
+
+            table.update_item(
+                Key={
+                    keyname: i.get(keyname)
+                },
+                UpdateExpression='SET customers = :val1',
+                ExpressionAttributeValues={
+                    ':val1': cus + " " + key
+                }
+            )
+
+
     print(json.dumps(response['Items']))
     return json.dumps(response['Items'])
 
