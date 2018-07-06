@@ -62,7 +62,7 @@
             if(pass.value.length >= 6)
                 document.getElementById("passwordError").innerHTML = "";
             else
-                document.getElementById("passwordError").innerHTML = "Password must have 6 or more letters";
+                document.getElementById("passwordError").innerHTML = "Password must have 6 or more characters";
         }
         </script>
       </div> 
@@ -204,7 +204,8 @@
         var compList = Array.from(comp);
         for (count=0; count<compList.length; count++){
           if (compList[count].toLowerCase() == pass.value.trim().toLowerCase()){
-            document.getElementById("newCompanyNameError").innerHTML = "Company alredy exists.";           
+              // document.getElementById("newCompanyNameError").innerHTML = "Company already exists.";
+            document.getElementById("new_company").value = compList[count];
           }
           else {
             document.getElementById("newCompanyNameError").innerHTML = "";
