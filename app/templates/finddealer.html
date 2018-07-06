@@ -131,8 +131,8 @@
                       var tempInfo = JSON.parse(data); //save please
                       for(var i = 0, size = tempInfo.length; i < size ; i++){
                         var item = tempInfo[i];
-                        var l = item['location'].split(', ');
-                        locations.push([item['employeename'],parseFloat(l[0]),parseFloat(l[1]),item['available']]);
+                        // var l = item['location'].split(', ');
+                        // locations.push([item['employeename'],parseFloat(l[0]),parseFloat(l[1]),item['available']]);
                         username_address.push([item['username'], item['address']]);
                         addresses.push([item['employeename'] ,item['address'],item['available']]);
                       }
@@ -169,7 +169,7 @@
           //   ['a', 29.562106, -95.348955, 14],
           //    ];
             console.log('hi');
-            console.log(locations);
+            // console.log(locations);
             console.log(addresses);
 
         // var icon;

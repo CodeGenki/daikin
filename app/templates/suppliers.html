@@ -137,8 +137,8 @@ input[type=text]:focus {
                       var tempInfo = JSON.parse(data); //save please
                       for(var i = 0, size = tempInfo.length; i < size ; i++){
                         var item = tempInfo[i];
-                        var l = item['location'].split(', ');
-                        locations.push([item['companyname'],parseFloat(l[0]),parseFloat(l[1])]);
+                        // var l = item['location'].split(', ');
+                        // locations.push([item['companyname'],parseFloat(l[0]),parseFloat(l[1])]);
                         username_address.push([item['companyname'], item['address']]);
                         addresses.push([item['companyname'],item['address']]);
                         sups.push([item['companyname'], item['components']]);            
@@ -159,7 +159,7 @@ input[type=text]:focus {
 
           get_suppliers();
           console.log('hi');
-          console.log(locations);
+          // console.log(locations);
           console.log(username_address);
 
           // for (count=0; count<locations.length; count++) {
@@ -233,7 +233,7 @@ input[type=text]:focus {
       document.getElementById("match_suppliers").innerHTML = "";
       if(first == 1){
         k = info;
-        document.getElementById("match_suppliers").innerHTML = "first run";
+        // document.getElementById("match_suppliers").innerHTML = "first run";
       }
       else {
         var pass = document.getElementById("comp_input");

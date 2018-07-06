@@ -160,8 +160,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
                               var data = request.response;
                               var tempInfo = JSON.parse(data); //save please
                               var item = tempInfo[0];
-                              var l = item['locations'].split(', ');
-                              locations.push([item['given_name'] + " " + item['family_name'],parseFloat(l[0]),parseFloat(l[1]),item['unithealth']]);
+                              // var l = item['locations'].split(', ');
+                              // locations.push([item['given_name'] + " " + item['family_name'],parseFloat(l[0]),parseFloat(l[1]),item['unithealth']]);
                               username_address.push([item['username'], item['address']]);
                               addresses.push([item['given_name'] + " " + item['family_name'],item['address'],item['unithealth']]);                 
                             }
@@ -209,7 +209,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
               get_customers();
               console.log('hi');
-              console.log(locations);
+              // console.log(locations);
               console.log(username_address);
               console.log(emp_addresses);
               console.log(sup_addresses);
