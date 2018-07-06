@@ -348,14 +348,18 @@ def writeDealer():
     for i in response:
         if i.get(fieldname) == field:
             cus = i.get("customers")
-
+            cus = cus.split(" ")
+            cus.append(key)
+            cus = set(cus)
+            cus = list(cus)
+            cus = " ".join(cus)
             table.update_item(
                 Key={
                     keyname: i.get(keyname)
                 },
                 UpdateExpression='SET customers = :val1',
                 ExpressionAttributeValues={
-                    ':val1': cus + " " + key
+                    ':val1': cus
                 }
             )
 
