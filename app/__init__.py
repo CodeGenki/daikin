@@ -327,12 +327,13 @@ def writeDealer():
     # tablename = request.args.get('table','')
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
     table = dynamodb.Table(tablename)
+    old_comp = table.query(KeyConditionExpression=Key(keyname).eq(key))
+    old_comp = old_comp['Items'][0].get(fieldname)
     # response = table.query(KeyConditionExpression=Key(keyname).eq(key))
     # # print("posted: " + response['Items'])
     # return response['Items']
     # print(json.dumps(response['Items']))
     # return json.dumps(response['Items'])
-    
     table.update_item(
         Key={
             keyname: key
@@ -343,25 +344,42 @@ def writeDealer():
         }
     )
 
-    table = dynamodb.Table("Vendor_information")
-    response = table.scan()['Items']
-    for i in response:
-        if i.get(fieldname) == field:
-            cus = i.get("customers")
-            cus = cus.split(" ")
-            cus.append(key)
-            cus = set(cus)
-            cus = list(cus)
-            cus = " ".join(cus)
-            table.update_item(
-                Key={
-                    keyname: i.get(keyname)
-                },
-                UpdateExpression='SET customers = :val1',
-                ExpressionAttributeValues={
-                    ':val1': cus
-                }
-            )
+    if field != old_comp:
+        table = dynamodb.Table("Vendor_information")
+        response = table.scan()['Items']
+        for i in response:
+            if i.get(fieldname) == field:
+                cus = i.get("customers")
+                cus = cus.split(" ")
+                cus.append(key)
+                cus = set(cus)
+                cus = list(cus)
+                cus = " ".join(cus)
+                table.update_item(
+                    Key={
+                        keyname: i.get(keyname)
+                    },
+                    UpdateExpression='SET customers = :val1',
+                    ExpressionAttributeValues={
+                        ':val1': cus
+                    }
+                )
+            if i.get(fieldname) == old_comp:
+                cus = i.get("customers")
+                cus = cus.split(" ")
+                cus = set(cus)
+                cus.remove(key)
+                cus = list(cus)
+                cus = " ".join(cus)
+                table.update_item(
+                    Key={
+                        keyname: i.get(keyname)
+                    },
+                    UpdateExpression='SET customers = :val1',
+                    ExpressionAttributeValues={
+                        ':val1': cus
+                    }
+                )
 
 
     print(json.dumps(response['Items']))
