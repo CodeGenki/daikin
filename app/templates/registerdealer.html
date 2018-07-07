@@ -174,6 +174,11 @@
 
 
         var select = document.getElementById("registration_company"); 
+        var el = document.createElement("option");
+        el.textContent = "--- Choose a Company ---";
+        el.value = "choose";
+        el.selected = "";
+        select.appendChild(el);
         for (let opt of comp) {
             var el = document.createElement("option");
             el.textContent = opt;
@@ -204,6 +209,7 @@
         var copy = pass.value;
         var compList = Array.from(comp);
         for (count=0; count<compList.length; count++){
+          console.log(copy)
           if (compList[count].toLowerCase() == pass.value.trim().toLowerCase()){
             document.getElementById("new_company").value = compList[count];
 

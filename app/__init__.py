@@ -399,3 +399,48 @@ def getCompanies():
    
     print(json.dumps(response['Items']))
     return json.dumps(response['Items'])
+
+@app.route("/addMembers", methods=["GET", "POST"])
+def addMembers():
+    tablename  = str(request.args.get('table', ''))
+    companyAffiliate = str(request.args.get('companyAffiliate', ''))
+    name = str(request.args.get('name', ''))
+    address = str(request.args.get('address', ''))
+    phone = str(request.args.get('phone', ''))
+    compemail = str(request.args.get('compemail', ''))
+    ava = str(request.args.get('ava', ''))
+
+    print(tablename)
+    print(companyAffiliate)
+    print(name)
+    print(address)
+    print(phone)
+    print(compemail)
+    print(ava)
+
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+    table = dynamodb.Table(tablename)
+
+    if tablename == "Suppliers":
+        response = table.put_item(
+           Item={
+                'Affiliate': companyAffiliate,
+                'companyname': name,
+                'address': address,
+                'components': compemail,
+                'number': phone
+            }
+        )
+    elif tablename == "employees":
+        response = table.put_item(
+           Item={
+                'company': companyAffiliate,
+                'employeename': name,
+                'address': address,
+                'email': compemail,
+                'number': phone,
+                'available': ava
+            }
+        )
+   
+    return json.dumps(response.get('ResponseMetadata').get('HTTPStatusCode'))

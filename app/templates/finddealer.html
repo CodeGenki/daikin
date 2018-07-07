@@ -303,7 +303,11 @@
         comp = new Set(comp);
 
 
-        var select = document.getElementById("registration_company"); 
+        var select = document.getElementById("registration_company");
+        var el = document.createElement("option");
+        el.textContent = "--- Choose a New Dealer ---";
+        el.value = "choose";
+        select.appendChild(el);
         for (let opt of comp) {
             var el = document.createElement("option");
             el.textContent = opt;

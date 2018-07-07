@@ -456,7 +456,7 @@ function createTableCus() {
                 }
                 
 
-                    var modal = document.getElementById('myModal');
+                 var modal = document.getElementById('myModal');
 
                   var rows =  customers.length;
                   console.log(rows)
