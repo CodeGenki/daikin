@@ -94,9 +94,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
             UserPoolId : 'us-east-1_QFcNXf7g8', // Your user pool id here
             ClientId : '4ut1fjlf1v35jbj2v9cks6981l' // Your client id here
           };
-          // var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael";
+           var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael";
           // var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen";
-          var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
+          //var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
           var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
           var cognitoUser = userPool.getCurrentUser();
 
@@ -107,15 +107,15 @@ body {font-family: Arial, Helvetica, sans-serif;}
                       return;
                   }
 
-                  console.log('session validity: ' + session.isValid());
-                  console.log(cognitoUser.username);
+                  //console.log('session validity: ' + session.isValid());
+                  //console.log(cognitoUser.username);
 
                   var request = new XMLHttpRequest();
                   request.open('GET', url_name + "/testdeal?vi=" + cognitoUser.username, false);  // `false` makes the request synchronous
                   request.send(null);
 
                   if (request.status === 200) {
-                    console.log(request.response);
+                    //console.log(request.response);
                     data = request.response;
                     var tempInfo = JSON.parse(data)[0]; //save please
                     var comp = tempInfo.company;                    
@@ -125,7 +125,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     request.send(null);
 
                     if (request.status === 200) {
-                      console.log(request.response);
+                      //console.log(request.response);
                       data = request.response;
                       var tempInfo = JSON.parse(data); //save please
                       for(var i = 0, size = tempInfo.length; i < size ; i++){
@@ -144,7 +144,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
         function initMap() {
           map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 35.397, lng: -95.644},
-            zoom: 15
+            zoom: 10
           });
           infoWindow = new google.maps.InfoWindow;
 
@@ -167,8 +167,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
           //     icon: icon,
           //     title: locations[count][0]
           //   });
+
           
-          // }
+           }
           var newcoords;
               function getLatLng(address){
     
@@ -218,9 +219,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 lng: position.coords.longitude
               };
 
-              infoWindow.setPosition(pos);
-              infoWindow.setContent('Location found.');
-              infoWindow.open(map);
+             // infoWindow.setPosition(pos);
+              //infoWindow.setContent('Location found.');
+              //infoWindow.open(map);
               map.setCenter(pos);
             }, function() {
               handleLocationError(true, infoWindow, map.getCenter());
