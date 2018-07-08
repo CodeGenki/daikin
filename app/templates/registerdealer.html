@@ -209,14 +209,14 @@
         var copy = pass.value;
         var compList = Array.from(comp);
         for (count=0; count<compList.length; count++){
-          console.log(copy)
+          console.log(pass.value.trim().toLowerCase());
+          console.log(compList[count].toLowerCase());
           if (compList[count].toLowerCase() == pass.value.trim().toLowerCase()){
             document.getElementById("new_company").value = compList[count];
-
           }
-          else {
-            document.getElementById("new_company").value = copy;
-          }
+          // else {
+          //   document.getElementById("new_company").value = copy;
+          // }
         }
 
       }

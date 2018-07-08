@@ -13,12 +13,12 @@
         <form onsubmit="return false;">
             <div class="form-group">
                 <div>Username</div>
-                <p><input id="sign_in_username" type="text" class="w3-input w3-padding-16 w3-border form-control" placeholder="Enter username"></p>
+                <p><input id="sign_in_username" onkeyup="clearHTML(0);clearHTML(1);" type="text" class="w3-input w3-padding-16 w3-border form-control" placeholder="Enter username"></p>
                 <p id="noUsername" style="color:red"></p>
             </div>
             <div class="form-group">
                 <div>Password</div>
-                <p><input id="sign_in_password" type="password" class="w3-input w3-padding-16 w3-border form-control" placeholder="Enter password"></p>
+                <p><input id="sign_in_password" onkeyup="clearHTML(1);" type="password" class="w3-input w3-padding-16 w3-border form-control" placeholder="Enter password"></p>
             </div>  
             <br>
             <div style="text-align: center;">
@@ -28,7 +28,12 @@
             </div>
         </form> 
   </div>
-
+<script>
+    function clearHTML(IDnumber){
+      errorIDs = ["noUsername", "invalidCredentials"]
+      document.getElementById(errorIDs[IDnumber]).innerHTML = "";
+    } 
+</script>
 <!-- <script src="/kristen/static/amazon-cognito-identity.min.js"></script>
 <script src="/kristen/static/aws-cognito-sdk.min.js"></script> -->
 
