@@ -404,9 +404,7 @@ function createTableSup() {
     }
 }
 
-var saveCusData = [];
-var allCusData = [];
-var buttons = [];
+var saveCusData, allCusData,buttons;
 
 function createTableCus() {
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
@@ -522,7 +520,7 @@ function createTableCus() {
                     y.onclick = function() {
 
                         var b = rows + 1 - this.id;
-
+                        saveCusData=[]
                         saveCusData.push(allCusData[8*b-1]);
                         saveCusData.push(allCusData[8*b-2]);
                         saveCusData.push(allCusData[8*b-3]);
@@ -532,7 +530,10 @@ function createTableCus() {
                         saveCusData.push(allCusData[8*b-7]);
                         saveCusData.push(allCusData[8*b-8]);
                         console.log(saveCusData);
-                         // window.location.href = url_name + "/management";
+
+                        localStorage.setItem('selected', saveCusData);
+
+                        window.location.href = url_name + "/management";
 
                     }
                   }
@@ -576,3 +577,18 @@ function createTableCus() {
 //     }
 
 //   }
+function showCusInfo(){
+    var saveCusData = localStorage.getItem('selected');
+    saveCusData = saveCusData.split(",");
+
+    document.getElementById("cusName").innerHTML = "Customer Name: " + saveCusData[9];
+    document.getElementById("cusAddress").innerHTML = "Customer Address: " + saveCusData[5]+","+saveCusData[6]+","+saveCusData[7]+","+saveCusData[8];
+    document.getElementById("cusPhone").innerHTML = "Customer Phone Number: " + saveCusData[3];
+    document.getElementById("cusEmail").innerHTML = "CUstomer Email: " + saveCusData[4];
+    document.getElementById("cusHealth").innerHTML = "Customer Unit Health: " + saveCusData[10];
+    document.getElementById("cusCode").innerHTML = "Customer Unit Error Codes: " + saveCusData[0];
+    document.getElementById("cusLeak").innerHTML = "Customer Unit Refrigerant Leak: " + saveCusData[1];
+   
+    console.log(saveCusData)
+
+}
