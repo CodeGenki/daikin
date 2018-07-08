@@ -404,11 +404,16 @@ function createTableSup() {
     }
 }
 
+var saveCusData = [];
+var allCusData = [];
+var buttons = [];
 
 function createTableCus() {
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
     var cognitoUser = userPool.getCurrentUser();
-
+    saveCusData = [];
+    allCusData = [];
+    buttons = [];
     if(cognitoUser !== null){
         cognitoUser.getSession(function(err, session) {
             if(err){
@@ -439,55 +444,97 @@ function createTableCus() {
                         var data = request.response;
                         var tableInfo = JSON.parse(data); //save please
 
-                        var d = ["unithealth","given_name","address","email","phone_number"];
+                        var d = ["unithealth","given_name","address","email","phone_number", "username","refrigerantleak","ErrorCode"];
                         // var rn = tableInfo.length;
                         var cn = document.getElementById("customersT").rows[0].cells.length;
                         
                         var x=document.getElementById('customersT').insertRow(1);
                         for(var c=0;c<cn;c++) {
                             var y =  x.insertCell(c);
-                            if (d[c] == 'given_name') 
-                                y.innerHTML=tableInfo[0][d[c]] + " " + tableInfo[0]['family_name'];     
-                            else 
+                            if (d[c] == 'given_name'){
+                                y.innerHTML=tableInfo[0][d[c]] + " " + tableInfo[0]['family_name'];   
+                                allCusData.push(tableInfo[0][d[c]] + " " + tableInfo[0]['family_name']);
+  
+                            }
+                            else {
                                 y.innerHTML=tableInfo[0][d[c]];
+                                allCusData.push(tableInfo[0][d[c]]);
+                            }
+
+
+                            
+                            if (c == cn-1){
+                                allCusData.push(tableInfo[0][d[c+1]]);
+                                allCusData.push(tableInfo[0][d[c+2]]);
+                                allCusData.push(tableInfo[0][d[c+3]]);
+                            }
                         }
                         
                     }
                 }
                 
 
-                 var modal = document.getElementById('myModal');
+                 // var modal = document.getElementById('myModal');
+
+                 //  var rows =  customers.length;
+                 //  console.log(rows)
+                 //  for(var r=1;r<=rows;r++) {
+                 //    console.log(r)
+                 //    var y = document.getElementById('customersT').rows[r].cells[0]
+                 //    y.setAttribute("id","button"+r);
+                 //    console.log(y.id);
+                 //    // y.innerHTML = "hi";
+
+                 //    // var btn = document.getElementById("button" + count);
+                    
+                 //    y.onclick = function() {
+                 //      modal.style.display = "block";
+                 //    }
+                 //  }
+                
+
+                 // // Get the <span> element that closes the modal
+                 //  var span = document.getElementsByClassName("close")[0];
+
+                 //  // When the user clicks on <span> (x), close the modal
+                 //  span.onclick = function() {
+                 //      modal.style.display = "none";
+                 //  }
+
+                 //  // When the user clicks anywhere outside of the modal, close it
+                 //  window.onclick = function(event) {
+                 //      if (event.target == modal) {
+                 //          modal.style.display = "none";
+                 //      }
+                 //  }
 
                   var rows =  customers.length;
                   console.log(rows)
                   for(var r=1;r<=rows;r++) {
                     console.log(r)
                     var y = document.getElementById('customersT').rows[r].cells[0]
-                    y.setAttribute("id","button"+r);
+                    y.setAttribute("id",r);
                     console.log(y.id);
                     // y.innerHTML = "hi";
 
                     // var btn = document.getElementById("button" + count);
-                    
+                    buttons.push(document.getElementById(r));
                     y.onclick = function() {
-                      modal.style.display = "block";
+
+                        var b = rows + 1 - this.id;
+
+                        saveCusData.push(allCusData[8*b-1]);
+                        saveCusData.push(allCusData[8*b-2]);
+                        saveCusData.push(allCusData[8*b-3]);
+                        saveCusData.push(allCusData[8*b-4]);
+                        saveCusData.push(allCusData[8*b-5]);
+                        saveCusData.push(allCusData[8*b-6]);
+                        saveCusData.push(allCusData[8*b-7]);
+                        saveCusData.push(allCusData[8*b-8]);
+                        console.log(saveCusData);
+                         // window.location.href = url_name + "/management";
+
                     }
-                  }
-                
-
-                 // Get the <span> element that closes the modal
-                  var span = document.getElementsByClassName("close")[0];
-
-                  // When the user clicks on <span> (x), close the modal
-                  span.onclick = function() {
-                      modal.style.display = "none";
-                  }
-
-                  // When the user clicks anywhere outside of the modal, close it
-                  window.onclick = function(event) {
-                      if (event.target == modal) {
-                          modal.style.display = "none";
-                      }
                   }
 
 
