@@ -587,7 +587,7 @@ function showCusInfo(){
     document.getElementById("cusEmail").innerHTML = "CUstomer Email: " + saveCusData[4];
     document.getElementById("cusHealth").innerHTML = "Customer Unit Health: " + saveCusData[10];
     document.getElementById("cusCode").innerHTML = "Customer Unit Error Codes: " + saveCusData[0];
-    document.getElementById("cusLeak").innerHTML = "Customer Unit Refrigerant Leak: " + saveCusData[1];
+    document.getElementById("cusLeak").innerHTML = "Customer Unit Refrigerant Leak: " + saveCusData[1] + "%";
    
     console.log(saveCusData)
 
