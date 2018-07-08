@@ -235,30 +235,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                 'Error: The Geolocation service failed.' :
                                 'Error: Your browser doesn\'t support geolocation.');
           infoWindow.open(map);
-        }
-    
-
-        function showForm(num){
-          ids = ["new_employee", "new_address", "new_availability", "new_email", "new_number"]
-          if (num == 1) {
-            for (var count=0; count<ids.length; count++) {
-              document.getElementById(ids[num]).style.display = "inline";
-            }
-          }
-          else if (num === 0) {
-            for (var count=0; count<ids.length; count++) {
-              document.getElementById(ids[num]).style.display = "none";
-            } 
-          }
-        }
-
-        function clearHTML(num){
-          errorIDs = ["employeeError","addressError", "availabilityError", "emailError", "numberError"]
-          document.getElementById(errorIDs[num]).innerHTML = "";
-
-        }
-
-        
+        }        
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&callback=initMap">
