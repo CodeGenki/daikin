@@ -429,7 +429,7 @@ function createTableCus() {
                 console.log(request.response);
                 var data = request.response;
                 var tempInfo = JSON.parse(data)[0]; //save please
-                var customers = tempInfo.customers.split(" ");                    
+                var customers = tempInfo.customers.split(" ");
                 
                 for (var j = 0, size = customers.length; j < size ; j++) {
                     var cus = customers[j];
@@ -442,7 +442,7 @@ function createTableCus() {
                         var data = request.response;
                         var tableInfo = JSON.parse(data); //save please
 
-                        var d = ["unithealth","given_name","address","email","phone_number", "username","refrigerantleak","ErrorCode"];
+                        var d = ["unithealth","given_name","address","email","phone_number", "username","refrigerantleak","ErrorCode","company"];
                         // var rn = tableInfo.length;
                         var cn = document.getElementById("customersT").rows[0].cells.length;
                         
@@ -465,6 +465,7 @@ function createTableCus() {
                                 allCusData.push(tableInfo[0][d[c+1]]);
                                 allCusData.push(tableInfo[0][d[c+2]]);
                                 allCusData.push(tableInfo[0][d[c+3]]);
+                                allCusData.push(tableInfo[0][d[c+4]]);
                             }
                         }
                         
@@ -521,14 +522,15 @@ function createTableCus() {
 
                         var b = rows + 1 - this.id;
                         saveCusData=[]
-                        saveCusData.push(allCusData[8*b-1]);
-                        saveCusData.push(allCusData[8*b-2]);
-                        saveCusData.push(allCusData[8*b-3]);
-                        saveCusData.push(allCusData[8*b-4]);
-                        saveCusData.push(allCusData[8*b-5]);
-                        saveCusData.push(allCusData[8*b-6]);
-                        saveCusData.push(allCusData[8*b-7]);
-                        saveCusData.push(allCusData[8*b-8]);
+                        saveCusData.push(allCusData[9*b-1]);
+                        saveCusData.push(allCusData[9*b-2]);
+                        saveCusData.push(allCusData[9*b-3]);
+                        saveCusData.push(allCusData[9*b-4]);
+                        saveCusData.push(allCusData[9*b-5]);
+                        saveCusData.push(allCusData[9*b-6]);
+                        saveCusData.push(allCusData[9*b-7]);
+                        saveCusData.push(allCusData[9*b-8]);
+                        saveCusData.push(allCusData[9*b-9]);
                         console.log(saveCusData);
 
                         localStorage.setItem('selected', saveCusData);
@@ -581,14 +583,14 @@ function showCusInfo(){
     var saveCusData = localStorage.getItem('selected');
     saveCusData = saveCusData.split(",");
 
-    document.getElementById("cusName").innerHTML = "Customer Name: " + saveCusData[9];
-    document.getElementById("cusAddress").innerHTML = "Customer Address: " + saveCusData[5]+","+saveCusData[6]+","+saveCusData[7]+","+saveCusData[8];
-    document.getElementById("cusPhone").innerHTML = "Customer Phone Number: " + saveCusData[3];
-    document.getElementById("cusEmail").innerHTML = "CUstomer Email: " + saveCusData[4];
-    document.getElementById("cusHealth").innerHTML = "Customer Unit Health: " + saveCusData[10];
-    document.getElementById("cusCode").innerHTML = "Customer Unit Error Codes: " + saveCusData[0];
-    document.getElementById("cusLeak").innerHTML = "Customer Unit Refrigerant Leak: " + saveCusData[1] + "%";
-   
+    document.getElementById("cusName").innerHTML = "Customer Name: " + saveCusData[10];
+    document.getElementById("cusComp").innerHTML = "Customer Company: " + saveCusData[0];
+    document.getElementById("cusAddress").innerHTML = "Customer Address: " + saveCusData[6]+","+saveCusData[7]+","+saveCusData[8]+","+saveCusData[9];
+    document.getElementById("cusPhone").innerHTML = "Customer Phone Number: " + saveCusData[4];
+    document.getElementById("cusEmail").innerHTML = "CUstomer Email: " + saveCusData[5];
+    document.getElementById("cusHealth").innerHTML = "Customer Unit Health: " + saveCusData[11];
+    document.getElementById("cusCode").innerHTML = "Customer Unit Error Codes: " + saveCusData[1];
+    document.getElementById("cusLeak").innerHTML = "Customer Unit Refrigerant Leak: " + saveCusData[2] + "%";
     console.log(saveCusData)
 
 }
