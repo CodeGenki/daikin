@@ -295,7 +295,7 @@ function get_user(){
     }
 }
 function parseError(){
-    
+    console.log("parseErr")
     var e1 = document.getElementById("errorcode1").innerHTML;
     var e2 = document.getElementById("errorcode2").innerHTML;
     var e3 = document.getElementById("errorcode3").innerHTML;
@@ -350,16 +350,18 @@ function parseError(){
                 else {
                     j.push(parseInt(e[i]) - 11);
                 }
+            //console.log("index: " + j[i]);
+            document.getElementById(d[i]).innerHTML = tempInfo[j[i]]['Descriptions'];  
             }
         
-        //console.log("index: " + j[i]);
-        document.getElementById(d[i]).innerHTML = tempInfo[j[i]]['Descriptions'];
+        
         }
     }
 }
                
 
 function get_unit(){
+    console.log("unit")
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
     var cognitoUser = userPool.getCurrentUser();
 
@@ -415,4 +417,12 @@ function get_unit(){
               
         });
     }
+}
+
+var nIntervId, nIntervId2;
+function setRefresh(){
+    console.log("startRefresh")
+    nIntervId = setInterval(get_unit, 15000);
+    nIntervId2 = setInterval(parseError, 15000);
+    console.log("setRefresh")
 }

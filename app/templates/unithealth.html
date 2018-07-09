@@ -1,7 +1,7 @@
 {% extends "greybase.html" %}
 {% block content %}
 
-<body onload="get_unit(); parseError()">>
+<body onload="get_unit(); parseError(); setRefresh();">>
 <style>
   header > h5 { display: inline-block; }
   header span { margin-left: 20px; color: black; }
@@ -95,8 +95,8 @@
     </div>
 </div>
 </div>
-<script src="{{ url_for('static', filename='app.js') }}"></script>
 
+<script src="{{ url_for('static', filename='app.js') }}"></script>
 {% for js_url in config.JS_INCLUDES %}
     <script src="{{ js_url }}"></script>
 {% endfor %}

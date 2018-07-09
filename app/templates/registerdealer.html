@@ -2,7 +2,6 @@
 {% block content %}
 
 <body onload = "loadCompanies(); updateInput();">
-<!-- <<<<<<< HEAD -->
   <div class="w3-display-middle w3-container w3-white w3-text-black " style="width:30%; height:100%; border: 3px solid black; overflow-y:scroll;">
     <br><br><br>
     <div style="text-align: center;">
@@ -43,9 +42,6 @@
       <div class="form-group">
         <div style="text-align: left;">Company</div>
         <select id="registration_company" onkeyup="clearHTML(6);" onchange="updateInput();" class="w3-input w3-padding-9 w3-border form-control">
-          <!-- <option value="McCann Services Inc.">McCann Services Inc.</option>
-          <option value="Daikin">Daikin</option>
-          <option value="Company 2">Company 2</option> -->
         </select>
         <p id="companyError" style="color:red"></p>
         <label><input id="new_company" onkeyup="checkCompany();" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter New Company Name:"></label>
@@ -83,7 +79,7 @@
       </div> 
       <br>
       <div style="text-align: center;">
-        <button type="submit" class="button" onclick="registerDEAL()" > Register </button>
+        <button type="submit" class="btn btn--border btn--primary btn--animated" onclick="registerDEAL()" > Register </button>
         <div style="color:red;" id="registerError"></div>
       </div>
       <br>
@@ -108,19 +104,13 @@
       };
 
       function initAutocomplete() {
-        // Create the autocomplete object, restricting the search to geographical
-        // location types.
         autocomplete = new google.maps.places.Autocomplete(
             /** @type {!HTMLInputElement} */(document.getElementById('registration_address')),
             {types: ['geocode']});
-
-        // When the user selects an address from the dropdown, populate the address
-        // fields in the form.
         autocomplete.addListener('place_changed', fillInAddress);
       }
 
       function fillInAddress() {
-        // Get the place details from the autocomplete object.
         var place = autocomplete.getPlace();
 
         for (var component in componentForm) {
@@ -128,8 +118,6 @@
           document.getElementById(component).disabled = false;
         }
 
-        // Get each component of the address from the place details
-        // and fill the corresponding field on the form.
         for (var i = 0; i < place.address_components.length; i++) {
           var addressType = place.address_components[i].types[0];
           if (componentForm[addressType]) {
@@ -139,8 +127,6 @@
         }
       }
 
-      // Bias the autocomplete object to the user's geographical location,
-      // as supplied by the browser's 'navigator.geolocation' object.
       function geolocate() {
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -214,9 +200,6 @@
           if (compList[count].toLowerCase() == pass.value.trim().toLowerCase()){
             document.getElementById("new_company").value = compList[count];
           }
-          // else {
-          //   document.getElementById("new_company").value = copy;
-          // }
         }
 
       }

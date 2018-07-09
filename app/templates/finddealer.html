@@ -2,7 +2,6 @@
 {% block content %}
 
 <style>
-
 #findD td {
     border: 1px solid black;
     font-size: medium;
@@ -10,12 +9,9 @@
     font-family: "Verdana"  
     width: 25%;
 }
-
-
 #findD tr {
   height: 7.7%
 }
-
 .dropbtn {
 
     color: black;
@@ -23,7 +19,6 @@
     border: none;
     cursor: pointer;
 }
-
 .dropdown-content {
     display: none;
     position: absolute;
@@ -33,19 +28,14 @@
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
-
 .dropdown-content a {
     color: black;
     padding: 8px 12px;
     text-decoration: none;
     display: block;
 }
-
 .dropdown a:hover {background-color: #ddd;}
-
 .show {display: block;}
-
-
 .bgimgc {
     background-image: url('http://pentium.club/wp-content/uploads/2017/08/empty-bedroom-background-empty-living-room-wall-decorating-clear-bedroom-sets-full.jpg');
     min-height: 100%;
@@ -58,26 +48,20 @@
     background-attachment: local;
   }
 
-
-
 </style>
 
 <body class= "bgimgc" onload = "loadCompanies();">
-<!-- <div class="bgimgc w3-display-container w3-animate-opacity" style="width:100%; height:100%;"> -->
   <div class="w3-main" style="margin-left:300px;">  
     <header class="w3-container" style="padding-top:43px">
         <h5 style="color: black; text-align: center;"><b>Find a Dealer</b></h5>
           <div id="curr_dealer" style="color:black;text-align:center ">Your current Dealer: </div>
     </header>     
-    <br><br>
+    <br>
     <div class="form-group" style="text-align: center;">
       <div style="color:black; ">What Company?</div>
       <select id="registration_company" class="w3-input w3-border form-control" style="width:30%; text-align: center; display: inline-block;">
-        <!-- <option value="McCann Services Inc.">McCann Services Inc.</option>
-        <option value="Daikin">Daikin</option>
-        <option value="Company 2">Company 2</option> -->
       </select>
-      <input onclick = "pickDealer();location.reload();" type="submit" value="submit" class="button" style="color:black;" >
+      <input class="btn btn--border btn--primary btn--animated" onclick = "pickDealer();location.reload();" type="submit" value="Submit" style="color:black;" >
     </div> 
     <br>
 	  <div class="w3-half w3-container" style="padding: 10px; text-align: center">

@@ -1,99 +1,32 @@
 {% extends "loginbase.html" %}
 {% block content %}
 
-<style>
-body {
-  position: relative;
-  font-family: sans-serif;
-  font-size: 14px;
-}
-.wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.btn {
-  position: relative;
-  display: inline-block;
-  letter-spacing: 1.2px;
-  padding: 12px 32px;
-  text-align: center;
-  text-transform: uppercase;
-  overflow: hidden;
-  z-index: 1;
-  cursor: pointer;
-}
-.btn:focus {
-  outline: none;
-}
-.btn--primary {
-  color: #0161FE;
-}
-.btn--border {
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 10px;
-  box-sizing: border-box;
-}
-.btn--animated {
-  transition-property: color;
-  transition-duration: 0.5s;
-}
-.btn--animated.btn--border.btn--primary {
-  border: 1px solid #0161FE;
-}
-.btn--animated:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #0161FE;
-  transform: scaleX(0);
-  transform-origin: 0 50%;
-  transition-property: transform;
-  transition-duration: 0.5s;
-  transition-timing-function: ease-out;
-  z-index: -1;
-}
-.btn--animated:hover {
-  color: white;
-}
-.btn--animated:hover:before {
-  transform: scaleX(1);
-  transition-timing-function: cubic-bezier(0.45, 1.64, 0.47, 0.66);
-}
-
-</style>
-
 <body>
-
-    <div class="w3-display-middle w3-container w3-white w3-text-black " style="width:450px; height: 480px; border: 3px solid black;">
-        <br><br>
-        <div style="text-align: center;">
-            <label style="font-size:20px"><b>Login Here:</b></label>
+  <div class="w3-display-middle w3-container w3-white w3-text-black " style="width:450px; height: 480px; border: 3px solid black;">
+    <br><br>
+    <div style="text-align: center;">
+        <label style="font-size:20px"><b>Login Here:</b></label>
+    </div>
+    <br><br>
+    <form onsubmit="return false;">
+        <div class="form-group">
+            <div>Username</div>
+            <p><input id="sign_in_username" onkeyup="clearHTML(0);clearHTML(1);" type="text" class="w3-input w3-padding-16 w3-border form-control" placeholder="Enter username"></p>
+            <p id="noUsername" style="color:red"></p>
         </div>
-        <br><br>
-        <form onsubmit="return false;">
-            <div class="form-group">
-                <div>Username</div>
-                <p><input id="sign_in_username" onkeyup="clearHTML(0);clearHTML(1);" type="text" class="w3-input w3-padding-16 w3-border form-control" placeholder="Enter username"></p>
-                <p id="noUsername" style="color:red"></p>
-            </div>
-            <div class="form-group">
-                <div>Password</div>
-                <p><input id="sign_in_password" onkeyup="clearHTML(1);" type="password" class="w3-input w3-padding-16 w3-border form-control" placeholder="Enter password"></p>
-            </div>  
-            <br>
-            <div style="text-align: center;">
-                <button type="submit" class="btn btn--border btn--primary btn--animated" onclick="signIn();" > Sign In </button>
-                <p id="invalidCredentials" style="color:red"></p>
-                <a href="{{ url_for('registeruser') }}">New User? Register Here.</a>
-            </div>
-        </form> 
+        <div class="form-group">
+            <div>Password</div>
+            <p><input id="sign_in_password" onkeyup="clearHTML(1);" type="password" class="w3-input w3-padding-16 w3-border form-control" placeholder="Enter password"></p>
+        </div>  
+        <br>
+        <div style="text-align: center;">
+            <button type="submit" class="btn btn--border btn--primary btn--animated" onclick="signIn();" > Sign In </button>
+            <p id="invalidCredentials" style="color:red"></p>
+            <a href="{{ url_for('registeruser') }}">New User? Register Here.</a>
+        </div>
+    </form> 
   </div>
+
 <script>
     function clearHTML(IDnumber){
       errorIDs = ["noUsername", "invalidCredentials"]
