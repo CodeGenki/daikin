@@ -74,6 +74,7 @@
   <body>
     <div id="map"></div>
     <script>
+      /*
     var newcoords;
     var minDistance = 10000;
     var Arraylocation = 0;
@@ -135,8 +136,8 @@
         	var origins = response.originAddresses;
          	var destinations = response.destinationAddresses;
 
-        	for (var i = 0; i < origins.length; i++) {
-            	var results = response.rows[i].elements; //should always be 1
+          for (var i = 0; i < origins.length; i++) {
+           	var results = response.rows[i].elements; //should always be 1
             	for (var j = 0; j < results.length; j++) {
          			
          			var element = results[j]; //number of elements depends on the number of destinations 
@@ -190,13 +191,14 @@
         	var newlng1 = JSON.parse(request.response).results[0].geometry.location.lng;
         	newcoords = { lat : newlat1, lng : newlng1};//finds new lat and lng
 		}
-	}
-	
-      
-    </script>
-    <script async defer 
+	}   
+   async defer 
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&callback=initMap">
+ 
+	
+      */
     </script>
+
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
