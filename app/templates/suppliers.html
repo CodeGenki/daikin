@@ -188,7 +188,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
         function initMap() {
           map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 35.397, lng: -95.644},
-            zoom: 15
+            zoom: 7
           });
           infoWindow = new google.maps.InfoWindow;
 
@@ -235,7 +235,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 });
 
             
-            }
+            }}
 
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -262,7 +262,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                               'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
       }
-      }
+      
 
     var k;
     function findSup(info, first){
