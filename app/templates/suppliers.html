@@ -434,6 +434,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
             function clearHTML(IDnumber){
                 errorIDs = ["memberNameError", "addressError", "phoneError", "compemailError", "availableError"]
                 document.getElementById(errorIDs[IDnumber]).innerHTML = "";
+                document.getElementById("AddError").innerHTML = "";
             }
 
             function hideAvailable(num){
@@ -631,8 +632,19 @@ body {font-family: Arial, Helvetica, sans-serif;}
                               request.send(null);
 
                               if (request.status === 200) {
-                                console.log("added");
-                                clearAll();
+                                data = request.response;
+                                console.log(data)
+                                if (data == 200) {
+                                  console.log("added");
+                                  clearAll();
+                                  document.getElementById("AddError").innerHTML = "Member Added";
+                                  document.getElementById("AddError").style.color = "green";
+                                }
+                                else {
+                                  document.getElementById("AddError").innerHTML = "Failed to Add Member";
+                                  document.getElementById("AddError").style.color = "red";
+
+                                }
                               }
                             }
                           });

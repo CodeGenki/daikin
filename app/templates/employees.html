@@ -378,6 +378,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
             function clearHTML(IDnumber){
                 errorIDs = ["memberNameError", "addressError", "phoneError", "compemailError", "availableError"]
                 document.getElementById(errorIDs[IDnumber]).innerHTML = "";
+                document.getElementById("AddError").innerHTML = "";
             }
 
             function hideAvailable(num){
@@ -416,11 +417,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     document.getElementById("Components_or_email").style.display = "inline";
                     document.getElementById("available").style.display = "inline";
 
-                    document.getElementById("Emp_Sup_Name").style.textAlign = "center";
-                    document.getElementById("addressHead").style.textAlign = "center";
-                    document.getElementById("Emp_Sup_Phone").style.textAlign = "center";
-                    document.getElementById("Components_or_email").style.textAlign = "center";
-                    document.getElementById("available").style.textAlign = "center";
+                    // document.getElementById("Emp_Sup_Name").style.textAlign = "center";
+                    // document.getElementById("addressHead").style.textAlign = "center";
+                    // document.getElementById("Emp_Sup_Phone").style.textAlign = "center";
+                    // document.getElementById("Components_or_email").style.textAlign = "center";
+                    // document.getElementById("available").style.textAlign = "center";
 
                     document.getElementById('Emp_Sup_Name').innerHTML = "Employee Name"
                     document.getElementById('memberName').placeholder = "Enter Employee Name: ex. John Smith"
@@ -575,8 +576,18 @@ body {font-family: Arial, Helvetica, sans-serif;}
                               request.send(null);
 
                               if (request.status === 200) {
-                                console.log("added");
-                                clearAll();
+                                data = request.response;
+                                console.log(data)
+                                if (data == 200) {
+                                  clearAll();
+                                  document.getElementById("AddError").innerHTML = "Member Added";
+                                  document.getElementById("AddError").style.color = "green";
+                                }
+                                else {
+                                  document.getElementById("AddError").innerHTML = "Failed to Add Member";
+                                  document.getElementById("AddError").style.color = "red";
+
+                                }
                               }
                             }
                           });
