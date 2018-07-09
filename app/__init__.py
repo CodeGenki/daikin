@@ -55,7 +55,7 @@ def index():
   # return redirect("https://project-intership.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=457v0csehtuoprbf6as9q3aenc&redirect_uri=https://c1dz5i3grc.execute-api.us-east-1.amazonaws.com/dev/") 
     #just using render_template for now to 
 
-    return render_template('index1.html')
+    return render_template('login.html')
 
 
 @app.route("/customer")
