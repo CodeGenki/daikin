@@ -54,7 +54,7 @@
   <div class="w3-main" style="margin-left:300px;">  
     <header class="w3-container" style="padding-top:43px">
         <h5 style="color: black; text-align: center;"><b>Find a Dealer</b></h5>
-          <div id="curr_dealer" style="color:black;text-align:center ">Your current Dealer: </div>
+          <div id="curr_dealer" style="color:black;text-align:center ">Your Current Dealer: </div>
     </header>     
     <br>
     <div class="form-group" style="text-align: center;">
@@ -73,12 +73,10 @@
         var locations = [], username_address = [], addresses=[];
         var map, infoWindow, count, marker, data;
         var poolData = {
-              UserPoolId : 'us-east-1_2o7S9Pswl', // Your user pool id here
-              ClientId : 'kqrsickoaotsll8j4fhfahgpt' // Your client id here
+              UserPoolId : 'us-east-1_2o7S9Pswl', 
+              ClientId : 'kqrsickoaotsll8j4fhfahgpt' 
           };
-          // var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael";
-          // var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen";
-          var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
+        var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
         function get_employees(){
           
           var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
@@ -90,9 +88,6 @@
                       alert(err);
                       return;
                   }
-
-                  //console.log('session validity: ' + session.isValid());
-                  //console.log(cognitoUser.username);
 
                   var request = new XMLHttpRequest();
                   // request.open('GET', url_name + "/test?c=" + cognitoUser.username, false);  // `false` makes the request synchronous
@@ -140,49 +135,11 @@
           infoWindow = new google.maps.InfoWindow;
 
           get_employees();
-          // //console.log(locations);
-          // locations = [
-          //         ['a', 29.698255, -95.491095, 0],
-          //   ['a', 29.938908, -95.399725, 1],
-          //   ['a', 29.748279, -95.342085, 2],
-          //   ['a', 29.991972, -95.961940, 3],
-          //   ['a', 29.747274, -95.486519, 4],
-          //   ['a', 29.782538, -95.318726, 5],
-          //   ['a', 29.804288, -95.267571, 6],
-          //   ['a', 29.742601, -95.306366, 7],
-          //   ['a', 29.850476, -95.384488, 8],
-          //   ['a', 29.813098, -95.162358, 9],
-          //   ['a', 30.116775, -95.232396, 10],
-          //   ['a', 30.026453, -95.524564, 11],
-          //   ['a', 29.914923, -95.481134, 12],
-          //   ['a', 29.663747, -95.355650, 13],
-          //   ['a', 29.562106, -95.348955, 14],
-          //    ];
-            console.log('hi');
-            // console.log(locations);
-            console.log(addresses);
 
-
-        // var icon;
-        // for (count=0; count<locations.length; count++) {
-        //   if (locations[count][3] == "yes"){
-        //     icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
-        //   }
-        //   else {
-        //     icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
-        //   }
-        //   marker= new google.maps.Marker({
-        //     position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
-        //     map:map,
-        //     icon: icon,
-        //     title: locations[count][0]
-        //   });
-        
-        // }
         var newcoords;
         function getLatLng(address){
 
-        var parsedAddress = address.split(" ").join("+"); //parse address to fit into the url request
+        var parsedAddress = address.split(" ").join("+"); 
         var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + parsedAddress + '&key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU';
         var request = new XMLHttpRequest();
         request.open('GET', url, false);  // `false` makes the request synchronous
@@ -196,7 +153,6 @@
       }
 
       var icon;
-      //console.log(addresses)
       for (count=0; count<addresses.length; count++) {
         var address = addresses[count];
 
@@ -309,10 +265,6 @@
 
   }
     
-
-
-
-
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&callback=initMap">
@@ -322,14 +274,14 @@
 
     <div class="w3-half w3-container" style="padding-top:10px; text-align:center;"> 
       <p style= "color: black; text-align: center;"><b>All Dealers</b></p>
-      <div class="container" style="width:80%; height: 50%;">
+      <div class="container" style="width:80%; height: 50%; overflow-y: scroll;">
         <br>
         <table id="findD" style="width: 100%; height: 100%;">
           <tr style="background-color: lightgrey;">
-            <td style="width: 25%">Alabama</td>
-            <td style="width: 25%">Indiana</td>
-            <td style="width: 25%">Nebraska</td>
-            <td style="width: 25%">Rhode Island</td>
+            <td >Alabama</td>
+            <td >Indiana</td>
+            <td >Nebraska</td>
+            <td >Rhode Island</td>
           </tr>
           <tr style="background-color: lightsteelblue; ">
             <td >Alaska</td>
@@ -338,18 +290,18 @@
             <td>South Carolina</td>
           </tr>
           <tr  style="background-color: lightgrey;">
-            <td> Arizona</td>
+            <td > Arizona</td>
             <td>Kansas</td>
             <td>New Hampshire</td>
             <td>South Dakota</td>
           </tr>
           <tr style="background-color: lightsteelblue; ">
-            <td>Arkansas</td>
+            <td >Arkansas</td>
             <td>Kentucky</td>
             <td>New Jersey</td>
             <td>Tennessee</td>
           </tr>
-          <tr  style="background-color: lightgrey; ">
+          <tr style="background-color: lightgrey; ">
             <td>California</td>
             <td>Louisiana</td>
             <td>New Mexico</td>
@@ -375,49 +327,49 @@
             </td>
           </tr>
           <tr style="background-color: lightsteelblue; ">
-            <td>Colorado</td>
+            <td >Colorado</td>
             <td>Maine</td>
             <td>New York</td>
             <td>Utah</td>
           </tr>
           <tr style="background-color: lightgrey;">
-            <td>Connecticut</td>
+            <td >Connecticut</td>
             <td>Maryland</td>
             <td>North Carolina</td>
             <td>Vermont</td>
           </tr>
           <tr style="background-color: lightsteelblue;">
-            <td>Delaware</td>
+            <td >Delaware</td>
             <td>Massachusetts</td>
             <td>North Dakota</td>
             <td>Virginia</td>
           </tr>
           <tr  style="background-color: lightgrey; ">
-            <td>Florida</td>
+            <td >Florida</td>
             <td>Michigan</td>
             <td>Ohio</td>
             <td>Washington</td>
           </tr>
           <tr style="background-color: lightsteelblue;">
-            <td>Georgia</td>
+            <td >Georgia</td>
             <td>Minnesota</td>
             <td>Oklahoma</td>
             <td>West Virginia</td>
           </tr>
           <tr  style="background-color: lightgrey; ">
-            <td>Hawaii</td>
+            <td >Hawaii</td>
             <td>Mississippi</td>
             <td>Oregon</td>
             <td>Wisconsin</td>
           </tr>
           <tr style="background-color: lightsteelblue; ">
-            <td>Idaho</td>
+            <td >Idaho</td>
             <td>Missouri</td>
             <td>Pennsylvania</td>
             <td>Wyoming</td>
           </tr>
           <tr  style="background-color: lightgrey;">
-            <td>Illinois</td>
+            <td >Illinois</td>
             <td>Montana</td>
             <td> </td>
             <td></td>
