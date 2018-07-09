@@ -1,0 +1,282 @@
+{% block content %}
+<!DOCTYPE html>
+<html>
+<title>Add Member</title>
+<meta charset="UTF-8"/>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+
+<style>
+body {font-family: "Verdana", sans-serif}
+body, html {height: 100%}
+.bgimg2 {
+    background-image: url('http://www.daikin.com/images/mainvisual/pic_keyv_1_pc.jpg');
+    min-height: 100%;
+    background-position: absolute;
+    background-size:cover;
+    color: black;    
+    top:0;
+    left: 0;
+    background-repeat: no-repeat;
+    background-attachment: local;
+  }
+/*.button {
+  display: inline-block;
+  padding: 12px 20px;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+  background-color: #4682b4;
+  border: 1px solid black;
+  border-radius: 15px;
+}
+
+.button:hover {background-color: #a2b5cd}*/
+
+
+</style>
+
+
+<!-- <body class= "bgimg2"> -->
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
+
+<body onload = "hideAvailable(1);">
+  <div class="w3-display-middle w3-container w3-white w3-text-black " style="width:100%; height:100%; border: 3px solid black; overflow-y:scroll;">
+    <br><br><br>
+    <div style="text-align: center;">
+      <label style="font-size:20px;"><b>Add Member Here:</b></label>
+    </div>
+    <br><br>
+	<form onsubmit="return false;">
+
+
+    <div class="form-group">
+        <div style="text-align: center;">Type of Member</div>
+        <select id="member" onchange="updateInput();" class="w3-input w3-padding-9 w3-border form-control">
+          <option value="employees">Employee</option>
+          <option value="Suppliers">Supplier</option>
+        </select>
+    </div> 
+    
+    <div class="form-group">
+        <div style="text-align: center;" id="Emp_Sup_Name"></div>
+        <label><input id="memberName" onkeyup="clearHTML(0);" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Name:"></label>
+        <p id="memberNameError" style="color:red"></p>
+    </div>
+
+    <div class="form-group">
+        <div style="text-align: center;">Address</div>
+        <label><input id="address" onkeyup="clearHTML(1);" onfocus="geolocate()" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Address:"></label>
+        <p id="addressError" style="color:red"></p>
+    </div> 
+
+    <div class="form-group">
+        <div style="text-align: center;" id="Emp_Sup_Phone"></div>
+        <label><input id="phone" onkeyup="clearHTML(2);" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Phone Number: +1234567890"></label>
+        <p id="phoneError" style="color:red"></p>
+    </div> 
+    
+    <div class="form-group">
+        <div style="text-align: center;" id="Components_or_email"></div>
+        <label><input id="compemail" onkeyup="clearHTML(3);" type="text" class="w3-input w3-padding-9 w3-border form-control"></label>
+        <p id="compemailError" style="color:red"></p>
+    </div>
+
+    <div class="form-group">
+        <div style="text-align: center;" id="available">Availability</div>
+        <label><input id="ava" onkeyup="clearHTML(4);" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter 'yes' or 'no':"></label>
+        <p id="availableError" style="color:red"></p>
+    </div>
+      
+        <br>
+    <div style="text-align: center;">
+        <button type="submit" class="button" onclick="AddMember()">Add Member</button>
+        <div style="color:red;" id="AddError"></div>
+     </div>
+      <br>
+    </form> 
+    </div>
+</body>
+
+
+
+<script>
+	var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
+
+  function clearHTML(IDnumber){
+      errorIDs = ["memberNameError", "addressError", "phoneError", "compemailError", "availableError"]
+      document.getElementById(errorIDs[IDnumber]).innerHTML = "";
+	
+	
+  function hideAvailable(num){
+		if (num == 0) {
+	        document.getElementById("available").style.display = "inline";
+	        document.getElementById("ava").style.display = "inline";
+		}
+		else if (num === 1){
+			document.getElementById("available").style.display = "none";
+	        document.getElementById("ava").style.display = "none";
+		}
+	}
+
+	 function updateInput(){
+        var e = document.getElementById("member");
+        if (e.options[e.selectedIndex].value == "employees"){
+			document.getElementById('Emp_Sup_Name').innerHTML = "Employee Name"
+			document.getElementById('Emp_Sup_Phone').innerHTML = "Employee Phone Number"
+			document.getElementById('Components_or_email').innerHTML = "Employee Email"
+			hideAvailable(0);
+
+        } else if (e.options[e.selectedIndex].value == "Suppliers"){
+			document.getElementById('Emp_Sup_Name').innerHTML = "Supplier Name"
+			document.getElementById('Emp_Sup_Phone').innerHTML = "Supplier Phone Number"
+			document.getElementById('Components_or_email').innerHTML = "Components"
+        }
+      }
+
+      function AddMember(){
+      	var member = $('#member').val();
+      	var memberName = $('#memberName').val();
+      	var address = $('#address').val();
+      	var phone = $('#phone').val();
+      	var compemail = $('#compemail').val();
+      	var ava = $('#ava').val();
+
+  		console.log(member)
+  		console.log(memberName)
+  		console.log(address)
+  		console.log(phone)
+  		console.log(compemail)
+  		console.log(ava)
+
+      	document.getElementById("memberNameError").innerHTML = "";
+      	document.getElementById("addressError").innerHTML = "";
+      	document.getElementById("phoneError").innerHTML = "";
+      	document.getElementById("compemailError").innerHTML = "";
+      	document.getElementById("availableError").innerHTML = "";
+
+      	var e = false;
+	    if (memberName.length === 0){
+	        document.getElementById("memberNameError").innerHTML = "Please enter a member name.";
+	        e = true;
+	    }
+	    if (address.length === 0){
+	        document.getElementById("addressError").innerHTML = "Please enter an address.";
+	        e = true;
+	    }
+	    if (phone.indexOf('+1') !== 0 || phone.length != 12){
+	        document.getElementById("phoneError").innerHTML = "Please enter a valid phone number in the following format: +11234567890.";
+	        e = true;
+	    }
+	    if (compemail.length === 0){
+	        document.getElementById("compemailError").innerHTML = "Please enter a valid value.";
+	        e = true;
+	    }
+
+	    if (member == "employees"){
+	    	if (compemail.indexOf('@') == -1 || compemail.indexOf('.') == -1){
+		        document.getElementById("compemailError").innerHTML = "Please enter a valid email.";
+		        e = true;
+		    }
+
+		    if (ava.trim().toLowerCase() != "yes" && ava.trim().toLowerCase() != "no") {
+		    	document.getElementById("availableError").innerHTML = "Please enter 'yes' or 'no'.";
+		        e = true;
+		    }
+	    }
+
+	    if (!e){
+
+	    	console.log("success")
+
+	    }
+      	// window.location.href  = url_name + "/code_validation_dealer";
+      }
+
+
+	var placeSearch, autocomplete;
+      var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'short_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+      };
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('address')),
+            {types: ['geocode']});
+
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete.addListener('place_changed', fillInAddress);
+      }
+
+      function fillInAddress() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
+
+        for (var component in componentForm) {
+          document.getElementById(component).value = '';
+          document.getElementById(component).disabled = false;
+        }
+
+        // Get each component of the address from the place details
+        // and fill the corresponding field on the form.
+        for (var i = 0; i < place.address_components.length; i++) {
+          var addressType = place.address_components[i].types[0];
+          if (componentForm[addressType]) {
+            var val = place.address_components[i][componentForm[addressType]];
+            document.getElementById(addressType).value = val;
+          }
+        }
+      }
+
+      // Bias the autocomplete object to the user's geographical location,
+      // as supplied by the browser's 'navigator.geolocation' object.
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&libraries=places&callback=initAutocomplete"              async defer></script>
+
+{% for js_url in config.JS_INCLUDES %}
+    <script src="{{ js_url }}"></script>
+{% endfor %}
+
+<script src="{{ url_for('static', filename='appdeal.js') }}"></script>
+
+</body>
+</html>
+{% endblock %}

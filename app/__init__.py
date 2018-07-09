@@ -327,12 +327,13 @@ def writeDealer():
     # tablename = request.args.get('table','')
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
     table = dynamodb.Table(tablename)
+    old_comp = table.query(KeyConditionExpression=Key(keyname).eq(key))
+    old_comp = old_comp['Items'][0].get(fieldname)
     # response = table.query(KeyConditionExpression=Key(keyname).eq(key))
     # # print("posted: " + response['Items'])
     # return response['Items']
     # print(json.dumps(response['Items']))
     # return json.dumps(response['Items'])
-    
     table.update_item(
         Key={
             keyname: key
@@ -343,5 +344,103 @@ def writeDealer():
         }
     )
 
+    if field != old_comp:
+        table = dynamodb.Table("Vendor_information")
+        response = table.scan()['Items']
+        for i in response:
+            if i.get(fieldname) == field:
+                cus = i.get("customers")
+                cus = cus.split(" ")
+                cus.append(key)
+                cus = set(cus)
+                cus = list(cus)
+                cus = " ".join(cus)
+                table.update_item(
+                    Key={
+                        keyname: i.get(keyname)
+                    },
+                    UpdateExpression='SET customers = :val1',
+                    ExpressionAttributeValues={
+                        ':val1': cus
+                    }
+                )
+            if i.get(fieldname) == old_comp:
+                cus = i.get("customers")
+                cus = cus.split(" ")
+                cus = set(cus)
+                cus.remove(key)
+                cus = list(cus)
+                cus = " ".join(cus)
+                table.update_item(
+                    Key={
+                        keyname: i.get(keyname)
+                    },
+                    UpdateExpression='SET customers = :val1',
+                    ExpressionAttributeValues={
+                        ':val1': cus
+                    }
+                )
+
+
     print(json.dumps(response['Items']))
     return json.dumps(response['Items'])
+
+
+@app.route("/getCompanies", methods=["GET", "POST"])
+def getCompanies():
+    dummy = str(request.args.get('dummy', ''))
+    print(dummy)
+
+    from boto3.dynamodb.conditions import Key, Attr
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+    table = dynamodb.Table("Vendor_information")
+
+    response = table.scan();
+   
+    print(json.dumps(response['Items']))
+    return json.dumps(response['Items'])
+
+@app.route("/addMembers", methods=["GET", "POST"])
+def addMembers():
+    tablename  = str(request.args.get('table', ''))
+    companyAffiliate = str(request.args.get('companyAffiliate', ''))
+    name = str(request.args.get('name', ''))
+    address = str(request.args.get('address', ''))
+    phone = str(request.args.get('phone', ''))
+    compemail = str(request.args.get('compemail', ''))
+    ava = str(request.args.get('ava', ''))
+
+    print(tablename)
+    print(companyAffiliate)
+    print(name)
+    print(address)
+    print(phone)
+    print(compemail)
+    print(ava)
+
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+    table = dynamodb.Table(tablename)
+
+    if tablename == "Suppliers":
+        response = table.put_item(
+           Item={
+                'Affiliate': companyAffiliate,
+                'companyname': name,
+                'address': address,
+                'components': compemail,
+                'number': phone
+            }
+        )
+    elif tablename == "employees":
+        response = table.put_item(
+           Item={
+                'company': companyAffiliate,
+                'employeename': name,
+                'address': address,
+                'email': compemail,
+                'number': phone,
+                'available': ava
+            }
+        )
+   
+    return json.dumps(response.get('ResponseMetadata').get('HTTPStatusCode'))

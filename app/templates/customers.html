@@ -169,8 +169,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
                               var data = request.response;
                               var tempInfo = JSON.parse(data); //save please
                               var item = tempInfo[0];
-                              var l = item['locations'].split(', ');
-                              locations.push([item['given_name'] + " " + item['family_name'],parseFloat(l[0]),parseFloat(l[1]),item['unithealth']]);
+                              // var l = item['locations'].split(', ');
+                              // locations.push([item['given_name'] + " " + item['family_name'],parseFloat(l[0]),parseFloat(l[1]),item['unithealth']]);
                               username_address.push([item['username'], item['address']]);
                               addresses.push([item['given_name'] + " " + item['family_name'],item['address'],item['unithealth']]);                 
                             }
@@ -217,30 +217,30 @@ body {font-family: Arial, Helvetica, sans-serif;}
               infoWindow = new google.maps.InfoWindow;
 
               get_customers();
+              console.log('hi');
+              // console.log(locations);
+              console.log(username_address);
+              console.log(emp_addresses);
+              console.log(sup_addresses);
 
-              //console.log('hi');
-              //console.log(locations);
-              //console.log(username_address);
-              //console.log(emp_addresses);
-              //console.log(sup_addresses);
+              // var icon;
+              // for (count=0; count<locations.length; count++) {
+              //   if (locations[count][3] == "GREEN"){
+              //     icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+              //   }
+              //   else if (locations[count][3] == "RED"){
+              //     icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+              //   }
+              //   else {
+              //     icon = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
+              //   }
+              //  marker= new google.maps.Marker({
+              //   position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
+              //   map:map,
+              //   icon: icon,
+              //   title: locations[count][0]
+              //   });
 
-               var icon;
-               for (count=0; count<locations.length; count++) {
-                 if (locations[count][3] == "GREEN"){
-                   icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
-                 }
-                 else if (locations[count][3] == "RED"){
-                   icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
-                 }
-                 else {
-                   icon = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
-                 }
-                marker= new google.maps.Marker({
-                 position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
-                 map:map,
-                 icon: icon,
-                 title: locations[count][0]
-                 });
               
                }
 

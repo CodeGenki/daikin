@@ -59,6 +59,7 @@ function register(){
     var phone_number = $('#registration_phone_number').val();
     var address = $('#registration_address').val(); 
     var password = $('#registration_password').val();
+    var passwordC = $('#registrationC_password').val();
 
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
@@ -133,6 +134,9 @@ function register(){
         document.getElementById("passwordError").innerHTML = "Please enter a password.";
         e = true;
     }
+    if (password != passwordC){
+        e = true;
+    } 
 
     if (!e){
         var cognitoUser;
@@ -148,8 +152,8 @@ function register(){
                     var e4 = "Value at 'username' failed to satisfy constraint: Member must satisfy regular expression pattern: [\\p{L}\\p{M}\\p{S}\\p{N}\\p{P}]+";
                     var e5 = "Invalid phone number format.";
                     var e6 = "Invalid email address format.";
-                    if (err.message.search(e3) != -1 || err.message.search(e4) != -1){
-                        document.getElementById("usernameError").innerHTML = "Please enter a username with length greater than 1.";
+                    if (err.message.search(e3) != -1 || err.message.indexOf(e4) != -1){
+                        document.getElementById("usernameError").innerHTML = "Please enter a valid username with length greater than 1.";
                         e = true;      
                     }         
                     if (err.message.search(e1) != -1 || err.message.search(e2) != -1){

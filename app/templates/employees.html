@@ -1,6 +1,5 @@
 {% extends "hvacbase.html" %}
 {% block content %}
-
 <style>
 #employees {
     border-collapse: collapse;
@@ -32,6 +31,42 @@
     background-size: 100% 100% ;
     color: black;    
 
+}
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 25%;
+    height: 100%;
+}
+
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 50px; /* Location of the box */
+    padding-bottom: 50px;
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
 }
 
 </style>
@@ -95,9 +130,9 @@
                       var tempInfo = JSON.parse(data); //save please
                       for(var i = 0, size = tempInfo.length; i < size ; i++){
                         var item = tempInfo[i];
-                        var l = item['location'].split(', ');
-                        locations.push([item['employeename'],parseFloat(l[0]),parseFloat(l[1]),item['available']]);
-                        username_address.push([item['username'], item['address']]);
+                        // var l = item['location'].split(', ');
+                        // locations.push([item['employeename'],parseFloat(l[0]),parseFloat(l[1]),item['available']]);
+                        // username_address.push([item['username'], item['address']]);
                         addresses.push([item['employeename'] ,item['address'],item['available']]);    
                       }
                     }
@@ -114,24 +149,25 @@
           infoWindow = new google.maps.InfoWindow;
 
           get_employees();
-          //console.log('hi');
-          //console.log(locations);
-          //console.log(username_address);
+          console.log('hi');
+          // console.log(locations);
+          console.log(username_address);
 
-           var icon;
-           for (count=0; count<locations.length; count++) {
-             if (locations[count][3] == "yes"){
-               icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
-             }
-             else {
-               icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
-             }
-             marker= new google.maps.Marker({
-               position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
-               map:map,
-               icon: icon,
-               title: locations[count][0]
-             });
+          // var icon;
+          // for (count=0; count<locations.length; count++) {
+          //   if (locations[count][3] == "yes"){
+          //     icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+          //   }
+          //   else {
+          //     icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+          //   }
+          //   marker= new google.maps.Marker({
+          //     position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
+          //     map:map,
+          //     icon: icon,
+          //     title: locations[count][0]
+          //   });
+
           
            }
           var newcoords;
@@ -203,12 +239,477 @@
         }
     
 
+        function showForm(num){
+          ids = ["new_employee", "new_address", "new_availability", "new_email", "new_number"]
+          if (num == 1) {
+            for (var count=0; count<ids.length; count++) {
+              document.getElementById(ids[num]).style.display = "inline";
+            }
+          }
+          else if (num === 0) {
+            for (var count=0; count<ids.length; count++) {
+              document.getElementById(ids[num]).style.display = "none";
+            } 
+          }
+        }
+
+        function clearHTML(num){
+          errorIDs = ["employeeError","addressError", "availabilityError", "emailError", "numberError"]
+          document.getElementById(errorIDs[num]).innerHTML = "";
+
+        }
+
+        
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&callback=initMap">
     </script>
   </div>
 </div>
+
+ <form onsubmit="return false;">
+    <input type="submit" id= "btn" value="Add Employee" class="button" style="color:black;">
+    <div id="myModal" class="modal">
+      <!-- MODALLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p> 
+          <!DOCTYPE html>
+          <html>
+          <title>Add Member</title>
+          <meta charset="UTF-8"/>
+
+          <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+          </head>
+
+
+          <style>
+          body {font-family: "Verdana", sans-serif}
+          body, html {height: 100%}
+          .bgimg2 {
+              background-image: url('http://www.daikin.com/images/mainvisual/pic_keyv_1_pc.jpg');
+              min-height: 100%;
+              background-position: absolute;
+              background-size:cover;
+              color: black;    
+              top:0;
+              left: 0;
+              background-repeat: no-repeat;
+              background-attachment: local;
+            }
+          /*.button {
+            display: inline-block;
+            padding: 12px 20px;
+            cursor: pointer;
+            text-align: center;
+            color: white;
+            background-color: #4682b4;
+            border: 1px solid black;
+            border-radius: 15px;
+          }
+
+          .button:hover {background-color: #a2b5cd}*/
+
+
+          </style>
+
+
+          <!-- <body class= "bgimg2"> -->
+
+
+
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+          {% for js_url in config.JS_INCLUDES %}
+              <script src="{{ js_url }}"></script>
+          {% endfor %}
+
+          <body>
+            <div class="w3-display-middle w3-container w3-white w3-text-black " style="width:100%; height:100%; border: 3px solid black; overflow-y:scroll;">
+              <br><br><br>
+              <div style="text-align: center;">
+                <label style="font-size:20px;"><b>Add Member Here</b></label>
+              </div>
+              <br><br>
+            <form onsubmit="return false;">
+
+
+              <div class="form-group">
+                  <div style="text-align: center;">Member Type</div>
+                  <select id="member" onchange="updateInput();" class="w3-input w3-padding-9 w3-border form-control">
+                    <option selected = "" value="choose" >--- Choose Type of Member ---</option>
+                    <option value="employees">Employee</option>
+                    <option value="Suppliers">Supplier</option>
+                  </select>
+              </div> 
+              
+              <div class="form-group">
+                  <div style="text-align: center;" id="Emp_Sup_Name"></div>
+                  <label><input id="memberName" onkeyup="clearHTML(0);" style="display: none;" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Name:"></label>
+                  <p id="memberNameError" style="color:red"></p>
+              </div>
+
+              <div class="form-group">
+                  <div style="text-align: center;" id="addressHead"></div>
+                  <label><input id='address' onkeyup="clearHTML(1);" onfocus="geolocate()" style="display: none;" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Address:"></label>
+                  <p id="addressError" style="color:red"></p>
+              </div> 
+
+              <div class="form-group">
+                  <div style="text-align: center;" id="Emp_Sup_Phone"></div>
+                  <label><input id="phone" onkeyup="clearHTML(2);" style="display: none;" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Phone Number: +1234567890"></label>
+                  <p id="phoneError" style="color:red"></p>
+              </div> 
+              
+              <div class="form-group">
+                  <div style="text-align: center;" id="Components_or_email"></div>
+                  <label><input id="compemail" onkeyup="clearHTML(3);" style="display: none;" type="text" class="w3-input w3-padding-9 w3-border form-control"></label>
+                  <p id="compemailError" style="color:red"></p>
+              </div>
+
+              <div class="form-group">
+                  <div style="text-align: center;" id="available"></div>
+                  <label><input id="ava" onkeyup="clearHTML(4);" style="display: none;" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter 'yes' or 'no':"></label>
+                  <p id="availableError" style="color:red"></p>
+              </div>
+                
+                  <br>
+              <div style="text-align: center;">
+                  <button id="addbutton" style="display: none;" type="submit" class="button" onclick="AddMember()">Add Member</button>
+                  <div style="color:red;" id="AddError"></div>
+              </div>
+                <br>
+
+              <div style="text-align: center;">
+                  <button id="clearbutton" style="display: none;" type="submit" class="button" onclick="clearAll()">Clear Form</button>
+                  <div style="color:red;" id="clearError"></div>
+              </div>
+                <br>
+              </form> 
+              </div>
+          </body>
+
+
+
+          <script>
+            var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
+
+            function clearHTML(IDnumber){
+                errorIDs = ["memberNameError", "addressError", "phoneError", "compemailError", "availableError"]
+                document.getElementById(errorIDs[IDnumber]).innerHTML = "";
+            }
+
+            function hideAvailable(num){
+              if (num == 0) {
+                    document.getElementById("available").innerHTML = "Available"
+                    document.getElementById("available").style.display = "inline";
+                    document.getElementById("ava").style.display = "inline";
+                    console.log("inline");
+              }
+              else if (num === 1){
+                    document.getElementById("available").style.display = "none";
+                    document.getElementById("ava").style.display = "none";
+                    console.log("none");
+              }
+            }
+
+            function updateInput(){
+                  for(var i = 0; i < 5 ; i++){
+                        clearHTML(i);
+                  }
+                  document.getElementById('addressHead').innerHTML = "Address"
+
+                  var e = document.getElementById("member");
+                  if (e.options[e.selectedIndex].value == "employees"){
+                    document.getElementById("memberName").style.display = "inline";
+                    document.getElementById("address").style.display = "inline";
+                    document.getElementById("phone").style.display = "inline";
+                    document.getElementById("compemail").style.display = "inline";
+                    document.getElementById("ava").style.display = "inline";
+                    document.getElementById("addbutton").style.display = "inline";
+                    document.getElementById("clearbutton").style.display = "inline";
+
+                    document.getElementById("Emp_Sup_Name").style.display = "inline";
+                    document.getElementById("addressHead").style.display = "inline";
+                    document.getElementById("Emp_Sup_Phone").style.display = "inline";
+                    document.getElementById("Components_or_email").style.display = "inline";
+                    document.getElementById("available").style.display = "inline";
+
+                    document.getElementById("Emp_Sup_Name").style.textAlign = "center";
+                    document.getElementById("addressHead").style.textAlign = "center";
+                    document.getElementById("Emp_Sup_Phone").style.textAlign = "center";
+                    document.getElementById("Components_or_email").style.textAlign = "center";
+                    document.getElementById("available").style.textAlign = "center";
+
+                    document.getElementById('Emp_Sup_Name').innerHTML = "Employee Name"
+                    document.getElementById('memberName').placeholder = "Enter Employee Name: ex. John Smith"
+                    document.getElementById('Emp_Sup_Phone').innerHTML = "Employee Phone Number"
+                    document.getElementById('Components_or_email').innerHTML = "Employee Email"
+                    document.getElementById('compemail').placeholder = "Enter Employee Email:"
+                    hideAvailable(0);
+
+                  } else if (e.options[e.selectedIndex].value == "Suppliers"){
+                    document.getElementById("memberName").style.display = "inline";
+                    document.getElementById("address").style.display = "inline";
+                    document.getElementById("phone").style.display = "inline";
+                    document.getElementById("compemail").style.display = "inline";
+                    document.getElementById("ava").style.display = "inline";
+                    document.getElementById("addbutton").style.display = "inline";
+                    document.getElementById("clearbutton").style.display = "inline";
+
+                    document.getElementById("Emp_Sup_Name").style.display = "inline";
+                    document.getElementById("addressHead").style.display = "inline";
+                    document.getElementById("Emp_Sup_Phone").style.display = "inline";
+                    document.getElementById("Components_or_email").style.display = "inline";
+
+                    document.getElementById("Emp_Sup_Name").style.textAlign = "center";
+                    document.getElementById("addressHead").style.textAlign = "center";
+                    document.getElementById("Emp_Sup_Phone").style.textAlign = "center";
+                    document.getElementById("Components_or_email").style.textAlign = "center";
+
+                    document.getElementById('Emp_Sup_Name').innerHTML = "Supplier Name"
+                    document.getElementById('memberName').placeholder = "Enter Supplier Name:"
+                    document.getElementById('Emp_Sup_Phone').innerHTML = "Supplier Phone Number"
+                    document.getElementById('Components_or_email').innerHTML = "Components"
+                    document.getElementById('compemail').placeholder = "Enter Component Names, separated by ',':"
+                    hideAvailable(1)
+                  } else {
+                    clearAll();
+                  }
+            }
+
+            function clearAll(){
+              document.getElementById("member").value = "choose";
+              document.getElementById("memberName").value = "";
+              document.getElementById("address").value = "";
+              document.getElementById("phone").value = "";
+              document.getElementById("compemail").value = "";
+              document.getElementById("ava").value = "";
+
+              for(var i = 0; i < 5 ; i++){
+                        clearHTML(i);
+              }
+
+              document.getElementById("memberName").style.display = "none";
+              document.getElementById("address").style.display = "none";
+              document.getElementById("phone").style.display = "none";
+              document.getElementById("compemail").style.display = "none";
+              document.getElementById("ava").style.display = "none";
+
+              document.getElementById("Emp_Sup_Name").style.display = "none";
+              document.getElementById("addressHead").style.display = "none";
+              document.getElementById("Emp_Sup_Phone").style.display = "none";
+              document.getElementById("Components_or_email").style.display = "none";
+              document.getElementById("available").style.display = "none";
+
+              document.getElementById("addbutton").style.display = "none";
+              document.getElementById("clearbutton").style.display = "none";
+
+            }
+
+            function AddMember(){
+                  var member = $('#member').val();
+                  var memberName = $('#memberName').val();
+                  var address = $('#address').val();
+                  var phone = $('#phone').val();
+                  var compemail = $('#compemail').val();
+                  var ava = $('#ava').val();
+
+                  console.log(member);
+                  console.log(memberName);
+                  console.log(address);
+                  console.log(phone);
+                  console.log(compemail);
+                  console.log(ava);
+
+                  for(var i = 0; i < 5 ; i++){
+                    clearHTML(i);
+                  }
+
+                  var e = false;
+                  if (memberName.length === 0){
+                      document.getElementById("memberNameError").innerHTML = "Please enter a member name.";
+                      e = true;
+                  }
+                  if (address.length === 0){
+                      document.getElementById("addressError").innerHTML = "Please enter an address.";
+                      e = true;
+                  }
+                  if (phone.indexOf('+1') !== 0 || phone.length != 12){
+                      document.getElementById("phoneError").innerHTML = "Please enter a valid phone number in the following format: +11234567890.";
+                      e = true;
+                  }
+                  if (compemail.length === 0){
+                      document.getElementById("compemailError").innerHTML = "Please enter a valid value.";
+                      e = true;
+                  }
+
+                  if (member == "employees"){
+                    if (compemail.indexOf('@') == -1 || compemail.indexOf('.') == -1){
+                        document.getElementById("compemailError").innerHTML = "Please enter a valid email.";
+                        e = true;
+                    }
+
+                    if (ava.trim().toLowerCase() != "yes" && ava.trim().toLowerCase() != "no") {
+                      document.getElementById("availableError").innerHTML = "Please enter 'yes' or 'no'.";
+                        e = true;
+                    }
+                  }
+
+                  if (!e){
+
+                    console.log("All params good");
+                    var poolDataDEAL = {
+                      UserPoolId : 'us-east-1_QFcNXf7g8', // Your user pool id here
+                      ClientId : '4ut1fjlf1v35jbj2v9cks6981l' // Your client id here
+                    };
+                    // var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael";
+                    // var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen";
+                    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
+                    var cognitoUser = userPool.getCurrentUser();
+
+                    if(cognitoUser !== null){
+                        cognitoUser.getSession(function(err, session) {
+                            if(err){
+                                alert(err);
+                                return;
+                            }
+
+                            console.log('session validity: ' + session.isValid());
+                            console.log(cognitoUser.username);
+
+                            var request = new XMLHttpRequest();
+                            request.open('GET', url_name + "/testdeal?vi=" + cognitoUser.username, false);  // `false` makes the request synchronous
+                            request.send(null);
+
+                            if (request.status === 200) {
+                              console.log(request.response);
+                              data = request.response;
+                              var tempInfo = JSON.parse(data)[0]; //save please
+                              var comp = tempInfo.company;                    
+                              
+                              var request = new XMLHttpRequest();
+                              var e = document.getElementById("member")
+                              request.open('GET', url_name + "/addMembers?table=" + e.options[e.selectedIndex].value + "&companyAffiliate=" + comp + "&name=" + memberName + "&address=" + address + "&phone=" + phone + "&compemail=" + compemail + "&ava=" + ava, false);  // `false` makes the request synchronous
+                              request.send(null);
+
+                              if (request.status === 200) {
+                                console.log("added");
+                                clearAll();
+                              }
+                            }
+                          });
+                      }
+                  }
+                    // window.location.href  = url_name + "/code_validation_dealer";
+            }
+
+
+            var placeSearch, autocomplete;
+            var componentForm = {
+              street_number: 'short_name',
+              route: 'long_name',
+              locality: 'long_name',
+              administrative_area_level_1: 'short_name',
+              country: 'long_name',
+              postal_code: 'short_name'
+            };
+
+            function initAutocomplete() {
+              // Create the autocomplete object, restricting the search to geographical
+              // location types.
+              autocomplete = new google.maps.places.Autocomplete(
+                  /** @type {!HTMLInputElement} */(document.getElementById("address")),
+                  {types: ['geocode']});
+
+              // When the user selects an address from the dropdown, populate the address
+              // fields in the form.
+              autocomplete.addListener('place_changed', fillInAddress);
+            }
+
+            function fillInAddress() {
+              // Get the place details from the autocomplete object.
+              var place = autocomplete.getPlace();
+
+              for (var component in componentForm) {
+                document.getElementById(component).value = '';
+                document.getElementById(component).disabled = false;
+              }
+
+              // Get each component of the address from the place details
+              // and fill the corresponding field on the form.
+              for (var i = 0; i < place.address_components.length; i++) {
+                var addressType = place.address_components[i].types[0];
+                if (componentForm[addressType]) {
+                  var val = place.address_components[i][componentForm[addressType]];
+                  document.getElementById(addressType).value = val;
+                }
+              }
+            }
+
+                // Bias the autocomplete object to the user's geographical location,
+                // as supplied by the browser's 'navigator.geolocation' object.
+            function geolocate() {
+              if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                  var geolocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                  };
+                  var circle = new google.maps.Circle({
+                    center: geolocation,
+                    radius: position.coords.accuracy
+                  });
+                  autocomplete.setBounds(circle.getBounds());
+                });
+              }
+            }
+
+          </script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&libraries=places&callback=initAutocomplete" async defer></script>
+
+          {% for js_url in config.JS_INCLUDES %}
+              <script src="{{ js_url }}"></script>
+          {% endfor %}
+
+          <script src="{{ url_for('static', filename='appdeal.js') }}"></script>
+
+          </body>
+          </html>
+
+        </p>
+      </div>
+    </div>
+    
+    <script>
+
+      var modal = document.getElementById('myModal');
+
+      var btn = document.getElementById("btn");
+      btn.onclick = function() {
+          modal.style.display = "block";
+      }
+
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+          modal.style.display = "none";
+      }
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+          if (event.target == modal) {
+              modal.style.display = "none";
+          }
+      }
+    </script>
+  </form>
 
   <div class="w3-half w3-container" style="padding-top:13px; text-align: center">
     <div class="container" style="width:80%; height:50%;">
@@ -239,6 +740,8 @@
       </tr> -->
     </table>
   </div>
+
+
 </div>
 </div>
 </div>
