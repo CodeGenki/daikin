@@ -585,14 +585,29 @@ function showCusInfo(){
     var saveCusData = localStorage.getItem('selected');
     saveCusData = saveCusData.split(",");
 
-    document.getElementById("cusName").innerHTML = "Customer Name: " + saveCusData[10];
-    document.getElementById("cusComp").innerHTML = "Customer Company: " + saveCusData[0];
-    document.getElementById("cusAddress").innerHTML = "Customer Address: " + saveCusData[6]+","+saveCusData[7]+","+saveCusData[8]+","+saveCusData[9];
-    document.getElementById("cusPhone").innerHTML = "Customer Phone Number: " + saveCusData[4];
-    document.getElementById("cusEmail").innerHTML = "CUstomer Email: " + saveCusData[5];
-    document.getElementById("cusHealth").innerHTML = "Customer Unit Health: " + saveCusData[11];
-    document.getElementById("cusCode").innerHTML = "Customer Unit Error Codes: " + saveCusData[1];
-    document.getElementById("cusLeak").innerHTML = "Customer Unit Refrigerant Leak: " + saveCusData[2] + "%";
-    console.log(saveCusData)
+    // document.getElementById("cusName").innerHTML = "Customer Name: " + saveCusData[10];
+    // document.getElementById("cusComp").innerHTML = "Customer Company: " + saveCusData[0];
+    // document.getElementById("cusAddress").innerHTML = "Customer Address: " + saveCusData[6]+","+saveCusData[7]+","+saveCusData[8]+","+saveCusData[9];
+    // document.getElementById("cusPhone").innerHTML = "Customer Phone Number: " + saveCusData[4];
+    // document.getElementById("cusEmail").innerHTML = "CUstomer Email: " + saveCusData[5];
+    // document.getElementById("cusHealth").innerHTML = "Customer Unit Health: " + saveCusData[11];
+    // document.getElementById("cusCode").innerHTML = "Customer Unit Error Codes: " + saveCusData[1];
+    // document.getElementById("cusLeak").innerHTML = "Customer Unit Refrigerant Leak: " + saveCusData[2] + "%";
+    // console.log(saveCusData)
+
+    document.getElementById("cusName").innerHTML = saveCusData[10];
+    document.getElementById("cusComp").innerHTML = saveCusData[0];
+    if (saveCusData[0] == "Daikin"){
+        document.getElementById("cusComp").value = "distances_Daikin";
+    } else if (saveCusData[0] == "McCann Services Inc."){
+        document.getElementById("cusComp").value = "distances_McCann";
+    }
+    document.getElementById("cusAddress").innerHTML = saveCusData[6]+","+saveCusData[7]+","+saveCusData[8]+","+saveCusData[9];
+    document.getElementById("cusPhone").innerHTML = saveCusData[4];
+    document.getElementById("cusEmail").innerHTML = saveCusData[5];
+    document.getElementById("cusHealth").innerHTML = saveCusData[11];
+    document.getElementById("cusCode").innerHTML = saveCusData[1];
+    document.getElementById("cusLeak").innerHTML = saveCusData[2];
+    // console.log(saveCusData)
 
 }

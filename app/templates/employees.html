@@ -1,5 +1,6 @@
 {% extends "hvacbase.html" %}
 {% block content %}
+
 <style>
 #employees {
     border-collapse: collapse;
@@ -11,9 +12,10 @@
     padding: 10px;
 }
 
-#employees tr:{background-color: #ddd}
 
-#employees tr:hover {background-color: #ddd;}
+#employees tr:hover {background-color: grey;
+                    color:white;
+                    }
 
 #employees th {
     padding-top: 12px;
@@ -22,6 +24,11 @@
     background-color: lightsteelblue;
     color: black;
 }
+
+#employees tr {background-color: white;
+              color:black;
+              }
+
 
 .bgimge {
 
@@ -74,110 +81,153 @@ body {font-family: Arial, Helvetica, sans-serif;}
 <body onload="createTableEmp();">
 
 <div class="bgimge w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
-<div class="w3-main" style="margin-left:300px;">
-
+  <div class="w3-main" style="margin-left:300px;">
     <header class="w3-container" style="padding-top:86px">
       <h5 style="color:black;text-align: center; "><b>Employees</b></h5>
     </header>
+    <hr>
 
-  <hr>
+    <form onsubmit="return false;" style="text-align: center;">
+      <input type="submit" id= "btn" value="Add Employee" class="btn btn--border btn--primary btn--animated" style="color:black;">
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
 
-  <div class="w3-half w3-container" style="padding-top:13px; text-align: center">
-    <div class="container" style="width:80%; height:50%;">
+          <div class="w3-display-middle w3-container w3-white w3-text-black " style="width:100%; height:100%; border: 2px solid black; overflow-y:scroll;">
+            <br><br><br>
+            <div style="text-align: center;">
+              <label style="font-size:20px;"><b>Add Member Here:</b></label>
+            </div>
+            <br>
+            <form onsubmit="return false;">
+              <div class="form-group">
+                <div style="text-align: center;">Member Type</div>
+                <select id="member" onchange="updateInput();" class="w3-input w3-padding-9 w3-border form-control">
+                  <option selected = "" value="choose" >--- Choose Type of Member ---</option>
+                  <option value="employees">Employee</option>
+                  <option value="Suppliers">Supplier</option>
+                </select>
+              </div> 
+                
+              <div class="form-group">
+                  <div style="text-align: center;" id="Emp_Sup_Name"></div><br>
+                  <label><input id="memberName" onkeyup="clearHTML(0);" style="display: none;" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Name:"></label>
+                  <p id="memberNameError" style="color:red"></p>
+              </div>
 
-    <div id="map" style="width:100%; height:100%;border: 1px solid black; color:black;"></div>
-      <script>
-        var map, infoWindow,count,marker,data;
-        var locations = [], username_address = [], addresses=[];
-        function get_employees(){
-          var poolDataDEAL = {
-            UserPoolId : 'us-east-1_QFcNXf7g8', // Your user pool id here
-            ClientId : '4ut1fjlf1v35jbj2v9cks6981l' // Your client id here
-          };
-           // var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael";
-          // var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen";
-          var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
-          var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
-          var cognitoUser = userPool.getCurrentUser();
+              <div class="form-group">
+                  <div style="text-align: center;" id="addressHead"></div><br>
+                  <label><input id='address' onkeyup="clearHTML(1);" onfocus="geolocate()" style="display: none;" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Address:"></label>
+                  <p id="addressError" style="color:red"></p>
+              </div> 
 
-          if(cognitoUser !== null){
-              cognitoUser.getSession(function(err, session) {
-                  if(err){
-                      alert(err);
-                      return;
-                  }
+              <div class="form-group">
+                  <div style="text-align: center;" id="Emp_Sup_Phone"></div><br>
+                  <label><input id="phone" onkeyup="clearHTML(2);" style="display: none;" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Phone Number: +1234567890"></label>
+                  <p id="phoneError" style="color:red"></p>
+              </div> 
+              
+              <div class="form-group">
+                  <div style="text-align: center;" id="Components_or_email"></div><br>
+                  <label><input id="compemail" onkeyup="clearHTML(3);" style="display: none;" type="text" class="w3-input w3-padding-9 w3-border form-control"></label>
+                  <p id="compemailError" style="color:red"></p>
+              </div>
 
-                  //console.log('session validity: ' + session.isValid());
-                  //console.log(cognitoUser.username);
+              <div class="form-group">
+                  <div style="text-align: center;" id="available"></div><br>
+                  <label><input id="ava" onkeyup="clearHTML(4);" style="display: none;" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter 'yes' or 'no':"></label>
+                  <p id="availableError" style="color:red"></p>
+              </div>
 
-                  var request = new XMLHttpRequest();
-                  request.open('GET', url_name + "/testdeal?vi=" + cognitoUser.username, false);  // `false` makes the request synchronous
-                  request.send(null);
+              <div style="text-align: center;">
+                  <button id="addbutton" style="display: none;" type="submit" class="btn btn--border btn--primary btn--animated" onclick="AddMember()">Add Member</button>
+                  <div style="color:red;" id="AddError"></div>
+              </div>
+                <br>
 
-                  if (request.status === 200) {
-                    //console.log(request.response);
-                    data = request.response;
-                    var tempInfo = JSON.parse(data)[0]; //save please
-                    var comp = tempInfo.company;                    
-                    
+              <div style="text-align: center;">
+                  <button id="clearbutton" style="display: none;" type="submit" class="btn btn--border btn--primary btn--animated" onclick="clearAll()">Clear Form</button>
+                  <div style="color:red;" id="clearError"></div>
+              </div>
+              <br>
+            </form> 
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+  <div class="w3-main" style="margin-left:300px;">
+    <div class="w3-half w3-container" style="padding-top:13px; text-align: center">
+      <div class="container" style="width:80%; height:50%;">
+
+        <div id="map" style="width:100%; height:100%;border: 1px solid black; color:black;"></div>
+        <script>
+          var map, infoWindow,count,marker,data;
+          var locations = [], username_address = [], addresses=[];
+          function get_employees(){
+            var poolDataDEAL = {
+              UserPoolId : 'us-east-1_QFcNXf7g8', 
+              ClientId : '4ut1fjlf1v35jbj2v9cks6981l' 
+            };
+
+            var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
+            var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
+            var cognitoUser = userPool.getCurrentUser();
+
+            if(cognitoUser !== null){
+                cognitoUser.getSession(function(err, session) {
+                    if(err){
+                        alert(err);
+                        return;
+                    }
+
+
                     var request = new XMLHttpRequest();
-                    request.open('GET', url_name + "/testdeal?e=" + comp, false);  // `false` makes the request synchronous
+                    request.open('GET', url_name + "/testdeal?vi=" + cognitoUser.username, false);  // `false` makes the request synchronous
                     request.send(null);
 
                     if (request.status === 200) {
-                      //console.log(request.response);
                       data = request.response;
-                      var tempInfo = JSON.parse(data); //save please
-                      for(var i = 0, size = tempInfo.length; i < size ; i++){
-                        var item = tempInfo[i];
-                        // var l = item['location'].split(', ');
-                        // locations.push([item['employeename'],parseFloat(l[0]),parseFloat(l[1]),item['available']]);
-                        // username_address.push([item['username'], item['address']]);
-                        addresses.push([item['employeename'] ,item['address'],item['available']]);    
+                      var tempInfo = JSON.parse(data)[0]; //save please
+                      var comp = tempInfo.company;                    
+                      
+                      var request = new XMLHttpRequest();
+                      request.open('GET', url_name + "/testdeal?e=" + comp, false);  // `false` makes the request synchronous
+                      request.send(null);
+
+                      if (request.status === 200) {
+                        //console.log(request.response);
+                        data = request.response;
+                        var tempInfo = JSON.parse(data); //save please
+                        for(var i = 0, size = tempInfo.length; i < size ; i++){
+                          var item = tempInfo[i];
+                          addresses.push([item['employeename'] ,item['address'],item['available']]);    
+                        }
                       }
                     }
-                  }
-            });
+              });
+            }
           }
-        }
 
-        function initMap() {
-          map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 35.397, lng: -95.644},
-            zoom: 10
-          });
-          infoWindow = new google.maps.InfoWindow;
+          function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+              center: {lat: 35.397, lng: -95.644},
+              zoom: 12
+            });
+            infoWindow = new google.maps.InfoWindow;
 
-          get_employees();
-          console.log('hi');
-          // console.log(locations);
-          console.log(username_address);
-
-          // var icon;
-          // for (count=0; count<locations.length; count++) {
-          //   if (locations[count][3] == "yes"){
-          //     icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
-          //   }
-          //   else {
-          //     icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
-          //   }
-          //   marker= new google.maps.Marker({
-          //     position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
-          //     map:map,
-          //     icon: icon,
-          //     title: locations[count][0]
-          //   });
-
-          
-           
-          var newcoords;
-              function getLatLng(address){
-    
-              var parsedAddress = address.split(" ").join("+"); //parse address to fit into the url request
-              var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + parsedAddress + '&key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU';
-              var request = new XMLHttpRequest();
-              request.open('GET', url, false);  // `false` makes the request synchronous
-              request.send(null);
+            get_employees();
+             
+            var newcoords;
+            function getLatLng(address){
+  
+            var parsedAddress = address.split(" ").join("+"); //parse address to fit into the url request
+            var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + parsedAddress + '&key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU';
+            var request = new XMLHttpRequest();
+            request.open('GET', url, false);  // `false` makes the request synchronous
+            request.send(null);
 
               if(request.status == 200){
                 var newlat1 = JSON.parse(request.response).results[0].geometry.location.lat;//parses JSON file for coords
@@ -186,33 +236,29 @@ body {font-family: Arial, Helvetica, sans-serif;}
               }
             }
 
-              var icon;
-              for (count=0; count<addresses.length; count++) {
-                var address = addresses[count];
+            var icon;
+            for (count=0; count<addresses.length; count++) {
+              var address = addresses[count];
 
-                if (address[2] == "yes"){
-                  icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
-                }
-                else {
-                  icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
-                }
-                
+              if (address[2] == "yes"){
+                icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+              }
+              else {
+                icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+              }
+              
+              getLatLng(address[1]);
 
-                getLatLng(address[1]);
-
-                var marker = new google.maps.Marker({
-                    map: map,
-                    icon: icon,
-                    position: newcoords,
-                    title: address[0]
-                    
-                });
-
-            
+              var marker = new google.maps.Marker({
+                  map: map,
+                  icon: icon,
+                  position: newcoords,
+                  title: address[0]                  
+              });
             }
           }
 
-        
+          
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
               var pos = {
@@ -220,9 +266,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 lng: position.coords.longitude
               };
 
-             // infoWindow.setPosition(pos);
-              //infoWindow.setContent('Location found.');
-              //infoWindow.open(map);
               map.setCenter(pos);
             }, function() {
               handleLocationError(true, infoWindow, map.getCenter());
@@ -231,147 +274,17 @@ body {font-family: Arial, Helvetica, sans-serif;}
             handleLocationError(false, infoWindow, map.getCenter());
           }
 
-        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-          infoWindow.setPosition(pos);
-          infoWindow.setContent(browserHasGeolocation ?
-                                'Error: The Geolocation service failed.' :
-                                'Error: Your browser doesn\'t support geolocation.');
-          infoWindow.open(map);
-        }        
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&callback=initMap">
-    </script>
-  </div>
-</div>
-
- <form onsubmit="return false;">
-    <input type="submit" id= "btn" value="Add Employee" class="button" style="color:black;">
-    <div id="myModal" class="modal">
-      <!-- MODALLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL -->
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <p> 
-          <!DOCTYPE html>
-          <html>
-          <title>Add Member</title>
-          <meta charset="UTF-8"/>
-
-          <head>
-          <meta name="viewport" content="width=device-width, initial-scale=1">
-          <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-          </head>
-
-
-          <style>
-          body {font-family: "Verdana", sans-serif}
-          body, html {height: 100%}
-          .bgimg2 {
-              background-image: url('http://www.daikin.com/images/mainvisual/pic_keyv_1_pc.jpg');
-              min-height: 100%;
-              background-position: absolute;
-              background-size:cover;
-              color: black;    
-              top:0;
-              left: 0;
-              background-repeat: no-repeat;
-              background-attachment: local;
-            }
-          /*.button {
-            display: inline-block;
-            padding: 12px 20px;
-            cursor: pointer;
-            text-align: center;
-            color: white;
-            background-color: #4682b4;
-            border: 1px solid black;
-            border-radius: 15px;
-          }
-
-          .button:hover {background-color: #a2b5cd}*/
-
-
-          </style>
-
-
-          <!-- <body class= "bgimg2"> -->
-
-
-
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-
-          {% for js_url in config.JS_INCLUDES %}
-              <script src="{{ js_url }}"></script>
-          {% endfor %}
-
-          <body>
-            <div class="w3-display-middle w3-container w3-white w3-text-black " style="width:100%; height:100%; border: 3px solid black; overflow-y:scroll;">
-              <br><br><br>
-              <div style="text-align: center;">
-                <label style="font-size:20px;"><b>Add Member Here</b></label>
-              </div>
-              <br><br>
-            <form onsubmit="return false;">
-
-
-              <div class="form-group">
-                  <div style="text-align: center;">Member Type</div>
-                  <select id="member" onchange="updateInput();" class="w3-input w3-padding-9 w3-border form-control">
-                    <option selected = "" value="choose" >--- Choose Type of Member ---</option>
-                    <option value="employees">Employee</option>
-                    <option value="Suppliers">Supplier</option>
-                  </select>
-              </div> 
-              
-              <div class="form-group">
-                  <div style="text-align: center;" id="Emp_Sup_Name"></div>
-                  <label><input id="memberName" onkeyup="clearHTML(0);" style="display: none;" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Name:"></label>
-                  <p id="memberNameError" style="color:red"></p>
-              </div>
-
-              <div class="form-group">
-                  <div style="text-align: center;" id="addressHead"></div>
-                  <label><input id='address' onkeyup="clearHTML(1);" onfocus="geolocate()" style="display: none;" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Address:"></label>
-                  <p id="addressError" style="color:red"></p>
-              </div> 
-
-              <div class="form-group">
-                  <div style="text-align: center;" id="Emp_Sup_Phone"></div>
-                  <label><input id="phone" onkeyup="clearHTML(2);" style="display: none;" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter Phone Number: +1234567890"></label>
-                  <p id="phoneError" style="color:red"></p>
-              </div> 
-              
-              <div class="form-group">
-                  <div style="text-align: center;" id="Components_or_email"></div>
-                  <label><input id="compemail" onkeyup="clearHTML(3);" style="display: none;" type="text" class="w3-input w3-padding-9 w3-border form-control"></label>
-                  <p id="compemailError" style="color:red"></p>
-              </div>
-
-              <div class="form-group">
-                  <div style="text-align: center;" id="available"></div>
-                  <label><input id="ava" onkeyup="clearHTML(4);" style="display: none;" type="text" class="w3-input w3-padding-9 w3-border form-control" placeholder="Enter 'yes' or 'no':"></label>
-                  <p id="availableError" style="color:red"></p>
-              </div>
-                
-                  <br>
-              <div style="text-align: center;">
-                  <button id="addbutton" style="display: none;" type="submit" class="button" onclick="AddMember()">Add Member</button>
-                  <div style="color:red;" id="AddError"></div>
-              </div>
-                <br>
-
-              <div style="text-align: center;">
-                  <button id="clearbutton" style="display: none;" type="submit" class="button" onclick="clearAll()">Clear Form</button>
-                  <div style="color:red;" id="clearError"></div>
-              </div>
-                <br>
-              </form> 
-              </div>
-          </body>
-
+          function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                                  'Error: The Geolocation service failed.' :
+                                  'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+          }        
+        </script>
+        <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&callback=initMap"></script> -->
+      </div>
+    </div>
 
 
           <script>
@@ -419,11 +332,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     document.getElementById("Components_or_email").style.display = "inline";
                     document.getElementById("available").style.display = "inline";
 
-                    // document.getElementById("Emp_Sup_Name").style.textAlign = "center";
-                    // document.getElementById("addressHead").style.textAlign = "center";
-                    // document.getElementById("Emp_Sup_Phone").style.textAlign = "center";
-                    // document.getElementById("Components_or_email").style.textAlign = "center";
-                    // document.getElementById("available").style.textAlign = "center";
 
                     document.getElementById('Emp_Sup_Name').innerHTML = "Employee Name"
                     document.getElementById('memberName').placeholder = "Enter Employee Name: ex. John Smith"
@@ -446,10 +354,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     document.getElementById("Emp_Sup_Phone").style.display = "inline";
                     document.getElementById("Components_or_email").style.display = "inline";
 
-                    document.getElementById("Emp_Sup_Name").style.textAlign = "center";
-                    document.getElementById("addressHead").style.textAlign = "center";
-                    document.getElementById("Emp_Sup_Phone").style.textAlign = "center";
-                    document.getElementById("Components_or_email").style.textAlign = "center";
+                    // document.getElementById("Emp_Sup_Name").style.textAlign = "center";
+                    // document.getElementById("addressHead").style.textAlign = "center";
+                    // document.getElementById("Emp_Sup_Phone").style.textAlign = "center";
+                    // document.getElementById("Components_or_email").style.textAlign = "center";
 
                     document.getElementById('Emp_Sup_Name').innerHTML = "Supplier Name"
                     document.getElementById('memberName').placeholder = "Enter Supplier Name:"
@@ -544,11 +452,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
                     console.log("All params good");
                     var poolDataDEAL = {
-                      UserPoolId : 'us-east-1_QFcNXf7g8', // Your user pool id here
-                      ClientId : '4ut1fjlf1v35jbj2v9cks6981l' // Your client id here
+                      UserPoolId : 'us-east-1_QFcNXf7g8', 
+                      ClientId : '4ut1fjlf1v35jbj2v9cks6981l' 
                     };
-                    // var url_name = "https://cl0igb14s8.execute-api.us-east-1.amazonaws.com/michael";
-                    // var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen";
+
                     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
                     var cognitoUser = userPool.getCurrentUser();
 
@@ -595,7 +502,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
                           });
                       }
                   }
-                    // window.location.href  = url_name + "/code_validation_dealer";
             }
 
 
@@ -660,48 +566,46 @@ body {font-family: Arial, Helvetica, sans-serif;}
             }
 
           </script>
-          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&libraries=places&callback=initAutocomplete" async defer></script>
+          <script>
+            function init_auto(){
+              initMap();
+              initAutocomplete();
+            }
+          </script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&libraries=places&callback=init_auto" async defer></script>
 
           {% for js_url in config.JS_INCLUDES %}
               <script src="{{ js_url }}"></script>
           {% endfor %}
 
           <script src="{{ url_for('static', filename='appdeal.js') }}"></script>
-
-          </body>
-          </html>
-
-        </p>
-      </div>
-    </div>
     
-    <script>
+          <script>
 
-      var modal = document.getElementById('myModal');
+            var modal = document.getElementById('myModal');
 
-      var btn = document.getElementById("btn");
-      btn.onclick = function() {
-          modal.style.display = "block";
-      }
+            var btn = document.getElementById("btn");
+            btn.onclick = function() {
+                modal.style.display = "block";
+            }
 
-      // Get the <span> element that closes the modal
-      var span = document.getElementsByClassName("close")[0];
-      // When the user clicks on <span> (x), close the modal
-      span.onclick = function() {
-          modal.style.display = "none";
-      }
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
 
-      // When the user clicks anywhere outside of the modal, close it
-      window.onclick = function(event) {
-          if (event.target == modal) {
-              modal.style.display = "none";
-          }
-      }
-    </script>
-  </form>
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+          </script>
 
   <div class="w3-half w3-container" style="padding-top:13px; text-align: center">
-    <div class="container" style="width:80%; height:50%;">
+    <div class="container" style="width:80%; height:50%; overflow-y: scroll; color:black">
     <table id="employees">
       <tr style="background-color: lightsteelblue">
         <th>Available</th>
@@ -709,29 +613,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
         <th>Email</th>
         <th>Phone Number</th>
       </tr>
-<!--      <tr style="background-color: white">
-        <td>1</td>
-        <td>Post Malone</td>
-        <td>xxxxxxx</td>
-        <td>xxxxxxx</td>
-      </tr>
-      <tr style="background-color: white">
-        <td>2</td>
-        <td>Jay Z</td>
-        <td>xxxxxxx</td>
-        <td>xxxxxxx</td>
-      </tr>
-      <tr style="background-color: white">
-        <td>3</td>
-        <td>Kendrick Lamar</td>
-        <td>xxxxxxx</td>
-        <td>xxxxxxx</td>
-      </tr> -->
+
     </table>
+    </div>
+
   </div>
-
-
-</div>
 </div>
 </div>
 <script src="{{ url_for('static', filename='appdeal.js') }}"></script>
@@ -739,5 +625,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
     <script src="{{ js_url }}"></script>
 {% endfor %}
 </body>
+
 
 {% endblock %}

@@ -444,3 +444,88 @@ def addMembers():
         )
    
     return json.dumps(response.get('ResponseMetadata').get('HTTPStatusCode'))
+
+
+@app.route("/getlocationinfo", methods=["GET", "POST"])
+def getlocationinfo():
+    vendor  = str(request.args.get('vendor', ''))
+    vendor = vendor.replace("_", " ")
+    if (vendor== "Daikin"):
+        tablename = "distances_Daikin";
+    elif (vendor == "McCann Services Inc."):
+        tablename = "distances_McCann";
+             
+    err = str(request.args.get('error', ''))
+    err = err.split("_")
+    if "None" in err:
+        err.remove("None")
+
+    leak = str(request.args.get('leak', ''))
+
+    # print("INSIDE INIT PY")
+    # print(tablename)
+    comp = []
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+    tableError = dynamodb.Table("ErrorCode")
+    tableSup = dynamodb.Table("Suppliers")
+    tableEmp = dynamodb.Table("employees")
+
+    if vendor != "":
+        table = dynamodb.Table(tablename)
+        if float(leak) < 50:
+            response = tableError.get_item(
+                Key={
+                    'E': 'E',
+                    'Code': '41'
+                }
+            )
+            item = response['Item']
+            comp.append(item.get("Components"))
+        if len(err) > 0:
+            for e in err:
+                response = tableError.get_item(
+                    Key={
+                        'E': 'E',
+                        'Code': e
+                    }
+                )
+                item = response['Item']
+                comp.append(item.get("Components"))
+
+        response = tableSup.query(KeyConditionExpression=Key("Affiliate").eq(vendor))
+        response =  response['Items']
+        sup = []
+        index = 0
+        final_sup=[]
+        for c in comp:
+            sup.append([])
+            for i in response:
+                if i["components"].find(c) != -1:
+                    sup[index].append(i["companyname"])
+            index = index + 1
+        
+        sum = 0
+        for s in sup[0]:
+            for x in range(1,len(sup)):            
+                if s in sup[x]:
+                    sum = sum +1 
+            if sum == len(sup) - 1:
+                final_sup.append(s)
+            sum = 0
+
+        emp = []
+        response = tableEmp.query(KeyConditionExpression=Key("company").eq(vendor))
+        response =  response['Items']
+        for i in response:
+            if i["available"] == "yes":
+                emp.append(i["employeename"])
+
+        response = table.scan()['Items']
+        response = [i for i  in response if i['employeename'] in emp and i['supplier'] in final_sup]
+
+        print(emp)
+        print(final_sup)
+        print(comp)
+        print(sup)
+        print(json.dumps(response))
+        return json.dumps(response)

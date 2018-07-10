@@ -19,11 +19,14 @@
 }
 
 
-#customersT tr:hover {background-color: grey;}
+#customersT tr:hover {background-color: grey;
+                    color: white;
+                    }
 
 
 #customersT tr {
   background-color: white;
+  color: black;
 }
 
 
@@ -43,7 +46,7 @@
     background-position: center;
     background-size: 100% 100% ;
     color: black;    
-
+}
 /* Modal Content */
 .modal-content {
     background-color: #fefefe;
@@ -125,11 +128,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
               var locations = [], username_address = [], addresses=[], emp_addresses =[], sup_addresses = [];
               function get_customers(){
                 var poolDataDEAL = {
-                  UserPoolId : 'us-east-1_QFcNXf7g8', // Your user pool id here
-                  ClientId : '4ut1fjlf1v35jbj2v9cks6981l' // Your client id here
+                  UserPoolId : 'us-east-1_QFcNXf7g8', 
+                  ClientId : '4ut1fjlf1v35jbj2v9cks6981l'
                 };
-                // var url_name = "https://qvtsi28b2k.execute-api.us-east-1.amazonaws.com/kristen";
-
+ 
                 var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
 
                 var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolDataDEAL);
@@ -141,9 +143,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
                             alert(err);
                             return;
                         }
-
-                        //console.log('session validity: ' + session.isValid());
-                        //console.log(cognitoUser.username);
 
                         var request = new XMLHttpRequest();
                         request.open('GET', url_name + "/testdeal?vi=" + cognitoUser.username, false);  // `false` makes the request synchronous
@@ -164,12 +163,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
                             request.send(null);
 
                             if (request.status === 200) {
-                              //console.log(request.response);
                               var data = request.response;
                               var tempInfo = JSON.parse(data); //save please
                               var item = tempInfo[0];
-                              // var l = item['locations'].split(', ');
-                              // locations.push([item['given_name'] + " " + item['family_name'],parseFloat(l[0]),parseFloat(l[1]),item['unithealth']]);
+
                               username_address.push([item['username'], item['address']]);
                               addresses.push([item['given_name'] + " " + item['family_name'],item['address'],item['unithealth']]);                 
                             }
@@ -180,12 +177,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
                           request.send(null);
 
                           if (request.status === 200) {
-                            //console.log(request.response);
+
                             var data = request.response;
                             var tempInfo = JSON.parse(data); //save please
                             for(var i = 0, size = tempInfo.length; i < size ; i++){
                               var item = tempInfo[i];
-                              // var l = item['location'].split(', ');
                                 emp_addresses.push([item['employeename'] ,item['address']]);    
                             }
                           }
@@ -208,87 +204,57 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 }
               }
 
-            function initMap() {
-              map = new google.maps.Map(document.getElementById('map'), {
-              center: {lat: 35.397, lng: -95.644},
-              zoom: 7
-              });
-              infoWindow = new google.maps.InfoWindow;
-
-              get_customers();
-              console.log('hi');
-              // console.log(locations);
-              console.log(username_address);
-              console.log(emp_addresses);
-              console.log(sup_addresses);
-
-              // var icon;
-              // for (count=0; count<locations.length; count++) {
-              //   if (locations[count][3] == "GREEN"){
-              //     icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
-              //   }
-              //   else if (locations[count][3] == "RED"){
-              //     icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
-              //   }
-              //   else {
-              //     icon = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
-              //   }
-              //  marker= new google.maps.Marker({
-              //   position: new google.maps.LatLng(locations[count][1], locations[count][2]), 
-              //   map:map,
-              //   icon: icon,
-              //   title: locations[count][0]
-              //   });
-
-              
-               
-
-              var newcoords;
-              function getLatLng(address){
-    
-              var parsedAddress = address.split(" ").join("+"); //parse address to fit into the url request
-              var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + parsedAddress + '&key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU';
-              var request = new XMLHttpRequest();
-              request.open('GET', url, false);  // `false` makes the request synchronous
-              request.send(null);
-
-              if(request.status == 200){
-                var newlat1 = JSON.parse(request.response).results[0].geometry.location.lat;//parses JSON file for coords
-                    var newlng1 = JSON.parse(request.response).results[0].geometry.location.lng;
-                    newcoords = { lat : newlat1, lng : newlng1};//finds new lat and lng
-              }
-            }
-
-              var icon;
-              for (count=0; count<addresses.length; count++) {
-                var address = addresses[count];
-
-                if (address[2] == "GREEN"){
-                  icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
-                }
-                else if (address[2] == "RED"){
-                  icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
-                }
-                else {
-                  icon = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
-                }
-
-                getLatLng(address[1]);
-
-                var marker = new google.maps.Marker({
-                    map: map,
-                    icon: icon,
-                    position: newcoords,
-                    title: address[0]
-                    
+              function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 35.397, lng: -95.644},
+                zoom: 10
                 });
+                infoWindow = new google.maps.InfoWindow;
 
-            
+                get_customers();              
+
+                var newcoords;
+                function getLatLng(address){
+      
+                  var parsedAddress = address.split(" ").join("+"); //parse address to fit into the url request
+                  var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + parsedAddress + '&key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU';
+                  var request = new XMLHttpRequest();
+                  request.open('GET', url, false);  // `false` makes the request synchronous
+                  request.send(null);
+
+                  if(request.status == 200){
+                    var newlat1 = JSON.parse(request.response).results[0].geometry.location.lat;//parses JSON file for coords
+                        var newlng1 = JSON.parse(request.response).results[0].geometry.location.lng;
+                        newcoords = { lat : newlat1, lng : newlng1};//finds new lat and lng
+                  }
+                }
+
+                var icon;
+                for (count=0; count<addresses.length; count++) {
+                  var address = addresses[count];
+
+                  if (address[2] == "GREEN"){
+                    icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+                  }
+                  else if (address[2] == "RED"){
+                    icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+                  }
+                  else {
+                    icon = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
+                  }
+
+                  getLatLng(address[1]);
+
+                  var marker = new google.maps.Marker({
+                      map: map,
+                      icon: icon,
+                      position: newcoords,
+                      title: address[0]            
+                  });           
+                }
               }
-            }
           
-
-            if (navigator.geolocation) {
+              if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                 var pos = {
                   lat: position.coords.latitude,
@@ -302,18 +268,17 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 }, function() {
                   handleLocationError(true, infoWindow, map.getCenter());
                 });
-            } 
+              } 
               else {
                 handleLocationError(false, infoWindow, map.getCenter());
               }
-
-            function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-              infoWindow.setPosition(pos);
-              infoWindow.setContent(browserHasGeolocation ?
-                                    'Error: The Geolocation service failed.' :
-                                    'Error: Your browser doesn\'t support geolocation.');
-              infoWindow.open(map);
-
+           
+              function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+                infoWindow.setPosition(pos);
+                infoWindow.setContent(browserHasGeolocation ?
+                                      'Error: The Geolocation service failed.' :
+                                      'Error: Your browser doesn\'t support geolocation.');
+                infoWindow.open(map);
               }
           </script>
           <script async defer
@@ -321,6 +286,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
           </script>
     </div>
   </div>
+
+
 	<div class="w3-half w3-container" style="padding-top:10px; text-align: center">
     <div class="container" style="width:80%; height:50%; overflow-y: scroll;">
 		<table id="customersT">
@@ -345,6 +312,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 
 
+</div>
 </div>
 </div>
 </div>

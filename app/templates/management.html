@@ -26,241 +26,223 @@ padding: 0;
 }
 
 </style>
-
 <body onload="showCusInfo();">
 <div class="bgimgc w3-display-container w3-animate-opacity w3-text-white" style="width:100%; height:100%;">
 	<div class="w3-main" style="margin-left:300px;">
-
-	  	<header class="w3-container" style="padding-top:43px;">
-	      <h5 style="color: black; text-align:center;"><b>Directions to Your Customer</b></h5>
-	  	</header>
-
-		<div class="w3-half w3-container" style="padding-top:43px; text-align: center;">
-			<p> Employee lalala </p>
-		</div>		
-
-		<div class="w3-half w3-container" style="padding-top:43px; text-align: center;">
-			<p id="cusName"></p>
-			<p id="cusComp"></p>
-			<p id="cusAddress"></p>
-			<p id="cusPhone"></p>
-			<p id="cusEmail"></p>
-			<p id="cusHealth"></p>
-			<p id="cusCode"></p>
-			<p id="cusLeak"></p>
-
-		</div>
-	</div>
-
-	<br><br><br><br>
-	<div class="w3-main" style="margin-left:300px; padding-top: 50px;">
-		<div class="container" style="width:80%; height:60%;">
+  	<header class="w3-container" style="padding-top:43px;">
+      <h5 style="color: black; text-align:center;"><b>Directions to Your Customer</b></h5>
+  	</header>
+	
+  <hr>
+		<div class="w3-half w3-container" style="padding-top: 13px; text-align: center;">
+      <div class="container" style="width: 80%; height: 50%;"> 
 			<div id="map" style="width:100%; height: 100%; border: 1px solid black; text-align: center;"></div>
 
 
-	<script>
-	var newcoords;
-    var minDistance = 10000;
-    var Arraylocation = 0;
-    var employee_address = [];
-    var employee_coords = [];
-    var customer_location= [];
-    var supplier_coords = [];
-   	var supplier_address = [];
-   	var current_location;
+      	<script>
+      	var newcoords;
+          var minDistance = 10000;
+          var Arraylocation = 0;
+          var employee_address = [];
+          var employee_coords = [];
+          var customer_location;//(document.getElementById("cusAddress").innerHTML);
+          //var customer_location = "19001 Kermier Rd, Waller, TX 77484";
 
-	function initMap() {
-		var geocoder = new google.maps.Geocoder();
-		var distancematrix = new google.maps.DistanceMatrixService();
-      	var directionsService = new google.maps.DirectionsService();
-		var directionsDisplay = new google.maps.DirectionsRenderer();
-//INFO THAT I AM TESTING
+          var customer_coords = [];
+          var supplier_coords = [];
+         	var supplier_addressTEMP = [];
+         	var current_location;
+         	var distanceinfo = [];
+         	var url_name = "https://7srr0yyhjg.execute-api.us-east-1.amazonaws.com/jenny";
 
-	    supplier_address[0] = "1001 Bissonnet St, Houston, TX 77005";
-		supplier_address[1] = '31200 Farm to Market 2920, Waller, TX, USA';
-		supplier_address[2] = '6521 Westheimer Road, Houston, TX, USA';
-		supplier_address[3] = '2506 Hempstead Road, Waller, TX, USA';
-		supplier_address[4] = '9649 Barker Cypress Road, Cypress, TX, USA';
-		employee_address[0] = '31380 Farm to Market Road 2920, Tomball, TX, USA';
- 
- 		var request = new XMLHttpRequest();
-        request.open('GET', url_name + "/testdeal?vi=" + cognitoUser.username, false);  // `false` makes the request synchronous
-        request.send(null);
-
-        if (request.status === 200) {
-
-        }
-
-/*
-//VENDOR TWO INFO
-
-	    supplier_address[0] = '4524 Highway 6, Houston, TX, USA';
-		supplier_address[1] = '31200 Farm to Market 2920, Waller, TX, USA';
-		supplier_address[2] = '6521 Westheimer Road, Houston, TX, USA';
-		supplier_address[3] = '2506 Hempstead Road, Waller, TX, USA';
-		supplier_address[4] = '9649 Barker Cypress Road, Cypress, TX, USA';
+      	function initMap() {
+      		var saveCusData = localStorage.getItem('selected');
+          	saveCusData = saveCusData.split(",");
+          	customer_location = saveCusData[6]+","+saveCusData[7]+","+saveCusData[8]+","+saveCusData[9];
+          // 	var tablename;
+        		// if (saveCusData[0] == "Daikin"){
+        	 //       tablename = "distances_Daikin";
+        	 //    } else if (saveCusData[0] == "McCann Services Inc."){
+        	 //       tablename = "distances_McCann";
+        	 //    }
 
 
-		employee_address[0] = '7406 Ashcroft Dr, Houston, TX 77081, USA';
-		employee_address[1] = '31380 Farm to Market Road 2920, Tomball, TX, USA';
-		employee_address[2] = '650 Ashcroft Dr, Houston, TX 77081, USA';
-		employee_address[3] = '9005 Ashcroft Dr, Houston, TX 77081, USA';
-		employee_address[4] = '8006 Ashcroft Dr, Houston, TX 77081, USA';
-		employee_address[5] = '40000 Farm to Market Road 2920, Tomball, TX, USA';
-		employee_address[6] = '5600 Ashcroft Dr, Houston, TX 77081, USA';
-
-*/
-//VENDOR ONE INFO
- 
-	 //    supplier_address[0] = '4524 Highway 6, Houston, TX, USA';
-		// supplier_address[1] = '31200 Farm to Market 2920, Waller, TX, USA';
-		// supplier_address[2] = '6521 Westheimer Road, Houston, TX, USA';
-		// supplier_address[3] = '2506 Hempstead Road, Waller, TX, USA';
-		// supplier_address[4] = '9649 Barker Cypress Road, Cypress, TX, USA';
-
-
-		// employee_address[0] = '31380 Farm to Market Road 2920, Tomball, TX, USA';
-		// employee_address[1] = '21380 Farm to Market Road 2920, Tomball, TX, USA';
-		// employee_address[2] = '19380 Farm to Market Road 2920, Tomball, TX, USA';
-		// employee_address[3] = '7406 Ashcroft Dr, Houston, TX 77081, USA';
-		// employee_address[4] = '18380 Farm to Market Road 2920, Tomball, TX, USA';
-		// employee_address[5] = '26380 Farm to Market Road 2920, Tomball, TX, USA'
-		// employee_address[6] = '19480 Farm to Market Road 2920, Tomball, TX, USA';
-		// employee_address[7] = '51380 Farm to Market Road 2920, Tomball, TX, USA';
-		// employee_address[8] = '19080 Farm to Market Road 2920, Tomball, TX, USA';
-		// employee_address[9] = '23580 Farm to Market Road 2920, Tomball, TX, USA';
-
-
-	 	if (navigator.geolocation) {
-	   		navigator.geolocation.getCurrentPosition(function(position) {
-	        	current_location = { // users current location 
-	          		lat: position.coords.latitude, //employer info
-	          		lng: position.coords.longitude
-	        	};
-	    		var map = new google.maps.Map(document.getElementById('map'), {
-	      			center: current_location, //sets map center to your current location
-	      			zoom: 10 //
-	    		});
-	
-			//addmarker(pos , map);
-			for (var i = 0; i < employee_address.length ;i++){
-				employee_coords[i] = getLatLng(employee_address[i]);
-			}
-	   		
-	   		for (var j = 0; j < supplier_address.length ;j++){
-				supplier_coords[j] = getLatLng(supplier_address[j]);
-			}
-			for (var i = 0; i < employee_address.length ;i++){
-				addmarker(employee_coords[i] , map);
-			}
-	   		
-	   		for (var j = 0; j < supplier_address.length ;j++){
-				addmarker(supplier_coords[j] , map);
-			}
-	   		 //make supplier_address an array with suppliers info in it. then make a loop that converts all addresses to lat:lng
-	   		console.log("HERE 1");
-	   		console.log(employee_coords);
-	   		console.log(supplier_coords);
-
-            distancematrix.getDistanceMatrix({
-            	//origins : employee_address, //JENNY 
-            	origins : [{lat:position.coords.latitude, lng:position.coords.longitude}], //Customer location 
-            	destinations : supplier_address,
-            	travelMode : "DRIVING",
-             	avoidHighways: false,
-       			avoidTolls: false,
-        		unitSystem: google.maps.UnitSystem.IMPERIAL
-          	}, callback);
-			});
-		}
-	}
-
-	function callback (response, status){
-		if (status == 'OK') {
-			//console.log(response);
-        	var origins = response.originAddresses;
-         	var destinations = response.destinationAddresses;
-          	
-          	for (var i = 0; i < origins.length; i++) {
-           	var results = response.rows[i].elements; //should always be 1
-				
-				for (var j = 0; j < results.length; j++) {
-         			
-         			var element = results[j]; //number of elements depends on the number of destinations 
-         			var distance = element.distance.text; // finds distance in the object 
-         			var distanceString = distance.split(" ") //splits the object so we can get the number 
-         			var distanceNUM = Number(distanceString[0]); //changes string to int   
-         		
-         			if(distanceNUM < minDistance){
-         				minDistance = distanceNUM; //sets min distance
-         				Arraylocation = j; //keeps track of which location is the min distance
-         			}
-         		}
-         	} 
-         	var supplier_waypoint = [];
-         	supplier_waypoint.push({
-         		location: supplier_address[0],
-         		stopover: true
-         	});
-         	console.log(supplier_waypoint);
-         	console.log(minDistance);
-        	console.log(Arraylocation);	
-        	//directions stuff here!
-        	var directionsService = new google.maps.DirectionsService();
+      		var geocoder = new google.maps.Geocoder();
+      		var distancematrix = new google.maps.DistanceMatrixService();
+            	var directionsService = new google.maps.DirectionsService();
       		var directionsDisplay = new google.maps.DirectionsRenderer();
-      		directionsService.route(
-      			{
-      			origin: employee_address[0], //employee
-  				destination: current_location,	//customer
-  				waypoints: supplier_waypoint, //suppliers
-				provideRouteAlternatives: false,
-  				travelMode: 'DRIVING',
-  				optimizeWaypoints : true,
-  				avoidHighways: false,
-       			avoidTolls: false,
-       			unitSystem: google.maps.UnitSystem.IMPERIAL
-      			}, function(response, status){
-      				if (status == "OK"){
-      					console.log(response);
-      					var map = new google.maps.Map(document.getElementById('map'));
- 						directionsDisplay.setMap(map);
-      					directionsDisplay.setDirections(response);
-      				}
-      			}
-  			)
-      	}
-    }
+
+      		customer_coords = getLatLng(customer_location);
+
+
+          	var request = new XMLHttpRequest();
+          	//console.log("test")
+      		//console.log(document.getElementById("cusComp").value);
       		
-    	
+              request.open('GET', url_name + "/getlocationinfo?vendor=" +  saveCusData[0].replace(" ", "_") +"&error=" + saveCusData[1].replace(" ","_") + "&leak=" + saveCusData[2], false);  // `false` makes the request synchronous
+              request.send(null);
 
-    function addmarker (pos, map){
-		var marker = new google.maps.Marker({
-    		position : pos,
-      		map : map,
-    	});
-	}
+              if (request.status === 200) {
+              	var info = request.response;
+              	distanceinfo = JSON.parse(info);
+              	console.log(distanceinfo);
+              }
+      		
+      		var j = 0;
+      		for(var i = 0; i < distanceinfo.length; i++){
+      			if(!supplier_addressTEMP.includes(distanceinfo[i].supplier_address)){
+      				supplier_addressTEMP[j] = distanceinfo[i].supplier_address;
+      				j++;
+      			}
+      		}
 
-	function getLatLng(address){
-		var parsedAddress = address.split(" ").join("+"); //parse address to fit into the url request
-		var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + parsedAddress + '&key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU';
-		var request = new XMLHttpRequest();
-		request.open('GET', url, false);  // `false` makes the request synchronous
-		request.send(null);
 
-		if(request.status == 200){
-			var newlat1 = JSON.parse(request.response).results[0].geometry.location.lat;//parses JSON file for coords
-        	var newlng1 = JSON.parse(request.response).results[0].geometry.location.lng;
-        	return { lat : newlat1, lng : newlng1};//finds new lat and lng
-		}
-	}
+      	 	if (navigator.geolocation) {
+      	 		
+      	   		navigator.geolocation.getCurrentPosition(function(position) {
+      	        	current_location = { // users current location 
+      	          		lat: position.coords.latitude,
+      	          		lng: position.coords.longitude
+      	        	};
+      	    		//var map = new google.maps.Map(document.getElementById('map'), {
+      	      		//	center: current_location, //sets map center to your current location
+      	      		//	zoom: 10 //
+      	    		//});
 
-	</script>
-	<script async defer 
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&callback=initMap">
-	</script>
+      	
+      	   		 //make supplier_address an array with suppliers info in it. then make a loop that converts all addresses to lat:lng
+      	   		//console.log("HERE 1");
+      	   		//console.log(supplier_addressTEMP);
+      	   		//console.log(customer_coords);
+
+                  distancematrix.getDistanceMatrix({
+                  	origins : [{lat:customer_coords.lat, lng:customer_coords.lng}], //Customer location 
+                  	destinations : supplier_addressTEMP,
+                  	travelMode : "DRIVING",
+                   	avoidHighways: false,
+             			avoidTolls: false,
+              		unitSystem: google.maps.UnitSystem.IMPERIAL
+                	}, callback);
+      			});
+      		}
+      	}
+
+      	function callback (response, status){
+      		if (status == 'OK') {
+      			//console.log(response);
+      			//console.log("HERE 2");
+              	var origins = response.originAddresses;
+               	var destinations = response.destinationAddresses;
+               	var shortdisemployee = -1;
+                	var short_employeeAddress;
+                	for (var i = 0; i < origins.length; i++) {
+                 		var results = response.rows[i].elements;
+      				for (var j = 0; j < results.length; j++) {
+               			
+               			var element = results[j]; //number of elements depends on the number of destinations 
+               			var distance = element.distance.text; // finds distance in the object 
+               			var distanceString = distance.split(" ") //splits the object so we can get the number 
+               			var distanceNUM = Number(distanceString[0]); //changes string to int   
+               		
+               			if(distanceNUM < minDistance){
+               				minDistance = distanceNUM; //sets min distance
+               				Arraylocation = j; //keeps track of which location is the min distance
+               			}
+               		}
+               	} 
+      			for(var i = 0; i < distanceinfo.length; i++){
+               		if (supplier_addressTEMP[Arraylocation] == distanceinfo[i].supplier_address){
+               			var temp123 = Number(distanceinfo[i]['distance (mi)']);
+               			if(temp123 < shortdisemployee && shortdisemployee > 0){
+               				shortdisemployee = temp123;
+               				short_employeeAddress = distanceinfo[i].employee_address;
+               				////console.log(distanceinfo[i].employee_address);
+               			}
+               			else if (shortdisemployee < 0){
+               				shortdisemployee = temp123;
+               				short_employeeAddress = distanceinfo[i].employee_address;
+               			}
+               		}
+               	}
+               	//console.log(short_employeeAddress);
+               	var supplier_waypoint = [];
+               	supplier_waypoint.push({
+               		location: supplier_addressTEMP[Arraylocation],
+               		stopover: true
+               	});
+               	//console.log(supplier_waypoint);
+               	//console.log(minDistance);
+              	//console.log(Arraylocation);	
+              	//directions stuff here!
+              	var directionsService = new google.maps.DirectionsService();
+            		var directionsDisplay = new google.maps.DirectionsRenderer();
+            		directionsService.route(
+            			{
+            			origin: short_employeeAddress, //employee
+        				destination: customer_location,	//customer
+        				waypoints: supplier_waypoint, //suppliers
+      				provideRouteAlternatives: false,
+        				travelMode: 'DRIVING',
+        				optimizeWaypoints : true,
+        				avoidHighways: false,
+             			avoidTolls: false,
+             			unitSystem: google.maps.UnitSystem.IMPERIAL
+            			}, function(response, status){
+            				if (status == "OK"){
+            					////console.log(response);
+            					var map = new google.maps.Map(document.getElementById('map'));
+       						directionsDisplay.setMap(map);
+            					directionsDisplay.setDirections(response);
+            				}
+            			}
+        			)
+            	}
+          }
+            		
+          	
+
+          function addmarker (pos, map){
+      		var marker = new google.maps.Marker({
+          		position : pos,
+            		map : map,
+          	});
+      	}
+
+      	function getLatLng(address){
+      		var parsedAddress = address.split(" ").join("+"); //parse address to fit into the url request
+      		var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + parsedAddress + '&key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU';
+      		var request = new XMLHttpRequest();
+      		request.open('GET', url, false);  // `false` makes the request synchronous
+      		request.send(null);
+
+      		if(request.status == 200){
+      			var newlat1 = JSON.parse(request.response).results[0].geometry.location.lat;//parses JSON file for coords
+              	var newlng1 = JSON.parse(request.response).results[0].geometry.location.lng;
+              	return { lat : newlat1, lng : newlng1};//finds new lat and lng
+      		}
+      	}
+
+      	</script>
+      	<script async defer 
+      	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-hKa4wnF8bY62DoUXjgeNr9oW-KDW2VU&callback=initMap">
+      	</script>
 		
 		</div>
-	</div>
+  </div>
+
+    <div class="w3-half w3-container" style="padding-top:13px; text-align: center;">
+      <div class="container w3-card" style="width:80%; height:50%; overflow-y:scroll;">
+        <p id="cusName"></p>
+        <p id="cusComp"></p>
+        <p id="cusAddress"></p>
+        <p id="cusPhone"></p>
+        <p id="cusEmail"></p>
+        <p id="cusHealth"></p>
+        <p id="cusCode"></p>
+        <p id="cusLeak"></p>
+      </div>
+    </div>
+  </div>
 </div>
 
 </body>
